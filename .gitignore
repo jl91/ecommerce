@@ -6,3 +6,6 @@
 *.launch
 .settings/
 *.sublime-workspace
+
+# Mysql Workbench backup file
+*.bak
