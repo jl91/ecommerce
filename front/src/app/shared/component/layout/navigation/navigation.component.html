@@ -1,11 +1,14 @@
-<ng-container *ngFor="let menuItem of menu">
-  <div mat-list-item
-       class="w-100"
-  >
-    <a
-      [routerLink]="menuItem.route"
-    >
-      {{ menuItem.name }}
-    </a>
-  </div>
-</ng-container>
+<div class="menu-container">
+  <ng-container *ngFor="let item of menu">
+    <div class="list-item">
+      <mat-icon>
+        {{ item.icon }}
+      </mat-icon>
+      <a mat-list-item
+        [routerLink]="item.route"
+      >
+        {{ item.name }}
+      </a>
+    </div>
+  </ng-container>
+</div>

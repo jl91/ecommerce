@@ -12,14 +12,17 @@ export class MenuService {
   private _menu: Array<NavigationItem> = [
     {
       name: 'Home',
+      icon: 'home',
       route: ['/restricted/home']
     },
     {
       name: 'Customers',
+      icon: 'face',
       route: ['/restricted/customer']
     },
     {
       name: 'Products',
+      icon: 'card_giftcard',
       route: ['/restricted/products']
     }
   ];
