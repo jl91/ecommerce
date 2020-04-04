@@ -1,0 +1,11 @@
+<ng-container *ngFor="let menuItem of menu">
+  <div mat-list-item
+       class="w-100"
+  >
+    <a
+      [routerLink]="menuItem.route"
+    >
+      {{ menuItem.name }}
+    </a>
+  </div>
+</ng-container>

@@ -8,6 +8,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatInputModule} from "@angular/material/input";
+import {SharedModule} from "../../shared/shared.module";
+import {LayoutModule} from "../../shared/component/layout/layout.module";
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import {MatInputModule} from "@angular/material/input";
     MatButtonModule,
     MatDividerModule,
     MatInputModule,
+    SharedModule,
+    LayoutModule
   ],
   exports: [
     AuthRoutingModule,

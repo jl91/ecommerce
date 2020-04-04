@@ -7,6 +7,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module')
       .then(m => m.AuthModule),
   },
+  {
+    path: 'restricted',
+    loadChildren: () => import('./pages/restricted-area/restricted-area.module')
+      .then(m => m.RestrictedAreaModule),
+  },
 ];
 
 @NgModule({
