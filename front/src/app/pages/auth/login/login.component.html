@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div class="login-container">
+  <mat-card [formGroup]="formGroup"
+            class="login-card"
+  >
+    <mat-card-content>
+      <div class="w-100">
+        <mat-form-field class="w-100">
+
+          <mat-label>
+            Username
+          </mat-label>
+
+          <input matInput
+                 type="text"
+                 formControlName="username"
+          >
+
+        </mat-form-field>
+      </div>
+
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label>
+            Password
+          </mat-label>
+
+          <input matInput
+                 type="password"
+                 formControlName="password"
+          >
+        </mat-form-field>
+      </div>
+
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer>
+      <div class="w-100 footer-container">
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+        >
+          Login
+        </button>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+</div>
