@@ -15,7 +15,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
 
-    @Column(name = "role_id", insertable = false, nullable = false)
+    @Column(name = "role_id", nullable = false)
     private BigInteger roleId;
 
     @Column(name = "username", nullable = false)
