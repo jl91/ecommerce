@@ -18,15 +18,24 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        data: {
+          title: "Home"
+        }
       },
       {
         path: 'customer',
-        component: CustomersComponent
+        component: CustomersComponent,
+        data: {
+          title: "Customers"
+        }
       },
       {
         path: 'products',
-        component: ProductsComponent
+        component: ProductsComponent,
+        data: {
+          title: "Products"
+        }
       }
     ]
   },

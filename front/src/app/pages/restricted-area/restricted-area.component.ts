@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationItem} from "../../shared/component/layout/navigation/navigation-item.model";
 import {Subscription} from "rxjs";
 import {MenuService} from "../../shared/service/menu.service";
-import {Title} from "@angular/platform-browser";
+import {ActivatedRoute, Event, NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-restricted-area',
@@ -21,18 +21,37 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
 
   constructor(
     private menuService: MenuService,
-    private titleService: Title
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     this.configureMenu();
+    this.setTitle();
+    this.registerOnRouterNavigationEvents();
     this.resisterOnLeftMenu();
-    this.title = this.titleService.getTitle();
   }
 
   private configureMenu(): void {
     this.menu = this.menuService.menu;
+  }
+
+  private registerOnRouterNavigationEvents(): void {
+
+    const subscription = this.router
+      .events
+      .subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          this.setTitle();
+        }
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  private setTitle(): void {
+    const data = this.activatedRoute.snapshot.firstChild.data;
+    this.title = data['title'];
   }
 
   private resisterOnLeftMenu(): void {
