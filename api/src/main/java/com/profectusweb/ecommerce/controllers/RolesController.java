@@ -1,7 +1,7 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.RoleEntity;
-import com.profectusweb.ecommerce.exceptions.RoleNotFoundException;
+import com.profectusweb.ecommerce.exceptions.RecordNotFoundException;
 import com.profectusweb.ecommerce.repositories.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class RolesController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RoleEntity byId(@PathVariable(name = "id") BigInteger id) throws RoleNotFoundException {
+    public RoleEntity byId(@PathVariable(name = "id") BigInteger id) throws RecordNotFoundException {
         return rolesRepository
                 .findById(id)
-                .orElseThrow(() -> new RoleNotFoundException(id));
+                .orElseThrow(() -> new RecordNotFoundException("Role", id));
     }
 }
