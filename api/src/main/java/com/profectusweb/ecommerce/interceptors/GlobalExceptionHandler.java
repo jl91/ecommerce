@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 @RequestMapping(produces = "application/vnd.error+json")
-public class InvalidEntityRequestResponseException extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
