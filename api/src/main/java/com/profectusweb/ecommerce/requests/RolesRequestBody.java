@@ -2,11 +2,15 @@ package com.profectusweb.ecommerce.requests;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import java.math.BigInteger;
 
-public class RoleRequestBody implements RequestBody {
+public class RolesRequestBody implements RequestBody {
 
+    @Positive()
+    @Min(1)
     public BigInteger id;
 
     @NotEmpty()

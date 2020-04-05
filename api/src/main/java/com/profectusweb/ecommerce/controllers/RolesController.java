@@ -2,8 +2,8 @@ package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.RoleEntity;
 import com.profectusweb.ecommerce.repositories.RolesRepository;
-import com.profectusweb.ecommerce.requests.RoleRequestBody;
-import com.profectusweb.ecommerce.services.RoleService;
+import com.profectusweb.ecommerce.requests.RolesRequestBody;
+import com.profectusweb.ecommerce.services.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,26 +15,26 @@ import java.math.BigInteger;
 @RequestMapping("/roles")
 public class RolesController extends BaseController<RoleEntity> {
 
-    private RoleService roleService;
+    private RolesService rolesService;
 
     @Autowired
     RolesController(
             RolesRepository rolesRepository,
-            RoleService roleService
+            RolesService rolesService
     ) {
         super(
                 "Role",
                 rolesRepository
         );
-        this.roleService = roleService;
+        this.rolesService = rolesService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RoleEntity create(
-            @Valid @RequestBody RoleRequestBody incommingRequestBody
+            @Valid @RequestBody RolesRequestBody incommingRequestBody
     ) {
-        return this.roleService
+        return this.rolesService
                 .create(incommingRequestBody);
     }
 
@@ -42,10 +42,10 @@ public class RolesController extends BaseController<RoleEntity> {
     @ResponseStatus(HttpStatus.OK)
     public RoleEntity update(
             @PathVariable(name = "id") BigInteger id,
-            @Valid @RequestBody RoleRequestBody incommingRequestBody
+            @Valid @RequestBody RolesRequestBody incommingRequestBody
     ) {
         incommingRequestBody.id = id;
-        return this.roleService
+        return this.rolesService
                 .update(incommingRequestBody);
     }
 
@@ -54,7 +54,7 @@ public class RolesController extends BaseController<RoleEntity> {
     public void remove(
             @PathVariable(name = "id") BigInteger id
     ) {
-        this.roleService
+        this.rolesService
                 .remove(id);
     }
 
