@@ -7,7 +7,7 @@ export class MenuService {
 
   private toggleMenuSubject: Subject<boolean> = new Subject<boolean>();
 
-  private _isMenuOpened: boolean = false;
+  private _isMenuOpened: boolean = true;
 
   private _menu: Array<NavigationItem> = [
     {
