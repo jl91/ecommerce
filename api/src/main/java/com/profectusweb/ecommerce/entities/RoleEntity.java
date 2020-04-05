@@ -46,7 +46,8 @@ public class RoleEntity implements Serializable {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+
+    private void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -54,7 +55,7 @@ public class RoleEntity implements Serializable {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -65,4 +66,20 @@ public class RoleEntity implements Serializable {
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
+
+    @PrePersist
+    public void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
+    }
+
 }
