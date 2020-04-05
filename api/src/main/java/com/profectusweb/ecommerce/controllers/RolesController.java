@@ -32,7 +32,6 @@ public class RolesController extends BaseController<RoleEntity> {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RoleEntity create(
-
             @Valid @RequestBody RoleRequestBody incommingRequestBody
     ) {
         return this.roleService

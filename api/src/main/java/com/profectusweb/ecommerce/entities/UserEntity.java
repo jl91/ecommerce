@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,7 +80,7 @@ public class UserEntity implements Serializable {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -87,7 +88,7 @@ public class UserEntity implements Serializable {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -95,7 +96,23 @@ public class UserEntity implements Serializable {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
+    }
+
 }

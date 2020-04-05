@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity(name = "purchase_order")
+@Entity
+@Table(name = "purchase_order")
 public class PurchaseOrderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,63 +40,86 @@ public class PurchaseOrderEntity implements Serializable {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public PurchaseOrderEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public BigInteger getCartId() {
         return cartId;
     }
 
-    public void setCartId(BigInteger cartId) {
+    public PurchaseOrderEntity setCartId(BigInteger cartId) {
         this.cartId = cartId;
+        return this;
     }
 
     public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public PurchaseOrderEntity setUserId(BigInteger userId) {
         this.userId = userId;
+        return this;
     }
 
     public Float getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public PurchaseOrderEntity setValue(Float value) {
         this.value = value;
+        return this;
     }
 
     public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public PurchaseOrderEntity setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private PurchaseOrderEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private PurchaseOrderEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private PurchaseOrderEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
     }
 }

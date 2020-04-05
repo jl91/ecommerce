@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+@Entity
 @Table(name = "products")
 public class ProductEntity implements Serializable {
 
@@ -33,69 +34,92 @@ public class ProductEntity implements Serializable {
     private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at", columnDefinition = "DATETIME")
-    private String deletedAt;
+    private LocalDateTime deletedAt;
 
     public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public ProductEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public String getSku() {
         return sku;
     }
 
-    public void setSku(String sku) {
+    public ProductEntity setSku(String sku) {
         this.sku = sku;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public ProductEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public ProductEntity setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Float getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public ProductEntity setValue(Float value) {
         this.value = value;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private ProductEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private ProductEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
-    public String getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(String deletedAt) {
+    private ProductEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
     }
 }

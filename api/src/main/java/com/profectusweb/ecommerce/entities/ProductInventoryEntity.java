@@ -30,51 +30,73 @@ public class ProductInventoryEntity implements Serializable {
     @Column(name = "deleted_at", columnDefinition = "DATETIME")
     private LocalDateTime deletedAt;
 
+
     public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public ProductInventoryEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public BigInteger getProductId() {
         return productId;
     }
 
-    public void setProductId(BigInteger productId) {
+    public ProductInventoryEntity setProductId(BigInteger productId) {
         this.productId = productId;
+        return this;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public ProductInventoryEntity setQuantity(Integer quantity) {
         this.quantity = quantity;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private ProductInventoryEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private ProductInventoryEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private ProductInventoryEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
     }
 }

@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity(name = "cart_items")
+@Entity
+@Table(name = "cart_items")
 public class CartItemEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,71 +43,95 @@ public class CartItemEntity implements Serializable {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public CartItemEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public BigInteger getProductId() {
         return productId;
     }
 
-    public void setProductId(BigInteger productId) {
+    public CartItemEntity setProductId(BigInteger productId) {
         this.productId = productId;
+        return this;
     }
 
     public BigInteger getCartId() {
         return cartId;
     }
 
-    public void setCartId(BigInteger cartId) {
+    public CartItemEntity setCartId(BigInteger cartId) {
         this.cartId = cartId;
+        return this;
     }
 
     public String getProductSnapshot() {
         return productSnapshot;
     }
 
-    public void setProductSnapshot(String productSnapshot) {
+    public CartItemEntity setProductSnapshot(String productSnapshot) {
         this.productSnapshot = productSnapshot;
+        return this;
     }
 
     public Float getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public CartItemEntity setValue(Float value) {
         this.value = value;
+        return this;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public CartItemEntity setQuantity(Integer quantity) {
         this.quantity = quantity;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private CartItemEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private CartItemEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private CartItemEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
     }
 }

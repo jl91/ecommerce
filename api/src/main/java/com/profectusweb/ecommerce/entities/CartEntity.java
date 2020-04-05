@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity(name = "carts")
+@Entity
+@Table(name = "carts")
 public class CartEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,55 +37,77 @@ public class CartEntity implements Serializable {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public CartEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public CartEntity setUserId(BigInteger userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public CartEntity setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public Float getTotal() {
         return total;
     }
 
-    public void setTotal(Float total) {
+    public CartEntity setTotal(Float total) {
         this.total = total;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    private CartEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    private CartEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private CartEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.setDeletedAt(LocalDateTime.now());
     }
 }

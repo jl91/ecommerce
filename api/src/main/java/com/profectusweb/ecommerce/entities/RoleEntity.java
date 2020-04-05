@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 public class RoleEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,41 +31,45 @@ public class RoleEntity implements Serializable {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public RoleEntity setId(BigInteger id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public RoleEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-
-    private void setCreatedAt(LocalDateTime createdAt) {
+    private RoleEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    private void setUpdatedAt(LocalDateTime updatedAt) {
+    private RoleEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+        return this;
     }
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
+    private RoleEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
     }
 
     @PrePersist
