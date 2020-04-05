@@ -10,19 +10,18 @@ public class ProductsRequestBody implements RequestBody {
 
     public BigInteger id;
 
-    @NotEmpty
+    @NotEmpty()
     @Length(min = 1, max = 45)
     public String sku;
 
-    @NotEmpty
+    @NotEmpty()
     @Length(min = 1, max = 128)
     public String name;
 
-    @NotEmpty
     @PositiveOrZero
     public Float value;
 
-    @NotEmpty
+    @NotEmpty()
     @Length(min = 1)
     public String description;
 

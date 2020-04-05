@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
 
 @RestController()
 @RequestMapping("/products")
@@ -35,5 +36,25 @@ class ProductsController extends BaseController<ProductEntity> {
     ) {
         return this.productsService
                 .create(incommingRequestBody);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductEntity create(
+            @PathVariable(name = "id") BigInteger id,
+            @Valid @RequestBody ProductsRequestBody incommingRequestBody
+    ) {
+        incommingRequestBody.id = id;
+        return this.productsService
+                .update(incommingRequestBody);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void create(
+            @PathVariable(name = "id") BigInteger id
+    ) {
+        this.productsService
+                .remove(id);
     }
 }
