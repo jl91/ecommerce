@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.controllers;
 
-import com.profectusweb.ecommerce.exceptions.RecordNotFoundException;
+import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +30,10 @@ public abstract class BaseController<T> {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public T byId(@PathVariable(name = "id") BigInteger id) throws RecordNotFoundException {
+    public T byId(@PathVariable(name = "id") BigInteger id) throws ResourceNotFoundException {
         return repository
                 .findById(id)
-                .orElseThrow(() -> new RecordNotFoundException(entityName, id));
+                .orElseThrow(() -> new ResourceNotFoundException(entityName, id));
     }
 
 }

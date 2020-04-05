@@ -68,12 +68,12 @@ public class RoleEntity implements Serializable {
     }
 
     @PrePersist
-    public void prePersist() {
+    private void prePersist() {
         this.setCreatedAt(LocalDateTime.now());
     }
 
     @PreUpdate
-    public void preUpdate() {
+    private void preUpdate() {
         this.setUpdatedAt(LocalDateTime.now());
     }
 

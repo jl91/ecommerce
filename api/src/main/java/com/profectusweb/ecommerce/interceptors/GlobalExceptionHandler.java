@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.interceptors;
 
-import com.profectusweb.ecommerce.exceptions.RecordNotFoundException;
+import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +44,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    @ExceptionHandler(RecordNotFoundException.class)
-    public final ResponseEntity<Object> handleRecordNotFoundException(
-            RecordNotFoundException ex
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<Object> handleResourceNotFoundException(
+            ResourceNotFoundException ex
     ) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", false);
