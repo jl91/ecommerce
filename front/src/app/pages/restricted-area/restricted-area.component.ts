@@ -15,7 +15,7 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
 
   public menu: Array<NavigationItem> = [];
 
-  public isMenuOpened: boolean = false;
+  public isMenuOpened: boolean = true;
 
   public title: string = '';
 

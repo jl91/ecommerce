@@ -17,7 +17,7 @@ export class MenuService {
     },
     {
       name: 'Customers',
-      icon: 'face',
+      icon: 'supervisor_account',
       route: ['/restricted/customer']
     },
     {

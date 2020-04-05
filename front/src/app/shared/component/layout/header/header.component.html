@@ -1,12 +1,48 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button
-            type="button"
-            (click)="toggleMenu($event)"
-    >
-      <mat-icon>
-        menu
-      </mat-icon>
-    </button>
+    <div class="row-content">
+      <button mat-icon-button
+              type="button"
+              (click)="toggleMenu($event)"
+      >
+        <mat-icon>
+          menu
+        </mat-icon>
+      </button>
+
+      <div class="spacer"></div>
+
+      <button mat-icon-button
+              type="button"
+      >
+        <mat-icon>
+          shopping_cart
+        </mat-icon>
+      </button>
+
+      <button mat-icon-button
+              type="button"
+              [matMenuTriggerFor]="userMenu"
+      >
+        <mat-icon>
+          account_circle
+        </mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item>
+          <mat-icon>
+            exit_to_app
+          </mat-icon>
+          <span>
+            Logout
+          </span>
+        </button>
+
+      </mat-menu>
+
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

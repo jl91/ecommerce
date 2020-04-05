@@ -6,6 +6,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {NavigationComponent} from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import {RouterModule} from "@angular/router";
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    MatMenuModule,
+    MatDividerModule
   ],
   exports: [
     HeaderComponent,
