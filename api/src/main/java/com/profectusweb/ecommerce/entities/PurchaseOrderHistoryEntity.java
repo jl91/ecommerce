@@ -2,6 +2,7 @@ package com.profectusweb.ecommerce.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity(name = "purchase_order_history")
@@ -11,10 +12,10 @@ public class PurchaseOrderHistoryEntity implements Serializable {
 
     @Id()
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private BigInteger id;
 
     @Column(name = "purchase_order_id", insertable = false, nullable = false)
-    private Integer purchaseOrderId;
+    private BigInteger purchaseOrderId;
 
     @Column(name = "status", nullable = false)
     private String status;
@@ -25,19 +26,19 @@ public class PurchaseOrderHistoryEntity implements Serializable {
     @Column(name = "deleted_at", columnDefinition = "DATETIME")
     private LocalDateTime deletedAt;
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
-    public Integer getPurchaseOrderId() {
+    public BigInteger getPurchaseOrderId() {
         return purchaseOrderId;
     }
 
-    public void setPurchaseOrderId(Integer purchaseOrderId) {
+    public void setPurchaseOrderId(BigInteger purchaseOrderId) {
         this.purchaseOrderId = purchaseOrderId;
     }
 

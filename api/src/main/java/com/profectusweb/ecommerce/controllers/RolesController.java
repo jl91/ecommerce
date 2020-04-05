@@ -25,7 +25,7 @@ public class RolesController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public RoleEntity byId(@PathVariable(name = "id") BigInteger id) throws RoleNotFoundException {
-        return this.rolesRepository
+        return rolesRepository
                 .findById(id)
                 .orElseThrow(() -> new RoleNotFoundException(id));
     }
