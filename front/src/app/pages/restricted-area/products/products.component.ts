@@ -8,9 +8,7 @@ import {Title} from "@angular/platform-browser";
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Products');
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }

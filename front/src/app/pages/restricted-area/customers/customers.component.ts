@@ -9,7 +9,6 @@ import {Title} from "@angular/platform-browser";
 export class CustomersComponent implements OnInit {
 
   constructor(private titleService: Title) {
-    this.titleService.setTitle('Customers');
   }
 
   ngOnInit(): void {

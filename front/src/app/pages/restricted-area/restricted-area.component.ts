@@ -3,6 +3,7 @@ import {NavigationItem} from "../../shared/component/layout/navigation/navigatio
 import {Subscription} from "rxjs";
 import {MenuService} from "../../shared/service/menu.service";
 import {ActivatedRoute, Event, NavigationEnd, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-restricted-area',
@@ -22,7 +23,8 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
   constructor(
     private menuService: MenuService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {
   }
 
@@ -51,7 +53,9 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
 
   private setTitle(): void {
     const data = this.activatedRoute.snapshot.firstChild.data;
-    this.title = data['title'];
+    this.title = data && data['title'] || '';
+    const browserTabTitle = `E-commerce - ${this.title}`;
+    this.titleService.setTitle(browserTabTitle)
   }
 
   private resisterOnLeftMenu(): void {
@@ -61,7 +65,7 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
     this.subscriptions.add(subscription);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
