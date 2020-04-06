@@ -127,7 +127,6 @@ public class ProductEntity implements Serializable {
     }
 
     public String toJsonString() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(this);
+        return new ObjectMapper().writeValueAsString(this);
     }
 }
