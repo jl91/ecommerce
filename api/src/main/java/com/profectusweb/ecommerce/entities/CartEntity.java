@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "carts")
@@ -29,8 +28,8 @@ public class CartEntity implements Serializable {
 
 
     @OneToMany(
-            mappedBy = "cartId"
-
+            mappedBy = "cartId",
+            fetch = FetchType.LAZY
     )
     private List<CartItemsEntity> items = new ArrayList<>();
 

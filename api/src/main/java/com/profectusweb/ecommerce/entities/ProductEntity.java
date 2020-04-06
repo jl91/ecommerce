@@ -127,10 +127,14 @@ public class ProductEntity implements Serializable {
         this.setDeletedAt(LocalDateTime.now());
     }
 
-    public String toJsonString() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String ISO8861Format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        objectMapper.setDateFormat(new SimpleDateFormat(ISO8861Format));
-        return objectMapper.writeValueAsString(this);
+    public String toJsonString() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String ISO8861Format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+            objectMapper.setDateFormat(new SimpleDateFormat(ISO8861Format));
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
     }
 }
