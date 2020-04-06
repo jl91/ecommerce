@@ -29,7 +29,7 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
 
         cartEntity.setStatus(data.status);
         cartEntity.setUserId(data.userId);
-        cartEntity.setTotal(0F);
+        cartEntity.setTotal(0f);
 
         cartEntity = this.cartsRepository
                 .save(cartEntity);
@@ -41,18 +41,23 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
         List<CartItemsEntity> cartItemsEntityList = (List<CartItemsEntity>) this.cartItemService
                 .batchCreate(data.cartItems, cartEntity);
 
+        cartEntity.setItems(cartItemsEntityList);
 
-
-        Float total = cartItemsEntityList
-                .stream()
-                .map(cartItemsEntity -> cartItemsEntity.getValue())
-                .reduce((float) 0, (subtotal, element) -> subtotal + element);
-
+        Float total = this.calcTotal(cartItemsEntityList);
         cartEntity.setTotal(total);
-        this.cartsRepository.save(cartEntity);
+
+        this.cartsRepository
+                .save(cartEntity);
 
 
         return cartEntity;
+    }
+
+    private Float calcTotal(List<CartItemsEntity> cartItemsEntityList) {
+        return cartItemsEntityList
+                .stream()
+                .map(cartItemsEntity -> cartItemsEntity.getValue())
+                .reduce((float) 0, (subTotal, nextValue) -> subTotal + nextValue);
     }
 
     @Override
