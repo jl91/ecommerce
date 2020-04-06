@@ -57,7 +57,7 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
         return cartItemsEntityList
                 .stream()
                 .map(cartItemsEntity -> cartItemsEntity.getValue())
-                .reduce((float) 0, (subTotal, nextValue) -> subTotal + nextValue);
+                .reduce((0f, (subTotal, nextValue) -> subTotal + nextValue);
     }
 
     @Override
