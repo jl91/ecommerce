@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Entity
@@ -127,6 +128,9 @@ public class ProductEntity implements Serializable {
     }
 
     public String toJsonString() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(this);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String ISO8861Format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        objectMapper.setDateFormat(new SimpleDateFormat(ISO8861Format));
+        return objectMapper.writeValueAsString(this);
     }
 }
