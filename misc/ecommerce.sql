@@ -16,11 +16,11 @@ CREATE SCHEMA IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET utf8 ;
 USE `ecommerce` ;
 
 -- -----------------------------------------------------
--- Table `ecommerce`.`role`
+-- Table `ecommerce`.`roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ecommerce`.`role` ;
+DROP TABLE IF EXISTS `ecommerce`.`roles` ;
 
-CREATE TABLE IF NOT EXISTS `ecommerce`.`role` (
+CREATE TABLE IF NOT EXISTS `ecommerce`.`roles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NOT NULL,
@@ -47,12 +47,12 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`users` (
   PRIMARY KEY (`id`, `role_id`),
   CONSTRAINT `fk_users_role1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `ecommerce`.`role` (`id`)
+    REFERENCES `ecommerce`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_users_role1_idx` ON `ecommerce`.`users` (`role_id` ASC) ;
+CREATE INDEX `fk_users_role1_idx` ON `ecommerce`.`users` (`role_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`products` (
   `value` FLOAT(10,2) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
-  `deleted_at` VARCHAR(45) NULL,
+  `deleted_at` DATETIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -93,15 +93,15 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`product_inventory` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_product_inventory_products1_idx` ON `ecommerce`.`product_inventory` (`product_id` ASC) ;
+CREATE INDEX `fk_product_inventory_products1_idx` ON `ecommerce`.`product_inventory` (`product_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `ecommerce`.`cart`
+-- Table `ecommerce`.`carts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ecommerce`.`cart` ;
+DROP TABLE IF EXISTS `ecommerce`.`carts` ;
 
-CREATE TABLE IF NOT EXISTS `ecommerce`.`cart` (
+CREATE TABLE IF NOT EXISTS `ecommerce`.`carts` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `status` ENUM('opened', 'closed', 'canceled') NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart` (
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_cart_users1`
     FOREIGN KEY (`user_id`)
     REFERENCES `ecommerce`.`users` (`id`)
@@ -117,15 +117,15 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_cart_users1_idx` ON `ecommerce`.`cart` (`user_id` ASC) ;
+CREATE INDEX `fk_cart_users1_idx` ON `ecommerce`.`carts` (`user_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `ecommerce`.`purchase order`
+-- Table `ecommerce`.`purchase_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ecommerce`.`purchase order` ;
+DROP TABLE IF EXISTS `ecommerce`.`purchase_order` ;
 
-CREATE TABLE IF NOT EXISTS `ecommerce`.`purchase order` (
+CREATE TABLE IF NOT EXISTS `ecommerce`.`purchase_order` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `cart_id` INT UNSIGNED NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`purchase order` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_purchase order history_cart1`
     FOREIGN KEY (`cart_id`)
-    REFERENCES `ecommerce`.`cart` (`id`)
+    REFERENCES `ecommerce`.`carts` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_purchase order history_users1`
@@ -147,9 +147,9 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`purchase order` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_purchase order history_cart1_idx` ON `ecommerce`.`purchase order` (`cart_id` ASC) ;
+CREATE INDEX `fk_purchase order history_cart1_idx` ON `ecommerce`.`purchase_order` (`cart_id` ASC);
 
-CREATE INDEX `fk_purchase order history_users1_idx` ON `ecommerce`.`purchase order` (`user_id` ASC) ;
+CREATE INDEX `fk_purchase order history_users1_idx` ON `ecommerce`.`purchase_order` (`user_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart_items` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_cart_items_cart1`
     FOREIGN KEY (`cart_id`)
-    REFERENCES `ecommerce`.`cart` (`id`)
+    REFERENCES `ecommerce`.`carts` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cart_items_products1`
@@ -180,9 +180,9 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart_items` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_cart_items_cart1_idx` ON `ecommerce`.`cart_items` (`cart_id` ASC) ;
+CREATE INDEX `fk_cart_items_cart1_idx` ON `ecommerce`.`cart_items` (`cart_id` ASC);
 
-CREATE INDEX `fk_cart_items_products1_idx` ON `ecommerce`.`cart_items` (`product_id` ASC) ;
+CREATE INDEX `fk_cart_items_products1_idx` ON `ecommerce`.`cart_items` (`product_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -196,24 +196,24 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`purchase_order_history` (
   `status` ENUM('paid', 'unpaid', 'canceled') NOT NULL,
   `created_at` DATETIME NOT NULL,
   `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`, `purchase_order_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_purchase_order_history_purchase order1`
     FOREIGN KEY (`purchase_order_id`)
-    REFERENCES `ecommerce`.`purchase order` (`id`)
+    REFERENCES `ecommerce`.`purchase_order` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_purchase_order_history_purchase order1_idx` ON `ecommerce`.`purchase_order_history` (`purchase_order_id` ASC) ;
+CREATE INDEX `fk_purchase_order_history_purchase order1_idx` ON `ecommerce`.`purchase_order_history` (`purchase_order_id` ASC);
 
 
 -- -----------------------------------------------------
--- Data for table `ecommerce`.`role`
+-- Data for table `ecommerce`.`roles`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ecommerce`;
-INSERT INTO `ecommerce`.`role` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, 'master', now(), NULL, NULL);
-INSERT INTO `ecommerce`.`role` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (2, 'customer', now(), NULL, NULL);
+INSERT INTO `ecommerce`.`roles` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, 'master', now(), NULL, NULL);
+INSERT INTO `ecommerce`.`roles` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (2, 'customer', now(), NULL, NULL);
 
 COMMIT;
 
@@ -224,7 +224,7 @@ COMMIT;
 START TRANSACTION;
 USE `ecommerce`;
 INSERT INTO `ecommerce`.`users` (`id`, `role_id`, `username`, `password`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, 1, 'master', '$2y$10$.9GOG64fABTY.XFY1XK6k.idbhctYVMDffYj03ap/Cf5HpC5UNGhu', 'Usuário Master', now(), NULL, NULL);
-INSERT INTO `ecommerce`.`users` (`id`, `role_id`, `username`, `password`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, 2, 'customer', '$2y$10$aZ8B9KR7Jo0z2MztvHsYHuH7KzDYqSGAeERN5BLP740NuiCJNaGCS', 'Usuário Customer', now(), NULL, NULL);
+INSERT INTO `ecommerce`.`users` (`id`, `role_id`, `username`, `password`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (2, 2, 'customer', '$2y$10$aZ8B9KR7Jo0z2MztvHsYHuH7KzDYqSGAeERN5BLP740NuiCJNaGCS', 'Usuário Customer', now(), NULL, NULL);
 
 COMMIT;
 

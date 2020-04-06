@@ -15,7 +15,7 @@ public class PurchaseOrderHistoryEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
 
-    @Column(name = "purchase_order_id", insertable = false, nullable = false)
+    @Column(name = "purchase_order_id", nullable = false)
     private BigInteger purchaseOrderId;
 
     @Column(name = "status", nullable = false)

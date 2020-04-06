@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "carts")
@@ -15,7 +18,7 @@ public class CartEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
 
-    @Column(insertable = false, name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private BigInteger userId;
 
     @Column(name = "status", nullable = false)
@@ -23,6 +26,13 @@ public class CartEntity implements Serializable {
 
     @Column(name = "total", nullable = false)
     private Float total;
+
+
+    @OneToMany(
+            mappedBy = "cartId"
+
+    )
+    private List<CartItemsEntity> items = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
@@ -66,6 +76,15 @@ public class CartEntity implements Serializable {
 
     public CartEntity setTotal(Float total) {
         this.total = total;
+        return this;
+    }
+
+    public List<CartItemsEntity> getItems() {
+        return items;
+    }
+
+    public CartEntity setItems(List<CartItemsEntity> items) {
+        this.items = items;
         return this;
     }
 
