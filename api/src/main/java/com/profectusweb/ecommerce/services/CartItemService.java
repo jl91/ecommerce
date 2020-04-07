@@ -93,25 +93,23 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         data.stream()
                 .forEach((cartItemRequestBody) -> cartItemRequestBody.cartId = cartId);
 
-        CartEntity cartEntity = this.cartRepository
-                .findById(cartId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart", cartId));
+        CartEntity cartEntity = getCartById(cartId);
 
         List<BigInteger> productIds = extractProductIds(data);
 
         List<ProductEntity> products = (List<ProductEntity>) productsRepository
                 .findAllById(productIds);
 
-
+        CartEntity finalCartEntity = cartEntity;
         List<CartItemEntity> cartItemsEntities = data.stream()
                 .map((cartItemRequestBody) -> {
-                    boolean cartHasProduct = cartHasProduct(cartEntity, cartItemRequestBody);
-                    ProductEntity productEntity = getProductFromList(products, cartItemRequestBody);
-                    CartItemEntity cartItemEntity = new CartItemEntity();
 
-                    if (cartHasProduct) {
-                        cartItemEntity = getCartItemByProduct(cartEntity, productEntity);
-                    }
+                    ProductEntity productEntity = getProductFromList(products, cartItemRequestBody);
+
+                    CartItemEntity cartItemEntity =  cartHasProduct(finalCartEntity, cartItemRequestBody)
+                            ?  getCartItemByProduct(finalCartEntity, productEntity)
+                            : new CartItemEntity();
+
 
                     return cartItemEntity.setCartId(cartId)
                             .setProductId(productEntity.getId())
@@ -122,17 +120,21 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
                 })
                 .collect(Collectors.toList());
 
-        cartEntity.setItems(cartItemsEntities);
-
         this.cartItemRepository.saveAll(cartItemsEntities);
+
+        cartEntity = getCartById(cartId);
 
         Float total = cartService.calcTotal(cartEntity.getItems());
         cartEntity.setTotal(total);
 
-        this.cartRepository.save(cartEntity);
+
+        return this.cartRepository.save(cartEntity);
+    }
+
+    private CartEntity getCartById(BigInteger id) {
         return this.cartRepository
-                .findById(cartEntity.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cart", cartEntity.getId()));
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", id));
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
