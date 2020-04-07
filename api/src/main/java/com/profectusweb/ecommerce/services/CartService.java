@@ -80,7 +80,7 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
 
     protected CartEntity getCartById(BigInteger id) {
         return this.cartsRepository
-                .findById(id)
+                .findByIdAndCreatedAtIsNull(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", id));
     }
 }
