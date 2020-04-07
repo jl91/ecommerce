@@ -10,5 +10,6 @@ public interface CartsRepository extends BaseRepository<CartEntity, BigInteger> 
     @Override
     Iterable<CartEntity> findByDeletedAtIsNull();
 
+    @Override
     Optional<CartEntity> findByIdAndCreatedAtIsNull(BigInteger id);
 }

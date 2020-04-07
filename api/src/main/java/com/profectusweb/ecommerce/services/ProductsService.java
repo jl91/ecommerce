@@ -32,7 +32,7 @@ public class ProductsService implements CustomServiceInterface<ProductEntity, Pr
     @Override
     public ProductEntity update(ProductsRequestBody data) {
         ProductEntity productEntity = this.productsRepository
-                .findById(data.id)
+                .findByIdAndCreatedAtIsNull(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", data.id));
 
         productEntity.setSku(data.sku)
@@ -48,7 +48,7 @@ public class ProductsService implements CustomServiceInterface<ProductEntity, Pr
     @Override
     public boolean remove(BigInteger id) {
         ProductEntity productEntity = this.productsRepository
-                .findById(id)
+                .findByIdAndCreatedAtIsNull(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", id));
 
         productEntity.preRemove();

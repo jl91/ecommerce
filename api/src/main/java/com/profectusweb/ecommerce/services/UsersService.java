@@ -33,7 +33,7 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
     public UserEntity update(UsersRequestBody data) {
 
         UserEntity userEntity = this.usersRepository
-                .findById(data.id)
+                .findByIdAndCreatedAtIsNull(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", data.id));
 
         userEntity.setName(data.name)
@@ -49,7 +49,7 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
     @Override
     public boolean remove(BigInteger id) {
         UserEntity userEntity = this.usersRepository
-                .findById(id)
+                .findByIdAndCreatedAtIsNull(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));
 
         userEntity.preRemove();

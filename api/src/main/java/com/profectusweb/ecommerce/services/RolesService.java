@@ -25,7 +25,7 @@ public class RolesService implements CustomServiceInterface<RoleEntity, RolesReq
     @Override
     public RoleEntity update(RolesRequestBody data) {
         RoleEntity roleEntity = this.rolesRepository
-                .findById(data.id)
+                .findByIdAndCreatedAtIsNull(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", data.id));
 
         roleEntity.setName(data.name);
@@ -35,7 +35,7 @@ public class RolesService implements CustomServiceInterface<RoleEntity, RolesReq
     @Override
     public boolean remove(BigInteger id) {
         RoleEntity roleEntity = this.rolesRepository
-                .findById(id)
+                .findByIdAndCreatedAtIsNull(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", id));
 
         roleEntity.preRemove();

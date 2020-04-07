@@ -137,7 +137,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
     public boolean removeItemFromCart(BigInteger cartId, BigInteger itemId) {
 
         CartItemEntity cartItemEntity = this.cartItemRepository
-                .findById(itemId)
+                .findByIdAndCreatedAtIsNull(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("CartItem", itemId));
 
         cartItemEntity.preRemove();
@@ -145,7 +145,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         this.cartItemRepository.save(cartItemEntity);
 
         CartEntity cartEntity = this.cartRepository
-                .findById(cartId)
+                .findByIdAndCreatedAtIsNull(cartId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", cartId));
 
         Float total = cartService.calcTotal(cartEntity.getItems());
@@ -161,11 +161,11 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
     public CartItemEntity updateItemOnCart(CartItemRequestBody data) {
 
         CartItemEntity cartItemEntity = this.cartItemRepository
-                .findById(data.id)
+                .findByIdAndCreatedAtIsNull(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("CartItem", data.id));
 
         ProductEntity productEntity = this.productsRepository
-                .findById(data.productId)
+                .findByIdAndCreatedAtIsNull(data.productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", data.productId));
 
 
@@ -177,9 +177,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
 
         this.cartItemRepository.save(cartItemEntity);
 
-        CartEntity cartEntity = this.cartRepository
-                .findById(data.cartId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart", data.cartId));
+        CartEntity cartEntity = cartService.getCartById(data.cartId);
 
         Float total = cartService.calcTotal(cartEntity.getItems());
 
@@ -225,7 +223,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         CartEntity cartEntity = cartService.getCartById(data.cartId);
 
         ProductEntity productEntity = this.productsRepository
-                .findById(data.productId)
+                .findByIdAndCreatedAtIsNull(data.productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", data.productId));
 
         CartItemEntity cartItemEntity = new CartItemEntity();
@@ -260,14 +258,14 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
     @Override
     public boolean remove(BigInteger id) {
         CartItemEntity cartItem = this.cartItemRepository
-                .findById(id)
+                .findByIdAndCreatedAtIsNull(id)
                 .orElseThrow(() -> new ResourceNotFoundException("CartItem", id));
 
         cartItem.preRemove();
         this.cartItemRepository.save(cartItem);
 
         CartEntity cartEntity = this.cartRepository
-                .findById(cartItem.getCartId())
+                .findByIdAndCreatedAtIsNull(cartItem.getCartId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", cartItem.getId()));
 
         Float total = cartService.calcTotal(cartEntity.getItems());
