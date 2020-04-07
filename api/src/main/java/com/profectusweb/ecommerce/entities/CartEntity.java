@@ -33,6 +33,7 @@ public class CartEntity implements Serializable {
             mappedBy = "cartId",
             fetch = FetchType.LAZY
     )
+    @Where(clause = "deleted_at is null")
     private List<CartItemEntity> items = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
@@ -80,6 +81,7 @@ public class CartEntity implements Serializable {
         return this;
     }
 
+    @Where(clause = "deleted_at is null")
     public List<CartItemEntity> getItems() {
         return items;
     }
