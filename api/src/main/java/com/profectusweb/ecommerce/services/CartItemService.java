@@ -93,7 +93,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         data.stream()
                 .forEach((cartItemRequestBody) -> cartItemRequestBody.cartId = cartId);
 
-        CartEntity cartEntity = getCartById(cartId);
+        CartEntity cartEntity = cartService.getCartById(cartId);
 
         List<BigInteger> productIds = extractProductIds(data);
 
@@ -122,7 +122,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
 
         this.cartItemRepository.saveAll(cartItemsEntities);
 
-        cartEntity = getCartById(cartId);
+        cartEntity = cartService.getCartById(cartId);
 
         Float total = cartService.calcTotal(cartEntity.getItems());
         cartEntity.setTotal(total);
@@ -131,11 +131,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         return this.cartRepository.save(cartEntity);
     }
 
-    private CartEntity getCartById(BigInteger id) {
-        return this.cartRepository
-                .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart", id));
-    }
+
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public boolean removeItemFromCart(BigInteger cartId, BigInteger itemId) {
@@ -226,7 +222,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public CartItemEntity create(CartItemRequestBody data) {
 
-        CartEntity cartEntity = getCartById(data.cartId);
+        CartEntity cartEntity = cartService.getCartById(data.cartId);
 
         ProductEntity productEntity = this.productsRepository
                 .findById(data.productId)

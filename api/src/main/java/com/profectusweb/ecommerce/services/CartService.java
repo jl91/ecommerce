@@ -2,6 +2,7 @@ package com.profectusweb.ecommerce.services;
 
 import com.profectusweb.ecommerce.entities.CartEntity;
 import com.profectusweb.ecommerce.entities.CartItemEntity;
+import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.CartsRepository;
 import com.profectusweb.ecommerce.requests.CartRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,19 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
     }
 
     @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public boolean remove(BigInteger id) {
-        return false;
+        CartEntity cartEntity = getCartById(id);
+
+        cartEntity.preRemove();
+
+        this.cartsRepository.save(cartEntity);
+        return true;
+    }
+
+    protected CartEntity getCartById(BigInteger id) {
+        return this.cartsRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", id));
     }
 }

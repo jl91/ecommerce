@@ -46,6 +46,15 @@ public class CartController extends BaseController<CartEntity> {
                 .create(incommingRequestBody);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean remove(
+            @PathVariable(name = "id") BigInteger id
+    ) {
+        return this.cartService
+                .remove(id);
+    }
+
     @PostMapping("/{id}/items")
     @ResponseStatus(HttpStatus.CREATED)
     public CartEntity addItemToCart(

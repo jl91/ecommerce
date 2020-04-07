@@ -1,7 +1,7 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
-import org.springframework.data.repository.CrudRepository;
+import com.profectusweb.ecommerce.repositories.BaseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +11,12 @@ import java.math.BigInteger;
 
 public abstract class BaseController<T> {
 
-    private CrudRepository<T, BigInteger> repository;
+    private BaseRepository<T, BigInteger> repository;
     private String entityName;
 
     BaseController(
             String entityName,
-            CrudRepository<T, BigInteger> repository
+            BaseRepository<T, BigInteger> repository
     ) {
         this.entityName = entityName;
         this.repository = repository;
@@ -25,7 +25,7 @@ public abstract class BaseController<T> {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Iterable<T> all() {
-        return repository.findAll();
+        return repository.findByDeletedAtIsNull();
     }
 
     @GetMapping("/{id}")

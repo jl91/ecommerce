@@ -1,5 +1,7 @@
 package com.profectusweb.ecommerce.entities;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
