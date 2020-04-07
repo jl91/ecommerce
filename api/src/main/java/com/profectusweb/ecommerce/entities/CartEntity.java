@@ -31,7 +31,7 @@ public class CartEntity implements Serializable {
             mappedBy = "cartId",
             fetch = FetchType.LAZY
     )
-    private List<CartItemsEntity> items = new ArrayList<>();
+    private List<CartItemEntity> items = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
@@ -78,11 +78,11 @@ public class CartEntity implements Serializable {
         return this;
     }
 
-    public List<CartItemsEntity> getItems() {
+    public List<CartItemEntity> getItems() {
         return items;
     }
 
-    public CartEntity setItems(List<CartItemsEntity> items) {
+    public CartEntity setItems(List<CartItemEntity> items) {
         this.items = items;
         return this;
     }

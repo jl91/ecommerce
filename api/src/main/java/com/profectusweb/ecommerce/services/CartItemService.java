@@ -1,7 +1,7 @@
 package com.profectusweb.ecommerce.services;
 
 import com.profectusweb.ecommerce.entities.CartEntity;
-import com.profectusweb.ecommerce.entities.CartItemsEntity;
+import com.profectusweb.ecommerce.entities.CartItemEntity;
 import com.profectusweb.ecommerce.entities.ProductEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.CartItemRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("CartItemService")
-public class CartItemService implements CustomServiceInterface<CartItemsEntity, CartItemRequestBody> {
+public class CartItemService implements CustomServiceInterface<CartItemEntity, CartItemRequestBody> {
 
     @Autowired
     private CartsRepository cartRepository;
@@ -28,6 +28,9 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
 
     @Autowired
     private ProductsRepository productsRepository;
+
+    @Autowired
+    private CartService cartService;
 
     private List<BigInteger> extractProductIds(List<CartItemRequestBody> cartItemRequestBodies) {
         return cartItemRequestBodies
@@ -54,7 +57,7 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public Iterable<CartItemsEntity> batchCreate(
+    public Iterable<CartItemEntity> batchCreate(
             List<CartItemRequestBody> cartItemRequestBodies,
             CartEntity cartEntity
     ) {
@@ -65,14 +68,14 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
                 .findAllById(productIds);
 
 
-        List<CartItemsEntity> cartItemEntities = cartItemRequestBodies
+        List<CartItemEntity> cartItemEntities = cartItemRequestBodies
                 .stream()
                 .map(cartItem -> {
 
                     ProductEntity productEntity = getProductFromList(products, cartItem);
 
-                    CartItemsEntity cartItemsEntity = new CartItemsEntity();
-                    return cartItemsEntity.setProductId(cartItem.productId)
+                    CartItemEntity cartItemEntity = new CartItemEntity();
+                    return cartItemEntity.setProductId(cartItem.productId)
                             .setCartId(cartEntity.getId())
                             .setQuantity(cartItem.quantity)
                             .setProductSnapshot(productEntity.toJsonString())
@@ -82,12 +85,6 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
 
         return this.cartItemRepository
                 .saveAll(cartItemEntities);
-    }
-
-    @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public CartItemsEntity create(CartItemRequestBody data) {
-        return null;
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -106,17 +103,17 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
                 .findAllById(productIds);
 
 
-        List<CartItemsEntity> cartItemsEntities = data.stream()
+        List<CartItemEntity> cartItemsEntities = data.stream()
                 .map((cartItemRequestBody) -> {
                     boolean cartHasProduct = cartHasProduct(cartEntity, cartItemRequestBody);
                     ProductEntity productEntity = getProductFromList(products, cartItemRequestBody);
-                    CartItemsEntity cartItemsEntity = new CartItemsEntity();
+                    CartItemEntity cartItemEntity = new CartItemEntity();
 
                     if (cartHasProduct) {
-                        cartItemsEntity = getCartItemByProduct(cartEntity, productEntity);
+                        cartItemEntity = getCartItemByProduct(cartEntity, productEntity);
                     }
 
-                    return cartItemsEntity.setCartId(cartId)
+                    return cartItemEntity.setCartId(cartId)
                             .setProductId(productEntity.getId())
                             .setQuantity(cartItemRequestBody.quantity)
                             .setProductSnapshot(productEntity.toJsonString())
@@ -129,23 +126,85 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
 
         this.cartItemRepository.saveAll(cartItemsEntities);
 
-        Float total = this.calcTotal(cartEntity.getItems());
+        Float total = cartService.calcTotal(cartEntity.getItems());
         cartEntity.setTotal(total);
 
-        return this.cartRepository.save(cartEntity);
+        this.cartRepository.save(cartEntity);
+        return this.cartRepository
+                .findById(cartEntity.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", cartEntity.getId()));
     }
 
-    private Float calcTotal(List<CartItemsEntity> cartItemsEntityList) {
-        return cartItemsEntityList
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public boolean removeItemFromCart(BigInteger cartId, BigInteger itemId) {
+
+        CartItemEntity cartItemEntity = this.cartItemRepository
+                .findById(itemId)
+                .orElseThrow(() -> new ResourceNotFoundException("CartItem", itemId));
+
+        cartItemEntity.preRemove();
+
+        this.cartItemRepository.save(cartItemEntity);
+
+        CartEntity cartEntity = this.cartRepository
+                .findById(cartId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", cartId));
+
+        Float total = cartService.calcTotal(cartEntity.getItems());
+
+        cartEntity.setTotal(total);
+
+        this.cartRepository.save(cartEntity);
+
+        return true;
+    }
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public CartItemEntity updateItemOnCart(CartItemRequestBody data) {
+
+        CartItemEntity cartItemEntity = this.cartItemRepository
+                .findById(data.id)
+                .orElseThrow(() -> new ResourceNotFoundException("CartItem", data.id));
+
+        ProductEntity productEntity = this.productsRepository
+                .findById(data.productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product", data.productId));
+
+
+        cartItemEntity.setProductId(data.productId)
+                .setValue(productEntity.getValue() * data.quantity)
+                .setProductSnapshot(productEntity.toJsonString())
+                .setQuantity(data.quantity)
+        ;
+
+        this.cartItemRepository.save(cartItemEntity);
+
+        CartEntity cartEntity = this.cartRepository
+                .findById(data.cartId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", data.cartId));
+
+        Float total = cartService.calcTotal(cartEntity.getItems());
+
+        cartEntity.setTotal(total);
+
+        this.cartRepository.save(cartEntity);
+
+        return cartItemEntity;
+    }
+
+
+    private Float calcTotal(List<CartItemEntity> cartItemEntityList) {
+        return cartItemEntityList
                 .stream()
+                .filter((cartItemEntity) -> cartItemEntity.getDeletedAt() == null)
                 .map(cartItemsEntity -> cartItemsEntity.getValue())
                 .reduce(0f, (subTotal, nextValue) -> subTotal + nextValue);
     }
 
-    private CartItemsEntity getCartItemByProduct(CartEntity cartEntity, ProductEntity productEntity) {
+    private CartItemEntity getCartItemByProduct(CartEntity cartEntity, ProductEntity productEntity) {
         try {
 
-            List<CartItemsEntity> cartItemsEntities = cartEntity.getItems();
+            List<CartItemEntity> cartItemsEntities = cartEntity.getItems();
 
             return cartItemsEntities.stream()
                     .filter(cartItemsEntity -> cartItemsEntity.getProductId().equals(productEntity.getId()))
@@ -157,7 +216,7 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
     }
 
     private boolean cartHasProduct(CartEntity cartEntity, CartItemRequestBody cartItemRequestBody) {
-        List<CartItemsEntity> cartItemsEntities = cartEntity.getItems();
+        List<CartItemEntity> cartItemsEntities = cartEntity.getItems();
 
         if (cartItemsEntities.size() <= 0) {
             return false;
@@ -169,13 +228,63 @@ public class CartItemService implements CustomServiceInterface<CartItemsEntity, 
                 .size() > 0;
     }
 
+
     @Override
-    public CartItemsEntity update(CartItemRequestBody data) {
-        return null;
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public CartItemEntity create(CartItemRequestBody data) {
+        CartEntity cartEntity = this.cartRepository
+                .findById(data.cartId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", data.cartId));
+
+        ProductEntity productEntity = this.productsRepository
+                .findById(data.productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product", data.productId));
+
+        CartItemEntity cartItemEntity = new CartItemEntity();
+
+        if (this.cartHasProduct(cartEntity, data)) {
+            cartItemEntity = this.getCartItemByProduct(cartEntity, productEntity);
+        }
+
+        cartItemEntity.setQuantity(data.quantity)
+                .setProductSnapshot(productEntity.toJsonString())
+                .setValue(productEntity.getValue() * data.quantity)
+                .setProductId(data.productId)
+                .setCartId(cartEntity.getId())
+        ;
+
+        this.cartItemRepository
+                .save(cartItemEntity);
+
+        Float total = cartService.calcTotal(cartEntity.getItems());
+        cartEntity.setTotal(total);
+
+        this.cartRepository.save(cartEntity);
+
+        return cartItemEntity;
+    }
+
+    @Override
+    public CartItemEntity update(CartItemRequestBody data) {
+        return this.create(data);
     }
 
     @Override
     public boolean remove(BigInteger id) {
-        return false;
+        CartItemEntity cartItem = this.cartItemRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("CartItem", id));
+
+        cartItem.preRemove();
+        this.cartItemRepository.save(cartItem);
+
+        CartEntity cartEntity = this.cartRepository
+                .findById(cartItem.getCartId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", cartItem.getId()));
+
+        Float total = cartService.calcTotal(cartEntity.getItems());
+        cartEntity.setTotal(total);
+
+        return true;
     }
 }

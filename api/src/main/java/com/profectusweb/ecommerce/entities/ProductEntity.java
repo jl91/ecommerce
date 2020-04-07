@@ -1,12 +1,12 @@
 package com.profectusweb.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Entity
@@ -129,10 +129,7 @@ public class ProductEntity implements Serializable {
 
     public String toJsonString() {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String ISO8861Format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            objectMapper.setDateFormat(new SimpleDateFormat(ISO8861Format));
-            return objectMapper.writeValueAsString(this);
+            return new ObjectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
             return "";
         }

@@ -1,7 +1,7 @@
 package com.profectusweb.ecommerce.services;
 
 import com.profectusweb.ecommerce.entities.CartEntity;
-import com.profectusweb.ecommerce.entities.CartItemsEntity;
+import com.profectusweb.ecommerce.entities.CartItemEntity;
 import com.profectusweb.ecommerce.repositories.CartsRepository;
 import com.profectusweb.ecommerce.requests.CartRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,12 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
             return cartEntity;
         }
 
-        List<CartItemsEntity> cartItemsEntityList = (List<CartItemsEntity>) this.cartItemService
+        List<CartItemEntity> cartItemEntityList = (List<CartItemEntity>) this.cartItemService
                 .batchCreate(data.cartItems, cartEntity);
 
-        cartEntity.setItems(cartItemsEntityList);
+        cartEntity.setItems(cartItemEntityList);
 
-        Float total = this.calcTotal(cartItemsEntityList);
+        Float total = this.calcTotal(cartItemEntityList);
         cartEntity.setTotal(total);
 
         this.cartsRepository
@@ -53,9 +53,10 @@ public class CartService implements CustomServiceInterface<CartEntity, CartReque
         return cartEntity;
     }
 
-    private Float calcTotal(List<CartItemsEntity> cartItemsEntityList) {
-        return cartItemsEntityList
+    protected Float calcTotal(List<CartItemEntity> cartItemEntityList) {
+        return cartItemEntityList
                 .stream()
+                .filter((cartItemEntity) -> cartItemEntity.getDeletedAt() == null)
                 .map(cartItemsEntity -> cartItemsEntity.getValue())
                 .reduce(0f, (subTotal, nextValue) -> subTotal + nextValue);
     }

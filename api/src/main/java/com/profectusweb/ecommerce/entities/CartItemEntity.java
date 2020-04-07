@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cart_items")
-public class CartItemsEntity implements Serializable {
+public class CartItemEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class CartItemsEntity implements Serializable {
         return id;
     }
 
-    public CartItemsEntity setId(BigInteger id) {
+    public CartItemEntity setId(BigInteger id) {
         this.id = id;
         return this;
     }
@@ -52,7 +52,7 @@ public class CartItemsEntity implements Serializable {
         return productId;
     }
 
-    public CartItemsEntity setProductId(BigInteger productId) {
+    public CartItemEntity setProductId(BigInteger productId) {
         this.productId = productId;
         return this;
     }
@@ -61,7 +61,7 @@ public class CartItemsEntity implements Serializable {
         return cartId;
     }
 
-    public CartItemsEntity setCartId(BigInteger cartId) {
+    public CartItemEntity setCartId(BigInteger cartId) {
         this.cartId = cartId;
         return this;
     }
@@ -70,7 +70,7 @@ public class CartItemsEntity implements Serializable {
         return productSnapshot;
     }
 
-    public CartItemsEntity setProductSnapshot(String productSnapshot) {
+    public CartItemEntity setProductSnapshot(String productSnapshot) {
         this.productSnapshot = productSnapshot;
         return this;
     }
@@ -79,7 +79,7 @@ public class CartItemsEntity implements Serializable {
         return value;
     }
 
-    public CartItemsEntity setValue(Float value) {
+    public CartItemEntity setValue(Float value) {
         this.value = value;
         return this;
     }
@@ -88,7 +88,7 @@ public class CartItemsEntity implements Serializable {
         return quantity;
     }
 
-    public CartItemsEntity setQuantity(Integer quantity) {
+    public CartItemEntity setQuantity(Integer quantity) {
         this.quantity = quantity;
         return this;
     }
@@ -97,7 +97,7 @@ public class CartItemsEntity implements Serializable {
         return createdAt;
     }
 
-    private CartItemsEntity setCreatedAt(LocalDateTime createdAt) {
+    private CartItemEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -106,7 +106,7 @@ public class CartItemsEntity implements Serializable {
         return updatedAt;
     }
 
-    private CartItemsEntity setUpdatedAt(LocalDateTime updatedAt) {
+    private CartItemEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -115,7 +115,7 @@ public class CartItemsEntity implements Serializable {
         return deletedAt;
     }
 
-    private CartItemsEntity setDeletedAt(LocalDateTime deletedAt) {
+    private CartItemEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
         return this;
     }

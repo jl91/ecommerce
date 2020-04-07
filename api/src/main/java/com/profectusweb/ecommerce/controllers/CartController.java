@@ -1,6 +1,7 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.CartEntity;
+import com.profectusweb.ecommerce.entities.CartItemEntity;
 import com.profectusweb.ecommerce.repositories.CartsRepository;
 import com.profectusweb.ecommerce.requests.CartItemRequestBody;
 import com.profectusweb.ecommerce.requests.CartRequestBody;
@@ -53,6 +54,29 @@ public class CartController extends BaseController<CartEntity> {
     ) {
         return this.cartItemService
                 .addItemsToCart(id, incommingRequestBody);
+    }
+
+    @PutMapping("/{id}/items/{itemId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public CartItemEntity addItemToCart(
+            @PathVariable(name = "id") BigInteger id,
+            @PathVariable(name = "itemId") BigInteger itemId,
+            @Valid @RequestBody CartItemRequestBody incommingRequestBody
+    ) {
+        incommingRequestBody.id = itemId;
+        incommingRequestBody.cartId = id;
+        return this.cartItemService
+                .updateItemOnCart(incommingRequestBody);
+    }
+
+    @DeleteMapping("/{id}/items/{itemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean removeItemToCart(
+            @PathVariable(name = "id") BigInteger id,
+            @PathVariable(name = "itemId") BigInteger itemId
+    ) {
+        return this.cartItemService
+                .removeItemFromCart(id, itemId);
     }
 
 
