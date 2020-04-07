@@ -194,15 +194,6 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         return cartItemEntity;
     }
 
-
-    private Float calcTotal(List<CartItemEntity> cartItemEntityList) {
-        return cartItemEntityList
-                .stream()
-                .filter((cartItemEntity) -> cartItemEntity.getDeletedAt() == null)
-                .map(cartItemsEntity -> cartItemsEntity.getValue())
-                .reduce(0f, (subTotal, nextValue) -> subTotal + nextValue);
-    }
-
     private CartItemEntity getCartItemByProduct(CartEntity cartEntity, ProductEntity productEntity) {
         try {
 
@@ -234,9 +225,8 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public CartItemEntity create(CartItemRequestBody data) {
-        CartEntity cartEntity = this.cartRepository
-                .findById(data.cartId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart", data.cartId));
+
+        CartEntity cartEntity = getCartById(data.cartId);
 
         ProductEntity productEntity = this.productsRepository
                 .findById(data.productId)
@@ -251,7 +241,7 @@ public class CartItemService implements CustomServiceInterface<CartItemEntity, C
         cartItemEntity.setQuantity(data.quantity)
                 .setProductSnapshot(productEntity.toJsonString())
                 .setValue(productEntity.getValue() * data.quantity)
-                .setProductId(data.productId)
+                .setProductId(productEntity.getId())
                 .setCartId(cartEntity.getId())
         ;
 

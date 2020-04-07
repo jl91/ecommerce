@@ -16,7 +16,7 @@ public class ProductEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
     @Column(name = "sku", nullable = false)

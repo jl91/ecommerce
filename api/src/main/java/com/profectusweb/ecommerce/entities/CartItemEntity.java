@@ -12,7 +12,7 @@ public class CartItemEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
     @Column(name = "product_id", nullable = false)
