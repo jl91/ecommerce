@@ -10,5 +10,5 @@ public interface PurchaseOrderHistoryRepository extends BaseRepository<PurchaseO
     Iterable<PurchaseOrderHistoryEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<PurchaseOrderHistoryEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<PurchaseOrderHistoryEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

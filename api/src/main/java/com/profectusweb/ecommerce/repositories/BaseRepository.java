@@ -9,7 +9,7 @@ public interface BaseRepository<T, J> extends CrudRepository<T, J> {
 
     Iterable<T> findByDeletedAtIsNull();
 
-    Optional<T> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<T> findByDeletedAtIsNullAndId(BigInteger id);
 
 
 }

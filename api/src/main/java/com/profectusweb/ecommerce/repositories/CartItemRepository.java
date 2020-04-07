@@ -11,5 +11,5 @@ public interface CartItemRepository extends BaseRepository<CartItemEntity, BigIn
     Iterable<CartItemEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<CartItemEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<CartItemEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

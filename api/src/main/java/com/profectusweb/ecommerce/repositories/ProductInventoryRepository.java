@@ -10,5 +10,5 @@ public interface ProductInventoryRepository extends BaseRepository<ProductInvent
     Iterable<ProductInventoryEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<ProductInventoryEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<ProductInventoryEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

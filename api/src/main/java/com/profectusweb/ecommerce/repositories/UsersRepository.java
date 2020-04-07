@@ -11,5 +11,5 @@ public interface UsersRepository extends BaseRepository<UserEntity, BigInteger> 
     Iterable<UserEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<UserEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<UserEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

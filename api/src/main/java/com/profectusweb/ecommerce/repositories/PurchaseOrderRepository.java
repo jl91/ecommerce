@@ -11,5 +11,5 @@ public interface PurchaseOrderRepository extends BaseRepository<PurchaseOrderEnt
     Iterable<PurchaseOrderEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<PurchaseOrderEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<PurchaseOrderEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

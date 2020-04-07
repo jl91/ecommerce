@@ -11,5 +11,5 @@ public interface ProductsRepository extends BaseRepository<ProductEntity, BigInt
     Iterable<ProductEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<ProductEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<ProductEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }

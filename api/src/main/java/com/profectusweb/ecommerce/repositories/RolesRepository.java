@@ -11,5 +11,5 @@ public interface RolesRepository extends BaseRepository<RoleEntity, BigInteger> 
     Iterable<RoleEntity> findByDeletedAtIsNull();
 
     @Override
-    Optional<RoleEntity> findByIdAndCreatedAtIsNull(BigInteger id);
+    Optional<RoleEntity> findByDeletedAtIsNullAndId(BigInteger id);
 }
