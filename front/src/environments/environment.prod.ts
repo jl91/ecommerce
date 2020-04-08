@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  apiBaseUrl: '/api',
+  client_id: 'ecommerce',
+  client_secret: 'ecommerce'
 };

@@ -15,6 +15,10 @@
                  formControlName="username"
           >
 
+          <mat-error *ngIf="formGroup.get('username')?.errors?.required">
+            Usuário Requerido
+          </mat-error>
+
         </mat-form-field>
       </div>
 
@@ -28,6 +32,11 @@
                  type="password"
                  formControlName="password"
           >
+
+          <mat-error *ngIf="formGroup.get('password')?.errors?.required">
+            Senha Requerida
+          </mat-error>
+
         </mat-form-field>
       </div>
 
@@ -40,6 +49,7 @@
         <button mat-raised-button
                 color="primary"
                 type="submit"
+                (click)="onSubmit()"
         >
           Login
         </button>
