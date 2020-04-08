@@ -1,7 +1,6 @@
 package com.profectusweb.ecommerce.entities;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,7 +36,7 @@ public class UserEntity implements Serializable {
     private LocalDateTime deletedAt;
 
     @OneToOne(
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private RoleEntity role = new RoleEntity();
@@ -117,6 +116,8 @@ public class UserEntity implements Serializable {
     @PrePersist
     private void prePersist() {
         this.setCreatedAt(LocalDateTime.now());
+        this.password = new BCryptPasswordEncoder(10)
+                .encode(this.password);
     }
 
     @PreUpdate

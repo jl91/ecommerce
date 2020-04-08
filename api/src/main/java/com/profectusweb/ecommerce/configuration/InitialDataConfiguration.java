@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class InitialDataConfiguration implements ApplicationListener<ContextRefr
     PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional()
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void onApplicationEvent(ContextRefreshedEvent e) {
         List<RoleEntity> roles = (List<RoleEntity>) rolesRepository.findByDeletedAtIsNull();
 
@@ -34,19 +35,30 @@ public class InitialDataConfiguration implements ApplicationListener<ContextRefr
             return;
         }
 
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setName("master");
+        RoleEntity roleMasterEntity = new RoleEntity();
+        RoleEntity roleCustomerEntity = new RoleEntity();
 
-        roleEntity = rolesRepository.save(roleEntity);
+        roleMasterEntity.setName("ROLE_MASTER");
+        roleCustomerEntity.setName("ROLER_CUSTOMER");
 
-        UserEntity userEntity = new UserEntity();
+        roleMasterEntity = rolesRepository.save(roleMasterEntity);
+        roleCustomerEntity = rolesRepository.save(roleCustomerEntity);
 
-        userEntity.setName("master")
+        UserEntity userMasterEntity = new UserEntity();
+        UserEntity userCustomerEntity = new UserEntity();
+
+        userMasterEntity.setName("master")
                 .setUsername("master")
-                .setPassword(passwordEncoder.encode("master"))
-                .setRole(roleEntity);
+                .setPassword("master")
+                .setRole(roleMasterEntity);
 
-        usuarioRepository.save(userEntity);
+        userCustomerEntity.setName("customer")
+                .setUsername("customer")
+                .setPassword("customer")
+                .setRole(roleCustomerEntity);
+
+        usuarioRepository.save(userMasterEntity);
+        usuarioRepository.save(userCustomerEntity);
     }
 
 }
