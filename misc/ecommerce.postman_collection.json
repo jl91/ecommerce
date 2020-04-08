@@ -322,7 +322,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"productId\": 33,\n        \"quantity\": 2\n    }\n]",
+							"raw": "[\n    {\n        \"productId\": 35,\n        \"quantity\": 2\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -330,14 +330,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/carts/22/items",
+							"raw": "localhost:8080/carts/6/items",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"carts",
-								"22",
+								"6",
 								"items"
 							]
 						}
@@ -350,7 +350,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carts/6/items/6",
+							"raw": "localhost:8080/carts/6/items/9",
 							"host": [
 								"localhost"
 							],
@@ -359,7 +359,35 @@
 								"carts",
 								"6",
 								"items",
-								"6"
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persists cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"opened\",\n    \"userId\": 1,\n    \"cartItems\": [\n    \t{\n    \t\t\"productId\": 34,\n    \t\t\"quantity\": 2\n    \t}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/carts/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts",
+								""
 							]
 						}
 					},
@@ -369,32 +397,69 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "persists cart",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"status\": \"opened\",\n    \"userId\": 1,\n    \"cartItems\": [\n    \t{\n    \t\t\"productId\": 3,\n    \t\t\"quantity\": 2\n    \t}\n    ]\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "oauth",
+			"item": [
+				{
+					"name": "generate-token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "senha-do-ecommerce",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "ecommerce",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "880af668-fcf7-480d-aa04-5a50a147c7a1",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "any",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/oauth/token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oauth",
+								"token"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/carts/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"carts",
-						""
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
