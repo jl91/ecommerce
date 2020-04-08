@@ -11,7 +11,7 @@ public class EcommerceUserDetails implements UserDetails {
 
     private UserEntity user;
 
-    EcommerceUserDetails(UserEntity user) {
+    public EcommerceUserDetails(UserEntity user) {
         this.user = user;
     }
 

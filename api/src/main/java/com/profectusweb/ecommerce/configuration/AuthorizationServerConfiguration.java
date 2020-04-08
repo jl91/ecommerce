@@ -1,5 +1,6 @@
 package com.profectusweb.ecommerce.configuration;
 
+import com.profectusweb.ecommerce.services.EcommerceUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +46,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         System.out.println(passwordEncoder.encode("ecommerce"));
         clients.inMemory()
                 .withClient("ecommerce")
-                .secret(passwordEncoder.encode("ecommerce"))
+                .secret("$2a$10$7/INayx.bKcg0/dGGVVmN.R9qXVLjOCgBBem61KGAsMZARx/zKPfG")
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                 .scopes("bar", "read", "write")
                 .refreshTokenValiditySeconds(20000)
