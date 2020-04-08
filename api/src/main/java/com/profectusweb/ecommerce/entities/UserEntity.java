@@ -1,6 +1,7 @@
 package com.profectusweb.ecommerce.entities;
 
-import org.hibernate.annotations.Where;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,9 +17,6 @@ public class UserEntity implements Serializable {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
-
-    @Column(name = "role_id", nullable = false)
-    private BigInteger roleId;
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -38,21 +36,18 @@ public class UserEntity implements Serializable {
     @Column(name = "deleted_at", columnDefinition = "DATETIME")
     private LocalDateTime deletedAt;
 
+    @OneToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private RoleEntity role = new RoleEntity();
+
     public BigInteger getId() {
         return id;
     }
 
     public UserEntity setId(BigInteger id) {
         this.id = id;
-        return this;
-    }
-
-    public BigInteger getRoleId() {
-        return roleId;
-    }
-
-    public UserEntity setRoleId(BigInteger roleId) {
-        this.roleId = roleId;
         return this;
     }
 
@@ -107,6 +102,15 @@ public class UserEntity implements Serializable {
 
     private UserEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public UserEntity setRole(RoleEntity roleEntity) {
+        this.role = roleEntity;
         return this;
     }
 

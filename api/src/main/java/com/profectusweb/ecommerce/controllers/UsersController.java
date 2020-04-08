@@ -6,6 +6,7 @@ import com.profectusweb.ecommerce.requests.UsersRequestBody;
 import com.profectusweb.ecommerce.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,6 +17,9 @@ import java.math.BigInteger;
 public class UsersController extends BaseController<UserEntity> {
 
     UsersService usersService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsersController(
@@ -34,6 +38,7 @@ public class UsersController extends BaseController<UserEntity> {
     public UserEntity create(
             @Valid @RequestBody UsersRequestBody incommingRequestBody
     ) {
+        incommingRequestBody.password = passwordEncoder.encode(incommingRequestBody.password);
         return this.usersService
                 .create(incommingRequestBody);
     }

@@ -12,4 +12,6 @@ public interface UsersRepository extends BaseRepository<UserEntity, BigInteger> 
 
     @Override
     Optional<UserEntity> findByDeletedAtIsNullAndId(BigInteger id);
+
+    Optional<UserEntity> findByUsernameAndDeletedAtIsNull(String username);
 }

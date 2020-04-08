@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.entities;
 
-import org.hibernate.annotations.Where;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "roles")
-public class RoleEntity implements Serializable {
+public class RoleEntity implements Serializable, GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
@@ -89,4 +89,8 @@ public class RoleEntity implements Serializable {
         this.setDeletedAt(LocalDateTime.now());
     }
 
+    @Override
+    public String getAuthority() {
+        return this.getName();
+    }
 }

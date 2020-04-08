@@ -42,4 +42,10 @@ public class RolesService implements CustomServiceInterface<RoleEntity, RolesReq
         this.rolesRepository.save(roleEntity);
         return true;
     }
+
+    protected RoleEntity getRoleServieById(BigInteger id) {
+        return this.rolesRepository
+                .findByDeletedAtIsNullAndId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Role", id));
+    }
 }

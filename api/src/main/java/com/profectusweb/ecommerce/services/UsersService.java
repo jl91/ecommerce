@@ -1,7 +1,9 @@
 package com.profectusweb.ecommerce.services;
 
+import com.profectusweb.ecommerce.entities.RoleEntity;
 import com.profectusweb.ecommerce.entities.UserEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
+import com.profectusweb.ecommerce.repositories.RolesRepository;
 import com.profectusweb.ecommerce.repositories.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +17,19 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private RolesService rolesService;
+
     @Override
     public UserEntity create(UsersRequestBody data) {
         UserEntity userEntity = new UserEntity();
 
+        RoleEntity roleEntity = rolesService.getRoleServieById(data.roleId);
+
         userEntity.setName(data.name)
                 .setUsername(data.username)
                 .setPassword(data.password)
-                .setRoleId(data.roleId)
+                .setRole(roleEntity)
         ;
 
         return this.usersRepository
@@ -36,10 +43,13 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
                 .findByDeletedAtIsNullAndId(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", data.id));
 
+        RoleEntity roleEntity = rolesService.getRoleServieById(data.roleId);
+
+
         userEntity.setName(data.name)
                 .setUsername(data.username)
                 .setPassword(data.password)
-                .setRoleId(data.roleId)
+                .setRole(roleEntity)
         ;
 
         return this.usersRepository
