@@ -22,9 +22,9 @@ export class LoginService {
   }
 
   public login(username: string, password: string): void {
-    this.username = username;
+    this.username = username.toLowerCase();
     this.authenticationService
-      .authenticate(username, password)
+      .authenticate(this.username, password)
       .subscribe(
         this.processAuthentication.bind(this),
         console.error.bind(console)
