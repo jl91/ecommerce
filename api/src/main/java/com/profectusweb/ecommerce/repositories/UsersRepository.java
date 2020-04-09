@@ -16,5 +16,6 @@ public interface UsersRepository extends BaseRepository<UserEntity, BigInteger> 
 
     Optional<UserEntity> findByUsernameAndDeletedAtIsNull(String username);
 
-    Optional<List<UserEntity>> findAllByUsernameAndDeletedAtIsNull(String username);
+    Iterable<UserEntity> findAllByUsernameAndDeletedAtIsNull(String username);
+
 }

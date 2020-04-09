@@ -64,5 +64,9 @@ export class AuthenticationService {
       .setItem(key, data);
   }
 
+  public logout(): void {
+
+  }
+
 
 }

@@ -34,13 +34,17 @@ public class UsersController {
          * for every incomming queryParam, but to not spend more time i've implemented these if
          * */
 
-        if (username.isEmpty()) {
-            return usersRepository.findByDeletedAtIsNull();
+        if (username == null) {
+            return usersRepository.findAll();
         }
 
-        return this.usersRepository
-                .findAllByUsernameAndDeletedAtIsNull(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+        Iterable<UserEntity> allByUsernameAndDeletedAtIsNull = this.usersRepository
+                .findAllByUsernameAndDeletedAtIsNull(username);
+
+        if (!allByUsernameAndDeletedAtIsNull.iterator().hasNext()) {
+            throw new ResourceNotFoundException("User", "username", username);
+        }
+        return allByUsernameAndDeletedAtIsNull;
     }
 
 
