@@ -401,13 +401,16 @@
 			"item": [
 				{
 					"name": "generate-token",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"auth": {
 							"type": "basic",
 							"basic": [
 								{
 									"key": "password",
-									"value": "senha-do-ecommerce",
+									"value": "ecommerce",
 									"type": "string"
 								},
 								{
@@ -424,22 +427,22 @@
 							"formdata": [
 								{
 									"key": "grant_type",
-									"value": "client_credentials",
+									"value": "password",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "user",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "880af668-fcf7-480d-aa04-5a50a147c7a1",
+									"value": "master",
 									"type": "text"
 								},
 								{
 									"key": "scope",
-									"value": "any",
+									"value": "all",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "master",
 									"type": "text"
 								}
 							]
