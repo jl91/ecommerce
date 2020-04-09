@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthorizationModel} from '../model/authorization.model';
+import {AuthenticationModel} from './authentication.model';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 
 @Injectable()
-export class AuthorizationService {
+export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) {
 
@@ -26,7 +26,7 @@ export class AuthorizationService {
     );
   }
 
-  public login(username: string, password: string): Observable<AuthorizationModel> {
+  public login(username: string, password: string): Observable<AuthenticationModel> {
     const body = new FormData();
     body.append('grant_type', 'password');
     body.append('scope', 'all');
@@ -41,7 +41,7 @@ export class AuthorizationService {
         },
       )
       .pipe(map((result: any) => {
-        return result as AuthorizationModel;
+        return result as AuthenticationModel;
       }));
   }
 

@@ -1,21 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginForm} from './login.form';
-import {AuthorizationService} from '../../../core/services/authorization.service';
-import {AuthorizationModel} from '../../../core/model/authorization.model';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   providers: [
-    LoginForm
+    LoginForm,
+    LoginService
   ]
 })
 export class LoginComponent implements OnInit {
 
   constructor(
     public formGroup: LoginForm,
-    public authorizationService: AuthorizationService
+    private loginService: LoginService
   ) {
   }
 
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+
     if (!this.formGroup.valid) {
       this.formGroup.markAllAsTouched();
       return false;
@@ -30,14 +31,8 @@ export class LoginComponent implements OnInit {
 
     const {username, password} = this.formGroup.getRawValue();
 
-    const subscription = this.authorizationService
-      .login(username, password)
-      .subscribe((data: AuthorizationModel) => {
-          console.log(data);
-          subscription.unsubscribe();
-        },
-        console.error.bind(console)
-      );
+    this.loginService
+      .login(username, password);
 
   }
 

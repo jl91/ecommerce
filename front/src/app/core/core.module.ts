@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
-import {AuthorizationService} from './services/authorization.service';
+import {AuthenticationService} from './authentication/authentication.service';
 import {HttpClientModule} from '@angular/common/http';
+import {StorageService} from './session/storage.service';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
   exports: [],
   declarations: [],
   providers: [
-    AuthorizationService
+    AuthenticationService,
+    StorageService
   ],
 })
 export class CoreModule {
