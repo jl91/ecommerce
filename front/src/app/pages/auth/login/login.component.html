@@ -1,5 +1,5 @@
-<form class="login-container"
-      [formGroup]="formGroup"
+<form [formGroup]="formGroup"
+      class="login-container"
 >
   <mat-card class="login-card"
   >
@@ -11,9 +11,9 @@
             Username
           </mat-label>
 
-          <input matInput
+          <input formControlName="username"
+                 matInput
                  type="text"
-                 formControlName="username"
           >
 
           <mat-error *ngIf="formGroup.get('username')?.errors?.required">
@@ -29,9 +29,9 @@
             Password
           </mat-label>
 
-          <input matInput
+          <input formControlName="password"
+                 matInput
                  type="password"
-                 formControlName="password"
           >
 
           <mat-error *ngIf="formGroup.get('password')?.errors?.required">
@@ -47,10 +47,10 @@
 
     <mat-card-footer>
       <div class="w-100 footer-container">
-        <button mat-raised-button
+        <button (click)="onSubmit()"
                 color="primary"
+                mat-raised-button
                 type="submit"
-                (click)="onSubmit()"
         >
           Login
         </button>

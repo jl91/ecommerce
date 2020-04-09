@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NavigationItem} from "./navigation-item.model";
+import {NavigationItem} from './navigation-item.model';
 
 @Component({
   selector: 'app-navigation',
@@ -9,7 +9,7 @@ import {NavigationItem} from "./navigation-item.model";
 export class NavigationComponent implements OnInit {
 
   @Input()
-  public menu: Array<NavigationItem>
+  public menu: Array<NavigationItem>;
 
   constructor() {
   }

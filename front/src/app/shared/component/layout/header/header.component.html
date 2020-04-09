@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <div class="row-content">
-      <button mat-icon-button
+      <button (click)="toggleMenu($event)"
+              mat-icon-button
               type="button"
-              (click)="toggleMenu($event)"
       >
         <mat-icon>
           menu
@@ -12,17 +12,11 @@
 
       <div class="spacer"></div>
 
-      <button mat-icon-button
-              type="button"
-      >
-        <mat-icon>
-          shopping_cart
-        </mat-icon>
-      </button>
+      <app-icon-cart></app-icon-cart>
 
-      <button mat-icon-button
+      <button [matMenuTriggerFor]="userMenu"
+              mat-icon-button
               type="button"
-              [matMenuTriggerFor]="userMenu"
       >
         <mat-icon>
           account_circle

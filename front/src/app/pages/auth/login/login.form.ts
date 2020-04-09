@@ -1,5 +1,5 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Injectable} from "@angular/core";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class LoginForm extends FormGroup {

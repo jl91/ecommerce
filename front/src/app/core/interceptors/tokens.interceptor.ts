@@ -12,27 +12,6 @@ export class TokenInterceptor implements HttpInterceptor {
   ) {
   }
 
-  public intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-
-    if (this.authenticationService.hasCredentials) {
-      const headers = this.bearerAuthorizationHeader;
-      return next.handle(request.clone({
-          headers
-        }
-      ));
-    }
-
-    // @ts-ignore
-    return next.handle(request.clone({
-        headers: this.basicAuthorizationHeader
-      })
-    );
-
-  }
-
   private get basicAuthorizationHeader(): HttpHeaders {
     const {client_id, client_secret} = environment;
     const headers = new HttpHeaders();
@@ -52,6 +31,27 @@ export class TokenInterceptor implements HttpInterceptor {
       'Authorization',
       `Bearer ${credentials.access_token}`
     );
+  }
+
+  public intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+
+    if (this.authenticationService.hasCredentials) {
+      const headers = this.bearerAuthorizationHeader;
+      return next.handle(request.clone({
+          headers
+        }
+      ));
+    }
+
+    // @ts-ignore
+    return next.handle(request.clone({
+        headers: this.basicAuthorizationHeader
+      })
+    );
+
   }
 
 }

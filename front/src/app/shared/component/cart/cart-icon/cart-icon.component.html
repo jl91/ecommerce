@@ -1,0 +1,32 @@
+<button mat-icon-button
+        type="button"
+        [matMenuTriggerFor]="cartMenu"
+>
+  <mat-icon
+    [matBadge]="cartItemsInView.length"
+    matBadgeColor="accent"
+    matBadgePosition="before"
+  >
+    shopping_cart
+  </mat-icon>
+</button>
+
+<mat-menu #cartMenu="matMenu">
+  <ng-template matMenuContent>
+
+    <ng-container *ngFor="let item of cartItemsInView;">
+
+      <button mat-menu-item>
+        {{ item | printCart }}
+      </button>
+
+    </ng-container>
+
+    <mat-divider></mat-divider>
+  </ng-template>
+
+  <button mat-menu-item>
+    Finalizar compra
+  </button>
+
+</mat-menu>

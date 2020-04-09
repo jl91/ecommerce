@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RestrictedAreaComponent } from './restricted-area.component';
+import {RestrictedAreaComponent} from './restricted-area.component';
 
 describe('RestrictedAreaComponent', () => {
   let component: RestrictedAreaComponent;
@@ -8,9 +8,9 @@ describe('RestrictedAreaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RestrictedAreaComponent ]
+      declarations: [RestrictedAreaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

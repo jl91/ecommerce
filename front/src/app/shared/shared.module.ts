@@ -1,17 +1,20 @@
 import {NgModule} from '@angular/core';
-import {LayoutModule} from "./component/layout/layout.module";
-import {MenuService} from "./service/menu.service";
+import {LayoutModule} from './component/layout/layout.module';
+import {MenuService} from './service/menu.service';
+import {CartModule} from './component/cart/cart.module';
 
 @NgModule({
   imports: [
-    LayoutModule
+    LayoutModule,
+    CartModule
   ],
   exports: [
-    LayoutModule
+    LayoutModule,
+    CartModule
   ],
   declarations: [],
   providers: [
-    MenuService
+    MenuService,
   ],
 })
 export class SharedModule {

@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {CustomersComponent} from "./customers/customers.component";
-import {ProductsComponent} from "./products/products.component";
-import {RestrictedAreaComponent} from "./restricted-area.component";
+import {HomeComponent} from './home/home.component';
+import {CustomersComponent} from './customers/customers.component';
+import {ProductsPageComponent} from './products/products-page.component';
+import {RestrictedAreaComponent} from './restricted-area.component';
 
 
 const routes: Routes = [
@@ -20,21 +20,21 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         data: {
-          title: "Home"
+          title: 'Home'
         }
       },
       {
         path: 'customer',
         component: CustomersComponent,
         data: {
-          title: "Customers"
+          title: 'Customers'
         }
       },
       {
         path: 'products',
-        component: ProductsComponent,
+        component: ProductsPageComponent,
         data: {
-          title: "Products"
+          title: 'Products'
         }
       }
     ]

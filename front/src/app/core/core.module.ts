@@ -5,6 +5,7 @@ import {StorageService} from './session/storage.service';
 import {UsersHttpService} from './users/users-http.service';
 import {TokenInterceptor} from './interceptors/tokens.interceptor';
 import {AuthenticationGuard} from './guards/authentication.guard';
+import {ProductsHttpService} from './products/products-http.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {AuthenticationGuard} from './guards/authentication.guard';
     AuthenticationService,
     StorageService,
     UsersHttpService,
+    ProductsHttpService,
     // Guards
     AuthenticationGuard,
     // Request Interceptors

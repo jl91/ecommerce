@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {StorageService} from '../session/storage.service';
 import {StorageTypeEnum} from '../session/storage-type.enum';
 import {AuthenticationEnum} from './authentication.enum';
+import {User} from '../users/user.model';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,6 +17,32 @@ export class AuthenticationService {
     private storageService: StorageService,
   ) {
 
+  }
+
+  public get hasCredentials(): boolean {
+    return this.authenticationStorage
+      .hasItem(AuthenticationEnum.AUTH_KEY);
+  }
+
+  public get hasLoggedUser(): boolean {
+    return this.authenticationStorage
+      .hasItem(AuthenticationEnum.LOGGED_USER_KEY);
+  }
+
+  public get loggerUser(): User {
+    return this.authenticationStorage
+      .getItem(AuthenticationEnum.LOGGED_USER_KEY);
+  }
+
+  public get credentials(): AuthenticationModel {
+    return this.authenticationStorage
+      .getItem(AuthenticationEnum.AUTH_KEY);
+  }
+
+  public get authenticationStorage(): StorageService {
+    return this.storageService
+      .setStorageType(StorageTypeEnum.SESSION_STORAGE)
+      .setNamespace(AuthenticationEnum.NAMESPACE);
   }
 
   private get url(): string {
@@ -36,27 +63,6 @@ export class AuthenticationService {
       .pipe(map((result: any) => {
         return result as AuthenticationModel;
       }));
-  }
-
-  public get hasCredentials(): boolean {
-    return this.authenticationStorage
-      .hasItem(AuthenticationEnum.AUTH_KEY);
-  }
-
-  public get hasLoggedUser(): boolean {
-    return this.authenticationStorage
-      .hasItem(AuthenticationEnum.LOGGED_USER_KEY);
-  }
-
-  public get credentials(): AuthenticationModel {
-    return this.authenticationStorage
-      .getItem(AuthenticationEnum.AUTH_KEY);
-  }
-
-  public get authenticationStorage(): StorageService {
-    return this.storageService
-      .setStorageType(StorageTypeEnum.SESSION_STORAGE)
-      .setNamespace(AuthenticationEnum.NAMESPACE);
   }
 
   public save(key: AuthenticationEnum, data: any) {

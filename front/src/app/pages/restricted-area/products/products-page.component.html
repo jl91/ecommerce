@@ -1,0 +1,12 @@
+<div class="products-container">
+  <ng-container *ngFor="let product of products">
+    <div class="card-item">
+      <app-product-item
+        (productAdded)="onProductAdd($event)"
+        (productRemoved)="onProductRemoved($event)"
+        [product]="product"
+      >
+      </app-product-item>
+    </div>
+  </ng-container>
+</div>

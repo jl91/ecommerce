@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationItem} from "../../shared/component/layout/navigation/navigation-item.model";
-import {Subscription} from "rxjs";
-import {MenuService} from "../../shared/service/menu.service";
-import {ActivatedRoute, Event, NavigationEnd, Router} from "@angular/router";
-import {Title} from "@angular/platform-browser";
+import {NavigationItem} from '../../shared/component/layout/navigation/navigation-item.model';
+import {Subscription} from 'rxjs';
+import {MenuService} from '../../shared/service/menu.service';
+import {ActivatedRoute, Event, NavigationEnd, Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-restricted-area',
@@ -12,13 +12,10 @@ import {Title} from "@angular/platform-browser";
 })
 export class RestrictedAreaComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription = new Subscription();
-
   public menu: Array<NavigationItem> = [];
-
   public isMenuOpened: boolean = true;
-
   public title: string = '';
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private menuService: MenuService,
@@ -33,6 +30,10 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
     this.setTitle();
     this.registerOnRouterNavigationEvents();
     this.resisterOnLeftMenu();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private configureMenu(): void {
@@ -55,7 +56,7 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
     const data = this.activatedRoute.snapshot.firstChild.data;
     this.title = data && data['title'] || '';
     const browserTabTitle = `E-commerce - ${this.title}`;
-    this.titleService.setTitle(browserTabTitle)
+    this.titleService.setTitle(browserTabTitle);
   }
 
   private resisterOnLeftMenu(): void {
@@ -63,10 +64,6 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
       .getToggleMenuObservable()
       .subscribe(status => this.isMenuOpened = status);
     this.subscriptions.add(subscription);
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
 }
