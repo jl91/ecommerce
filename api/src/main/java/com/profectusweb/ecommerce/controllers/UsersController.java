@@ -1,13 +1,12 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.UserEntity;
+import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
 import com.profectusweb.ecommerce.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,20 +14,42 @@ import java.math.BigInteger;
 
 @RestController()
 @RequestMapping("/users")
-public class UsersController extends BaseController<UserEntity> {
-
-    UsersService usersService;
+public class UsersController {
 
     @Autowired
-    public UsersController(
-            UsersRepository usersRepository,
-            UsersService usersService
-    ) {
-        super("User",
-                usersRepository
-        );
+    UsersService usersService;
 
-        this.usersService = usersService;
+
+    @Autowired
+    UsersRepository usersRepository;
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<UserEntity> all(
+            @RequestParam(name = "username", required = false) String username
+    ) {
+
+        /**
+         * I know that's not the best way to implement filters, we should consider to prepare this endpoint
+         * for every incomming queryParam, but to not spend more time i've implemented these if
+         * */
+
+        if (username.isEmpty()) {
+            return usersRepository.findByDeletedAtIsNull();
+        }
+
+        return this.usersRepository
+                .findAllByUsernameAndDeletedAtIsNull(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    }
+
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserEntity byId(@PathVariable(name = "id") BigInteger id) throws ResourceNotFoundException {
+        return usersRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", id));
     }
 
     @PostMapping

@@ -2,25 +2,28 @@ import {Injectable} from '@angular/core';
 import {AuthenticationService} from '../../../core/authentication/authentication.service';
 import {StorageService} from '../../../core/session/storage.service';
 import {AuthenticationModel} from '../../../core/authentication/authentication.model';
-import {StorageTypeEnum} from '../../../core/session/storage-type.enum';
-import {AuthenticationEnum} from '../../../core/authentication/authentication.enum';
 import {Router} from '@angular/router';
+import {UsersHttpService} from '../../../core/users/users-http.service';
 
 
 @Injectable()
 export class LoginService {
 
+  private username: string;
+
   constructor(
-    private authorizationService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private usersHttpService: UsersHttpService
   ) {
   }
 
 
   public login(username: string, password: string): void {
-    this.authorizationService
-      .login(username, password)
+    this.username = username;
+    this.authenticationService
+      .authenticate(username, password)
       .subscribe(
         this.processLogin.bind(this),
         console.error.bind(console)
@@ -28,15 +31,16 @@ export class LoginService {
   }
 
   private processLogin(data: AuthenticationModel): void {
-    const storage = this.getConfiguredSessionStorage();
-    storage.setItem('data', data);
-    this.router.navigate(['/restricted']);
-  }
+    this.authenticationService.save(data);
 
-  public getConfiguredSessionStorage(): StorageService {
-    return this.storageService
-      .setStorageType(StorageTypeEnum.SESSION_STORAGE)
-      .setNamespace(AuthenticationEnum.NAMESPACE);
-  }
+    if (!this.authenticationService.hasCredentials) {
+      return;
+    }
 
+    // @ts-ignore
+    this.usersHttpService
+      .fetchUsersByUsername(this.username)
+      .subscribe(console.log.bind(console));
+
+  }
 }

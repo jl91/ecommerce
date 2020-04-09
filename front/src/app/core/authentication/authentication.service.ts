@@ -4,11 +4,17 @@ import {Observable} from 'rxjs';
 import {AuthenticationModel} from './authentication.model';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
+import {StorageService} from '../session/storage.service';
+import {StorageTypeEnum} from '../session/storage-type.enum';
+import {AuthenticationEnum} from './authentication.enum';
 
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private storageService: StorageService,
+  ) {
 
   }
 
@@ -16,17 +22,7 @@ export class AuthenticationService {
     return `${environment.apiBaseUrl}/oauth/token`;
   }
 
-  private get authorizationHeader(): HttpHeaders {
-    const {client_id, client_secret} = environment;
-    const headers = new HttpHeaders();
-
-    return headers.append(
-      'Authorization',
-      `Basic ${btoa(`${client_id}:${client_secret}`)}`
-    );
-  }
-
-  public login(username: string, password: string): Observable<AuthenticationModel> {
+  public authenticate(username: string, password: string): Observable<AuthenticationModel> {
     const body = new FormData();
     body.append('grant_type', 'password');
     body.append('scope', 'all');
@@ -35,14 +31,32 @@ export class AuthenticationService {
     return this.httpClient
       .post(
         this.url,
-        body,
-        {
-          headers: this.authorizationHeader
-        },
+        body
       )
       .pipe(map((result: any) => {
         return result as AuthenticationModel;
       }));
+  }
+
+  public get hasCredentials(): boolean {
+    return this.storageService
+      .hasItem(AuthenticationEnum.AUTH_KEY);
+  }
+
+  public get credentials(): AuthenticationModel {
+    return this.authenticationStorage
+      .getItem(AuthenticationEnum.AUTH_KEY);
+  }
+
+  public get authenticationStorage(): StorageService {
+    return this.storageService
+      .setStorageType(StorageTypeEnum.SESSION_STORAGE)
+      .setNamespace(AuthenticationEnum.NAMESPACE);
+  }
+
+  public save(data: AuthenticationModel) {
+    this.authenticationStorage
+      .setItem(AuthenticationEnum.AUTH_KEY, data);
   }
 
 
