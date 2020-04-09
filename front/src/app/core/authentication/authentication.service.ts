@@ -39,12 +39,12 @@ export class AuthenticationService {
   }
 
   public get hasCredentials(): boolean {
-    return this.storageService
+    return this.authenticationStorage
       .hasItem(AuthenticationEnum.AUTH_KEY);
   }
 
   public get hasLoggedUser(): boolean {
-    return this.storageService
+    return this.authenticationStorage
       .hasItem(AuthenticationEnum.LOGGED_USER_KEY);
   }
 

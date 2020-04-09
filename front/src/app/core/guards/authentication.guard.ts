@@ -13,8 +13,6 @@ export class AuthenticationGuard implements CanLoad {
 
   canLoad(route: Route): boolean {
 
-    console.log(route.path)
-
     if (this.authentication.hasLoggedUser) {
       return true;
     }
