@@ -27,7 +27,7 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
         RoleEntity roleEntity = rolesService.getRoleServieById(data.roleId);
 
         userEntity.setName(data.name)
-                .setUsername(data.username)
+                .setUsername(data.username.toLowerCase())
                 .setPassword(data.password)
                 .setRole(roleEntity)
         ;

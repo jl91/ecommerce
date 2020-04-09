@@ -61,7 +61,6 @@ public class UsersController {
     public UserEntity create(
             @Valid @RequestBody UsersRequestBody incommingRequestBody
     ) {
-        incommingRequestBody.username = incommingRequestBody.username.toLowerCase();
         return this.usersService
                 .create(incommingRequestBody);
     }
