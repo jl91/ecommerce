@@ -19,6 +19,7 @@ export class AuthorizationService {
   private get authorizationHeader(): HttpHeaders {
     const {client_id, client_secret} = environment;
     const headers = new HttpHeaders();
+
     return headers.append(
       'Authorization',
       `Basic ${btoa(`${client_id}:${client_secret}`)}`
@@ -26,19 +27,22 @@ export class AuthorizationService {
   }
 
   public login(username: string, password: string): Observable<AuthorizationModel> {
-    return this.httpClient.post(this.url, {
-        grant_type: 'password',
-        scope: 'all',
-        username,
-        password
-      },
-      {
-        headers: this.authorizationHeader
-      },
-    ).pipe(map((result: any) => {
-      console.log(result);
-      return result as AuthorizationModel;
-    }));
+    const body = new FormData();
+    body.append('grant_type', 'password');
+    body.append('scope', 'all');
+    body.append('username', username);
+    body.append('password', password);
+    return this.httpClient
+      .post(
+        this.url,
+        body,
+        {
+          headers: this.authorizationHeader
+        },
+      )
+      .pipe(map((result: any) => {
+        return result as AuthorizationModel;
+      }));
   }
 
 

@@ -1,7 +1,10 @@
 {
-  "/api/*": {
-    "target": "http://localhost:8080",
-    "secure": true,
-    "logLevel": "debug"
+  "/api": {
+    "target": "http://localhost:8080/",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
   }
 }
