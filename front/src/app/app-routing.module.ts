@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AuthenticationGuard} from './core/guards/authentication.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     path: 'restricted',
     loadChildren: () => import('./pages/restricted-area/restricted-area.module')
       .then(m => m.RestrictedAreaModule),
+    canLoad: [AuthenticationGuard]
   },
 ];
 

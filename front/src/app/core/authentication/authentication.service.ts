@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationModel} from './authentication.model';
 import {environment} from '../../../environments/environment';
@@ -43,6 +43,11 @@ export class AuthenticationService {
       .hasItem(AuthenticationEnum.AUTH_KEY);
   }
 
+  public get hasLoggedUser(): boolean {
+    return this.storageService
+      .hasItem(AuthenticationEnum.LOGGED_USER_KEY);
+  }
+
   public get credentials(): AuthenticationModel {
     return this.authenticationStorage
       .getItem(AuthenticationEnum.AUTH_KEY);
@@ -54,9 +59,9 @@ export class AuthenticationService {
       .setNamespace(AuthenticationEnum.NAMESPACE);
   }
 
-  public save(data: AuthenticationModel) {
+  public save(key: AuthenticationEnum, data: any) {
     this.authenticationStorage
-      .setItem(AuthenticationEnum.AUTH_KEY, data);
+      .setItem(key, data);
   }
 
 

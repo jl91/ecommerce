@@ -4,6 +4,8 @@ import {StorageService} from '../../../core/session/storage.service';
 import {AuthenticationModel} from '../../../core/authentication/authentication.model';
 import {Router} from '@angular/router';
 import {UsersHttpService} from '../../../core/users/users-http.service';
+import {User} from '../../../core/users/user.model';
+import {AuthenticationEnum} from '../../../core/authentication/authentication.enum';
 
 
 @Injectable()
@@ -19,28 +21,33 @@ export class LoginService {
   ) {
   }
 
-
   public login(username: string, password: string): void {
     this.username = username;
     this.authenticationService
       .authenticate(username, password)
       .subscribe(
-        this.processLogin.bind(this),
+        this.processAuthentication.bind(this),
         console.error.bind(console)
       );
   }
 
-  private processLogin(data: AuthenticationModel): void {
-    this.authenticationService.save(data);
+  private processAuthentication(authentication: AuthenticationModel): void {
+    this.authenticationService
+      .save(AuthenticationEnum.AUTH_KEY, authentication);
 
     if (!this.authenticationService.hasCredentials) {
       return;
     }
 
-    // @ts-ignore
-    this.usersHttpService
+    const subscription = this.usersHttpService
       .fetchUsersByUsername(this.username)
-      .subscribe(console.log.bind(console));
+      .subscribe((user: User) => {
 
+        this.authenticationService
+          .save(AuthenticationEnum.LOGGED_USER_KEY, user);
+
+        this.router.navigate(['/restricted']);
+        subscription.unsubscribe();
+      });
   }
 }
