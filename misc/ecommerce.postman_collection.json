@@ -11,14 +11,23 @@
 				{
 					"name": "roles find",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/roles/",
+							"raw": "{{BASE_URL}}/roles/",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"roles",
 								""
@@ -30,6 +39,16 @@
 				{
 					"name": "roles create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -42,11 +61,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/roles",
+							"raw": "{{BASE_URL}}/roles",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"roles"
 							]
@@ -57,6 +75,16 @@
 				{
 					"name": "update update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -69,11 +97,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/roles/2",
+							"raw": "{{BASE_URL}}/roles/2",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"roles",
 								"2"
@@ -85,14 +112,23 @@
 				{
 					"name": "roles delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/roles/5",
+							"raw": "{{BASE_URL}}/roles/5",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"roles",
 								"5"
@@ -110,14 +146,23 @@
 				{
 					"name": "products get all",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/products/",
+							"raw": "{{BASE_URL}}/products/",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"products",
 								""
@@ -129,6 +174,16 @@
 				{
 					"name": "insert products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -141,11 +196,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/products",
+							"raw": "{{BASE_URL}}/products",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"products"
 							]
@@ -156,6 +210,16 @@
 				{
 					"name": "update products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -168,11 +232,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/products/1",
+							"raw": "{{BASE_URL}}/products/1",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"products",
 								"1"
@@ -184,14 +247,23 @@
 				{
 					"name": "delete Products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/products/33",
+							"raw": "{{BASE_URL}}/products/33",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"products",
 								"33"
@@ -209,14 +281,23 @@
 				{
 					"name": "Get Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/users",
+							"raw": "{{BASE_URL}}/users",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"users"
 							]
@@ -227,6 +308,16 @@
 				{
 					"name": "persist users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -239,11 +330,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/users",
+							"raw": "{{BASE_URL}}/users",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"users"
 							]
@@ -254,6 +344,16 @@
 				{
 					"name": "update users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -266,11 +366,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/users/11",
+							"raw": "{{BASE_URL}}/users/11",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"11"
@@ -282,14 +381,23 @@
 				{
 					"name": "Delete Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/users/11",
+							"raw": "{{BASE_URL}}/users/11",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"11"
@@ -307,10 +415,26 @@
 				{
 					"name": "get all carts",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{BASE_URL}}/carts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"carts"
+							]
 						}
 					},
 					"response": []
@@ -318,6 +442,16 @@
 				{
 					"name": "add Items to cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -330,11 +464,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/carts/6/items",
+							"raw": "{{BASE_URL}}/carts/6/items",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"carts",
 								"6",
@@ -347,14 +480,23 @@
 				{
 					"name": "remove item from cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carts/6/items/9",
+							"raw": "{{BASE_URL}}/carts/6/items/9",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"carts",
 								"6",
@@ -368,6 +510,16 @@
 				{
 					"name": "persists cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTHORIZATION_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -380,14 +532,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/carts/",
+							"raw": "{{BASE_URL}}/carts",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
-								"carts",
-								""
+								"carts"
 							]
 						}
 					},
@@ -401,6 +551,18 @@
 			"item": [
 				{
 					"name": "generate-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57b8c74d-ccb6-4ae0-b47f-bbbfac3ca122",
+								"exec": [
+									"pm.enviroment.set"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
 					},
@@ -410,12 +572,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "ecommerce",
+									"value": "{{BASIC_AUTH_PASSWORD}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "ecommerce",
+									"value": "{{BASIC_AUTH_USERNAME}}",
 									"type": "string"
 								}
 							]
@@ -445,14 +607,16 @@
 									"value": "master",
 									"type": "text"
 								}
-							]
+							],
+							"options": {
+								"formdata": {}
+							}
 						},
 						"url": {
-							"raw": "localhost:8080/oauth/token",
+							"raw": "{{BASE_URL}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{BASE_URL}}"
 							],
-							"port": "8080",
 							"path": [
 								"oauth",
 								"token"
