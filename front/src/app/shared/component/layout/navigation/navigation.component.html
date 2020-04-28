@@ -30,9 +30,9 @@
           {{ node.menuItem.icon }}
         </mat-icon>
 
-        <p [ngClass]="{'menu-with-subitem': !node?.menuItem?.icon}">
+        <span [ngClass]="{'menu-with-subitem': !node?.menuItem?.icon}">
           {{node.menuItem.name}}
-        </p>
+        </span>
 
       </a>
 

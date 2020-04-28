@@ -29,10 +29,11 @@ export class MenuService {
     },
     {
       name: 'Products',
+      icon: 'card_giftcard',
       children: [
         {
           name: 'List',
-          icon: 'card_giftcard',
+          icon: 'list',
           routerLink: ['/restricted/products'],
         },
         {
