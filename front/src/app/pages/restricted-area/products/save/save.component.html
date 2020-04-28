@@ -1,1 +1,59 @@
-save.component.html
+<form [formGroup]="productForm">
+  <mat-grid-list cols="6"
+                 gutterSize="25px"
+                 rowHeight="100px"
+  >
+
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="w-100">
+        <mat-label>
+          SKU:
+        </mat-label>
+        <input [formControlName]="'sku'"
+               matInput
+               type="text"
+        >
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="w-100">
+        <mat-label>
+          Name:
+        </mat-label>
+        <input [formControlName]="'name'"
+               matInput
+               type="text"
+        >
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="w-100">
+        <mat-label>
+          Value:
+        </mat-label>
+        <input [formControlName]="'value'"
+               matInput
+               type="number"
+        >
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="6"
+                   rowspan="2"
+    >
+      <mat-form-field class="w-100 h-inherit">
+        <mat-label>
+          Description:
+        </mat-label>
+        <textarea [formControlName]="'description'"
+                  matInput
+                  class="h-100"
+                  rows="12"
+        >
+        </textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

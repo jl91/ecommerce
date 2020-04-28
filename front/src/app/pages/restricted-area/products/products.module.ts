@@ -10,6 +10,8 @@ import {SearchComponent} from './list/search/search.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SaveComponent} from './save/save.component';
+import {ProductForm} from "./save/product.form";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import {SaveComponent} from './save/save.component';
     MatIconModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     ProductsListComponent,
@@ -32,7 +35,9 @@ import {SaveComponent} from './save/save.component';
     SearchComponent,
     SaveComponent
   ],
-  providers: [],
+  providers: [
+    ProductForm
+  ],
 })
 export class ProductsModule {
 }
