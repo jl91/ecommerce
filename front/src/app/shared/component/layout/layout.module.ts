@@ -9,19 +9,21 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatBadgeModule} from '@angular/material/badge';
 import {HeaderModule} from './header/header.module';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
-    MatBadgeModule,
-    HeaderModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDividerModule,
+        MatBadgeModule,
+        HeaderModule,
+        MatTreeModule
+    ],
   exports: [
     HeaderModule,
     NavigationComponent,

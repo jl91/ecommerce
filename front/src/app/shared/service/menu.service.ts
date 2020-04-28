@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {NavigationItem} from '../component/layout/navigation/navigation-item.model';
+import {MenuItem} from '../component/layout/navigation/menu-item.model';
 
 @Injectable()
 export class MenuService {
@@ -10,31 +10,31 @@ export class MenuService {
   constructor() {
   }
 
-  private _isMenuOpened: boolean = true;
+  private _isMenuOpened = true;
 
   public get isMenuOpened(): boolean {
     return this._isMenuOpened;
   }
 
-  private _menu: Array<NavigationItem> = [
+  private _menu: Array<MenuItem> = [
     {
       name: 'Home',
       icon: 'home',
-      route: ['/restricted/home']
+      routerLink: ['/restricted/home']
     },
     {
       name: 'Customers',
       icon: 'supervisor_account',
-      route: ['/restricted/customer']
+      routerLink: ['/restricted/customer']
     },
     {
       name: 'Products',
       icon: 'card_giftcard',
-      route: ['/restricted/products']
+      routerLink: ['/restricted/products']
     }
   ];
 
-  public get menu(): Array<NavigationItem> {
+  public get menu(): Array<MenuItem> {
     return this._menu;
   }
 
