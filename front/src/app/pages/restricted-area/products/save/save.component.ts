@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductForm} from './product.form';
+import {ProductsHttpService} from "../../../../core/products/products-http.service";
+import {Product} from "../../../../core/products/product.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-save',
@@ -10,7 +13,9 @@ import {ProductForm} from './product.form';
 })
 export class SaveComponent implements OnInit {
   constructor(
-    public productForm: ProductForm
+    public productForm: ProductForm,
+    private productsHttpService: ProductsHttpService,
+    private router: Router
   ) {
   }
 
@@ -18,20 +23,28 @@ export class SaveComponent implements OnInit {
   }
 
   public onSubmit(event: any): void {
-    console.log(event);
-
     if (this.productForm.invalid) {
       return this.productForm.markAllAsTouched();
     }
 
     const {sku, name, value, description} = this.productForm.getRawValue();
 
-    console.table({
-      sku,
-      name,
-      value,
-      description
-    });
+    const subscription = this.productsHttpService
+      .save({
+        sku,
+        name,
+        value,
+        description
+      })
+      .subscribe((product: Product) => {
+        console.log(product);
+        subscription.unsubscribe();
+        this.productForm.reset();
+        this.redirect();
+      });
+  }
 
+  private redirect(): void {
+    this.router.navigate(['/restricted/products']);
   }
 }
