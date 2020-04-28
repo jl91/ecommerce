@@ -1,31 +1,44 @@
 <mat-card class="mat-elevation-z8">
+
   <mat-card-header>
     <mat-card-title>
-      {{ product.name}}
+      {{ product.name }}
     </mat-card-title>
+
     <mat-card-subtitle>
-      {{ product.sku}}
+      {{ product.sku }}
     </mat-card-subtitle>
   </mat-card-header>
+
   <img [alt]="product.description"
        [src]="'https://smartmockupsv2.imgix.net/digital_smartmockups_galaxy_s20_2_pr.jpg'"
        mat-card-image
   >
+
   <mat-card-content>
     <p>
       {{ product.description }}
     </p>
   </mat-card-content>
+
   <mat-card-actions>
-    <button mat-icon-button (click)="add(product)">
+
+    <button (click)="add(product)"
+            mat-icon-button
+    >
       <mat-icon>
         add_shopping_cart
       </mat-icon>
     </button>
-    <button mat-icon-button (click)="remove(product)">
+
+    <button (click)="remove(product)"
+            mat-icon-button
+    >
       <mat-icon>
         remove_shopping_cart
       </mat-icon>
     </button>
+
   </mat-card-actions>
+
 </mat-card>

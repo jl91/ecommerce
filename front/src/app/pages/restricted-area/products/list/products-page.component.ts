@@ -1,12 +1,14 @@
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ProductsHttpService} from '../../../core/products/products-http.service';
-import {Product} from '../../../core/products/product.model';
-import {CartsService} from '../../../shared/component/cart/service/carts.service';
+import {ProductsHttpService} from '../../../../core/products/products-http.service';
+import {Product} from '../../../../core/products/product.model';
+import {CartsService} from '../../../../shared/component/cart/service/carts.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss'],
+  styleUrls: [
+    './products-page.component.scss'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsPageComponent implements OnInit, AfterViewInit {

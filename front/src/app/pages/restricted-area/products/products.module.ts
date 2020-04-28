@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ProductItemComponent} from './product/product-item.component';
+import {ProductItemComponent} from './list/product/product-item.component';
 import {MatCardModule} from '@angular/material/card';
-import {ProductsPageComponent} from './products-page.component';
+import {ProductsPageComponent} from './list/products-page.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule
   ],
   exports: [
     ProductsPageComponent,

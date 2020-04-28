@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {CustomersComponent} from './customers/customers.component';
-import {ProductsPageComponent} from './products/products-page.component';
+import {ProductsPageComponent} from './products/list/products-page.component';
 import {RestrictedAreaComponent} from './restricted-area.component';
 
 

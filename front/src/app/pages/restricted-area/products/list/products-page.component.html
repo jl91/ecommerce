@@ -1,5 +1,8 @@
-<div class="products-container">
-  <ng-container *ngFor="let product of products">
+<mat-grid-list cols="6"
+               gutterSize="25px"
+               rowHeight="400px"
+>
+  <mat-grid-tile *ngFor="let product of products">
     <div class="card-item">
       <app-product-item
         (productAdded)="onProductAdd($event)"
@@ -8,5 +11,6 @@
       >
       </app-product-item>
     </div>
-  </ng-container>
-</div>
+  </mat-grid-tile>
+
+</mat-grid-list>
