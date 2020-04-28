@@ -2,13 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProductItemComponent} from './list/product/product-item.component';
 import {MatCardModule} from '@angular/material/card';
-import {ProductsPageComponent} from './list/products-page.component';
+import {ProductsListComponent} from './list/products-list.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {SearchComponent} from './list/search/search.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {SaveComponent} from './save/save.component';
 
 @NgModule({
   imports: [
@@ -21,14 +22,15 @@ import {MatInputModule} from '@angular/material/input';
     MatInputModule
   ],
   exports: [
-    ProductsPageComponent,
+    ProductsListComponent,
     ProductItemComponent,
     SearchComponent
   ],
   declarations: [
-    ProductsPageComponent,
+    ProductsListComponent,
     ProductItemComponent,
-    SearchComponent
+    SearchComponent,
+    SaveComponent
   ],
   providers: [],
 })

@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {CustomersComponent} from './customers/customers.component';
-import {ProductsPageComponent} from './products/list/products-page.component';
+import {ProductsListComponent} from './products/list/products-list.component';
 import {RestrictedAreaComponent} from './restricted-area.component';
+import {SaveComponent} from "./products/save/save.component";
 
 
 const routes: Routes = [
@@ -32,10 +33,17 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        component: ProductsPageComponent,
+        component: ProductsListComponent,
         data: {
           title: 'Products'
-        }
+        },
+      },
+      {
+        path: 'products/create',
+        component: SaveComponent,
+        data: {
+          title: 'Add Product'
+        },
       }
     ]
   },

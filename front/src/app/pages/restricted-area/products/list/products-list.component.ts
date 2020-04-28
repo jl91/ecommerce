@@ -5,13 +5,13 @@ import {CartsService} from '../../../../shared/component/cart/service/carts.serv
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products-page.component.html',
+  templateUrl: './products-list.component.html',
   styleUrls: [
-    './products-page.component.scss'
+    './products-list.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsPageComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
 
   public products: Array<Product> = [];
 
