@@ -21,8 +21,13 @@
     <mat-tree-node *matTreeNodeDef="let node; when: hasChild.bind(this)"
       matTreeNodePadding
     >
+      <mat-icon *ngIf="node?.menuItem?.icon"
+        class="menu-with-subitem"
+      >
+        {{ node.menuItem.icon }}
+      </mat-icon>
 
-      <strong>
+      <strong [ngClass]="{'menu-with-subitem': !node?.menuItem?.icon}">
         {{node.menuItem.name}}
       </strong>
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {MenuItem} from '../component/layout/navigation/menu-item.model';
+import {MenuItem} from '../menu-item.model';
 
 @Injectable()
 export class MenuService {
@@ -29,8 +29,18 @@ export class MenuService {
     },
     {
       name: 'Products',
-      icon: 'card_giftcard',
-      routerLink: ['/restricted/products']
+      children: [
+        {
+          name: 'List',
+          icon: 'card_giftcard',
+          routerLink: ['/restricted/products'],
+        },
+        {
+          name: 'Add',
+          icon: 'add',
+          routerLink: ['/restricted/products/create'],
+        }
+      ]
     }
   ];
 

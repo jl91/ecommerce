@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {MenuService} from '../../shared/service/menu.service';
+import {MenuService} from '../../shared/component/layout/navigation/service/menu.service';
 import {ActivatedRoute, Event, NavigationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {MenuItem} from '../../shared/component/layout/navigation/menu-item.model';

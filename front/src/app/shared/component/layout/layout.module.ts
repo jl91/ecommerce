@@ -10,20 +10,21 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatBadgeModule} from '@angular/material/badge';
 import {HeaderModule} from './header/header.module';
 import {MatTreeModule} from '@angular/material/tree';
+import {MenuService} from './navigation/service/menu.service';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatDividerModule,
-        MatBadgeModule,
-        HeaderModule,
-        MatTreeModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatBadgeModule,
+    HeaderModule,
+    MatTreeModule
+  ],
   exports: [
     HeaderModule,
     NavigationComponent,
@@ -31,7 +32,9 @@ import {MatTreeModule} from '@angular/material/tree';
   declarations: [
     NavigationComponent
   ],
-  providers: [],
+  providers: [
+    MenuService
+  ],
 })
 export class LayoutModule {
 }
