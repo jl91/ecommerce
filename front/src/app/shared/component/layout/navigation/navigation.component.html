@@ -21,24 +21,20 @@
     <mat-tree-node *matTreeNodeDef="let node; when: hasChild.bind(this)"
       matTreeNodePadding
     >
-      <mat-icon *ngIf="node?.menuItem?.icon"
-        class="menu-with-subitem"
+      <a class="toggle"
+         matTreeNodeToggle
       >
-        {{ node.menuItem.icon }}
-      </mat-icon>
-
-      <strong [ngClass]="{'menu-with-subitem': !node?.menuItem?.icon}">
-        {{node.menuItem.name}}
-      </strong>
-
-      <button [attr.aria-label]="'toggle ' + node.menuItem.name"
-        mat-icon-button
-        matTreeNodeToggle
-      >
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        <mat-icon *ngIf="node?.menuItem?.icon"
+          class="menu-with-subitem"
+        >
+          {{ node.menuItem.icon }}
         </mat-icon>
-      </button>
+
+        <p [ngClass]="{'menu-with-subitem': !node?.menuItem?.icon}">
+          {{node.menuItem.name}}
+        </p>
+
+      </a>
 
     </mat-tree-node>
   </mat-tree>

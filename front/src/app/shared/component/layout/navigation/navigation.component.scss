@@ -27,6 +27,16 @@
   .menu-with-subitem {
     margin-left: 20px;
     margin-right: 20px;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+
+.toggle {
+  margin-left: 40px;
+  &:hover {
+    cursor: pointer !important;
   }
 }
 
