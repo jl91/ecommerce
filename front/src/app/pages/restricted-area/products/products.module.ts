@@ -5,7 +5,10 @@ import {MatCardModule} from '@angular/material/card';
 import {ProductsPageComponent} from './list/products-page.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {MatGridListModule} from "@angular/material/grid-list";
+import {MatGridListModule} from '@angular/material/grid-list';
+import {SearchComponent} from './list/search/search.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -13,15 +16,19 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     ProductsPageComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    SearchComponent
   ],
   declarations: [
     ProductsPageComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    SearchComponent
   ],
   providers: [],
 })

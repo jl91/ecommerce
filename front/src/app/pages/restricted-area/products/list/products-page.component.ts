@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ProductsHttpService} from '../../../../core/products/products-http.service';
 import {Product} from '../../../../core/products/product.model';
 import {CartsService} from '../../../../shared/component/cart/service/carts.service';
@@ -11,31 +11,27 @@ import {CartsService} from '../../../../shared/component/cart/service/carts.serv
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsPageComponent implements OnInit, AfterViewInit {
+export class ProductsPageComponent implements OnInit {
 
   public products: Array<Product> = [];
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     public productsHttpService: ProductsHttpService,
-    public cartsService: CartsService
+    public cartsService: CartsService,
+    public changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetchProducts();
   }
 
-  ngAfterViewInit(): void {
-    this.changeDetectorRef.detach();
-  }
-
-  onProductAdd(product: Product): void {
+  public onProductAdd(product: Product): void {
     this.cartsService.add(product);
     this.updateView();
   }
 
-  onProductRemoved(product: Product): void {
+  public onProductRemoved(product: Product): void {
     this.cartsService.remove(product);
     this.updateView();
   }
@@ -51,9 +47,7 @@ export class ProductsPageComponent implements OnInit, AfterViewInit {
   }
 
   private updateView(): void {
-    this.changeDetectorRef.reattach();
     this.changeDetectorRef.detectChanges();
-    this.changeDetectorRef.detach();
   }
 
 }

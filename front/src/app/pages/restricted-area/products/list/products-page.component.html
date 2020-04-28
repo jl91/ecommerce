@@ -1,5 +1,14 @@
 <mat-grid-list cols="6"
                gutterSize="25px"
+               rowHeight="100px"
+>
+  <mat-grid-tile colspan="2">
+    <app-search class="w-100"></app-search>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="6"
+               gutterSize="25px"
                rowHeight="400px"
 >
   <mat-grid-tile *ngFor="let product of products">
