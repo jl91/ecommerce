@@ -1,9 +1,11 @@
 <div class="menu-container">
   <ng-container *ngFor="let item of menu">
     <div class="list-item">
-      <mat-icon>
+
+      <mat-icon color="primary">
         {{ item.icon }}
       </mat-icon>
+
       <a [routerLink]="item.route"
         mat-list-item
       >
