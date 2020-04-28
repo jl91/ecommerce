@@ -2,14 +2,13 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {CartItem} from '../model/cart-item.model';
 
 @Pipe({
-  name: 'printCart'
+  name: 'printCartItem'
 })
-export class PrintCartPipePipe implements PipeTransform {
+export class PrintCartItemPipe implements PipeTransform {
   transform(value: CartItem): string {
     return [
       value.sku,
-      value.product.name,
-      value.quantity
-    ].join('-');
+      value.product.name
+    ].join(' - ');
   }
 }

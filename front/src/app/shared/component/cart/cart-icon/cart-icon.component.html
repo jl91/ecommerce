@@ -1,6 +1,6 @@
-<button mat-icon-button
+<button [matMenuTriggerFor]="cartMenu"
+        mat-icon-button
         type="button"
-        [matMenuTriggerFor]="cartMenu"
 >
   <mat-icon
     [matBadge]="cartItemsInView.length"
@@ -14,19 +14,28 @@
 <mat-menu #cartMenu="matMenu">
   <ng-template matMenuContent>
 
-    <ng-container *ngFor="let item of cartItemsInView;">
+    <div *ngIf="!cartItemsInView.length"
+         [disabled]="true"
+         mat-menu-item
+    >
+      Não há produtos no carrinho
+    </div>
+
+    <ng-container *ngIf="cartItemsInView.length">
+      <ng-container *ngFor="let item of cartItemsInView;">
+
+        <div mat-menu-item>
+          {{ item | printCartItem }}
+        </div>
+
+        <mat-divider></mat-divider>
+
+      </ng-container>
 
       <button mat-menu-item>
-        {{ item | printCart }}
+        Finalizar compra
       </button>
 
     </ng-container>
-
-    <mat-divider></mat-divider>
   </ng-template>
-
-  <button mat-menu-item>
-    Finalizar compra
-  </button>
-
 </mat-menu>

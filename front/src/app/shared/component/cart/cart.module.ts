@@ -4,7 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {CommonModule} from '@angular/common';
 import {MatMenuModule} from '@angular/material/menu';
-import {PrintCartPipePipe} from './pipe/print-cart.pipe';
+import {PrintCartItemPipe} from './pipe/print-cart.pipe';
 import {CartsService} from './service/carts.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -16,14 +16,14 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatIconModule,
     MatDividerModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
   exports: [
     CartIconComponent
   ],
   declarations: [
     CartIconComponent,
-    PrintCartPipePipe
+    PrintCartItemPipe
   ],
   providers: [
     CartsService
