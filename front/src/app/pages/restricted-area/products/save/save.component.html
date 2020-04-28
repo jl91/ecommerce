@@ -48,12 +48,37 @@
           Description:
         </mat-label>
         <textarea [formControlName]="'description'"
-                  matInput
                   class="h-100"
+                  matInput
                   rows="12"
         >
         </textarea>
       </mat-form-field>
     </mat-grid-tile>
+    <mat-grid-tile-footer>
+      <mat-grid-tile colspan="6">
+        <div class="w-100 buttons-section">
+          <button color="warn"
+                  mat-raised-button
+                  type="reset"
+          >
+            <mat-icon>
+              undo
+            </mat-icon>
+            Reset
+          </button>
+
+          <button color="primary"
+                  mat-raised-button
+                  type="submit"
+          >
+            <mat-icon>
+              save
+            </mat-icon>
+            Save
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-tile-footer>
   </mat-grid-list>
 </form>
