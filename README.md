@@ -72,3 +72,8 @@ Carrinho:
 - cliente: <>
 - produtos: <>
 - dataCadastro: <>  - data e hora 
+
+
+
+
+Se ocorrer o exited(78) - sudo sysctl -w vm.max_map_count=262144
