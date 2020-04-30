@@ -65,6 +65,20 @@ services:
       ecommerce_default:
         ipv4_address: 10.1.0.102
 
+  ecommerce_rabbitmq:
+    container_name: ecommerce_rabbitmq
+    image: rabbitmq:3-management
+    hostname: ecommerce_rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "test_cluster"
+    ports:
+      - "4369:4369"
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      ecommerce_default:
+        ipv4_address: 10.1.0.103
+
 networks:
   ecommerce_default:
     driver: bridge
