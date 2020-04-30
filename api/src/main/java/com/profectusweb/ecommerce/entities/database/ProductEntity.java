@@ -1,6 +1,8 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
-import org.springframework.security.core.GrantedAuthority;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,8 +10,8 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "roles")
-public class RoleEntity implements Serializable, GrantedAuthority {
+@Table(name = "products")
+public class ProductEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,8 +19,17 @@ public class RoleEntity implements Serializable, GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
+    @Column(name = "sku", nullable = false)
+    private String sku;
+
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "value", nullable = false)
+    private Float value;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
@@ -33,8 +44,17 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         return id;
     }
 
-    public RoleEntity setId(BigInteger id) {
+    public ProductEntity setId(BigInteger id) {
         this.id = id;
+        return this;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public ProductEntity setSku(String sku) {
+        this.sku = sku;
         return this;
     }
 
@@ -42,8 +62,26 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         return name;
     }
 
-    public RoleEntity setName(String name) {
+    public ProductEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ProductEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Float getValue() {
+        return value;
+    }
+
+    public ProductEntity setValue(Float value) {
+        this.value = value;
         return this;
     }
 
@@ -51,7 +89,7 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         return createdAt;
     }
 
-    private RoleEntity setCreatedAt(LocalDateTime createdAt) {
+    private ProductEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -60,7 +98,7 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         return updatedAt;
     }
 
-    private RoleEntity setUpdatedAt(LocalDateTime updatedAt) {
+    private ProductEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -69,7 +107,7 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         return deletedAt;
     }
 
-    private RoleEntity setDeletedAt(LocalDateTime deletedAt) {
+    private ProductEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
         return this;
     }
@@ -89,8 +127,16 @@ public class RoleEntity implements Serializable, GrantedAuthority {
         this.setDeletedAt(LocalDateTime.now());
     }
 
+    public String toJsonString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
+    }
+
     @Override
-    public String getAuthority() {
-        return this.getName();
+    public ElasticSearchEntity toElasticEntity() {
+        return null;
     }
 }

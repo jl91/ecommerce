@@ -1,6 +1,6 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
-import org.hibernate.annotations.Where;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cart_items")
-public class CartItemEntity implements Serializable {
+public class CartItemEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -135,5 +135,10 @@ public class CartItemEntity implements Serializable {
     @PreRemove
     public void preRemove() {
         this.setDeletedAt(LocalDateTime.now());
+    }
+
+    @Override
+    public ElasticSearchEntity toElasticEntity() {
+        return null;
     }
 }

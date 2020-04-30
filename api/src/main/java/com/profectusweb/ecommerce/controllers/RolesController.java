@@ -1,7 +1,7 @@
 package com.profectusweb.ecommerce.controllers;
 
-import com.profectusweb.ecommerce.entities.RoleEntity;
-import com.profectusweb.ecommerce.repositories.RolesRepository;
+import com.profectusweb.ecommerce.entities.database.RoleEntity;
+import com.profectusweb.ecommerce.repositories.database.RolesRepository;
 import com.profectusweb.ecommerce.requests.RolesRequestBody;
 import com.profectusweb.ecommerce.services.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;

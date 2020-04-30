@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.configuration;
 
-import com.profectusweb.ecommerce.entities.UserEntity;
+import com.profectusweb.ecommerce.entities.database.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

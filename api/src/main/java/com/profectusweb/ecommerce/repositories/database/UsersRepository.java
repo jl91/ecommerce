@@ -1,11 +1,12 @@
-package com.profectusweb.ecommerce.repositories;
+package com.profectusweb.ecommerce.repositories.database;
 
-import com.profectusweb.ecommerce.entities.UserEntity;
+import com.profectusweb.ecommerce.entities.database.UserEntity;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface UsersRepository extends BaseRepository<UserEntity, BigInteger> {
 
     @Override

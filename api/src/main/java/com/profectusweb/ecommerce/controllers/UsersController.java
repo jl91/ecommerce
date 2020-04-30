@@ -1,8 +1,8 @@
 package com.profectusweb.ecommerce.controllers;
 
-import com.profectusweb.ecommerce.entities.UserEntity;
+import com.profectusweb.ecommerce.entities.database.UserEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
-import com.profectusweb.ecommerce.repositories.UsersRepository;
+import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
 import com.profectusweb.ecommerce.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;

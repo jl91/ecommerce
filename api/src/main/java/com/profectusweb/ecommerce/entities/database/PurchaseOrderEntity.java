@@ -1,17 +1,15 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
-import org.hibernate.annotations.Where;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "carts")
-public class CartEntity implements Serializable {
+@Table(name = "purchase_order")
+public class PurchaseOrderEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,22 +17,17 @@ public class CartEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
+    @Column(name = "cart_id", nullable = false)
+    private BigInteger cartId;
+
     @Column(name = "user_id", nullable = false)
     private BigInteger userId;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "value", nullable = false)
+    private Float value;
 
-    @Column(name = "total", nullable = false)
-    private Float total;
-
-
-    @OneToMany(
-            mappedBy = "cartId",
-            fetch = FetchType.LAZY
-    )
-    @Where(clause = "deleted_at is null")
-    private List<CartItemEntity> items = new ArrayList<>();
+    @Column(name = "payment_method")
+    private String paymentMethod;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
@@ -49,8 +42,17 @@ public class CartEntity implements Serializable {
         return id;
     }
 
-    public CartEntity setId(BigInteger id) {
+    public PurchaseOrderEntity setId(BigInteger id) {
         this.id = id;
+        return this;
+    }
+
+    public BigInteger getCartId() {
+        return cartId;
+    }
+
+    public PurchaseOrderEntity setCartId(BigInteger cartId) {
+        this.cartId = cartId;
         return this;
     }
 
@@ -58,36 +60,26 @@ public class CartEntity implements Serializable {
         return userId;
     }
 
-    public CartEntity setUserId(BigInteger userId) {
+    public PurchaseOrderEntity setUserId(BigInteger userId) {
         this.userId = userId;
         return this;
     }
 
-    public String getStatus() {
-        return status;
+    public Float getValue() {
+        return value;
     }
 
-    public CartEntity setStatus(String status) {
-        this.status = status;
+    public PurchaseOrderEntity setValue(Float value) {
+        this.value = value;
         return this;
     }
 
-    public Float getTotal() {
-        return total;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public CartEntity setTotal(Float total) {
-        this.total = total;
-        return this;
-    }
-
-    @Where(clause = "deleted_at is null")
-    public List<CartItemEntity> getItems() {
-        return items;
-    }
-
-    public CartEntity setItems(List<CartItemEntity> items) {
-        this.items = items;
+    public PurchaseOrderEntity setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
         return this;
     }
 
@@ -95,7 +87,7 @@ public class CartEntity implements Serializable {
         return createdAt;
     }
 
-    private CartEntity setCreatedAt(LocalDateTime createdAt) {
+    private PurchaseOrderEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -104,7 +96,7 @@ public class CartEntity implements Serializable {
         return updatedAt;
     }
 
-    private CartEntity setUpdatedAt(LocalDateTime updatedAt) {
+    private PurchaseOrderEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -113,7 +105,7 @@ public class CartEntity implements Serializable {
         return deletedAt;
     }
 
-    private CartEntity setDeletedAt(LocalDateTime deletedAt) {
+    private PurchaseOrderEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
         return this;
     }
@@ -131,5 +123,10 @@ public class CartEntity implements Serializable {
     @PreRemove
     public void preRemove() {
         this.setDeletedAt(LocalDateTime.now());
+    }
+
+    @Override
+    public ElasticSearchEntity toElasticEntity() {
+        return null;
     }
 }

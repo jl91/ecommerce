@@ -1,8 +1,8 @@
 package com.profectusweb.ecommerce.services;
 
-import com.profectusweb.ecommerce.entities.ProductEntity;
+import com.profectusweb.ecommerce.entities.database.ProductEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
-import com.profectusweb.ecommerce.repositories.ProductsRepository;
+import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
 import com.profectusweb.ecommerce.requests.ProductsRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

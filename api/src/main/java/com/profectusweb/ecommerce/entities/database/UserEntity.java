@@ -1,5 +1,7 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.UserElasticsearchEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -128,6 +130,15 @@ public class UserEntity implements Serializable {
     @PreRemove
     public void preRemove() {
         this.setDeletedAt(LocalDateTime.now());
+    }
+
+    public ElasticSearchEntity toElasticEntity() {
+        UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
+        elasticSearchEntity.setDatabaseId(this.getId());
+        elasticSearchEntity.setName(this.getName());
+        elasticSearchEntity.setPassword(this.getPassword());
+        elasticSearchEntity.setUsername(this.getUsername());
+        return elasticSearchEntity;
     }
 
 }

@@ -1,8 +1,8 @@
 package com.profectusweb.ecommerce.services;
 
-import com.profectusweb.ecommerce.entities.RoleEntity;
+import com.profectusweb.ecommerce.entities.database.RoleEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
-import com.profectusweb.ecommerce.repositories.RolesRepository;
+import com.profectusweb.ecommerce.repositories.database.RolesRepository;
 import com.profectusweb.ecommerce.requests.RolesRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

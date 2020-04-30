@@ -28,6 +28,6 @@ public class SaveMessage {
 
     @Override
     public String toString() {
-        return String.format("[ id = %d, entity = %s]", id, entity);
+        return String.format("[ id = %d, entity = %s ]", id, entity);
     }
 }

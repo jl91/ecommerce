@@ -23,9 +23,9 @@ services:
     image: elasticsearch:7.6.2
     container_name: ecommerce_elasticsearch
     environment:
-      - node.name=elasticsearch1
-      - cluster.name=docker-cluster
-      - cluster.initial_master_nodes=elasticsearch1
+      - node.name=ecommerce_cluster_1
+      - cluster.name=ecommerce_cluster
+      - cluster.initial_master_nodes=ecommerce_cluster_1
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256M -Xmx256M"
       - http.cors.enabled=true

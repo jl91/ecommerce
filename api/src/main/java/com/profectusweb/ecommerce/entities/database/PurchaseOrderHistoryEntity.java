@@ -1,5 +1,6 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "purchase_order_history")
-public class PurchaseOrderHistoryEntity implements Serializable {
+public class PurchaseOrderHistoryEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,5 +78,10 @@ public class PurchaseOrderHistoryEntity implements Serializable {
     @PreRemove
     public void preRemove() {
         this.setDeletedAt(LocalDateTime.now());
+    }
+
+    @Override
+    public ElasticSearchEntity toElasticEntity() {
+        return null;
     }
 }

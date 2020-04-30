@@ -1,10 +1,12 @@
-package com.profectusweb.ecommerce.repositories;
+package com.profectusweb.ecommerce.repositories.database;
 
-import com.profectusweb.ecommerce.entities.RoleEntity;
+import com.profectusweb.ecommerce.entities.database.RoleEntity;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.util.Optional;
 
+@Repository
 public interface RolesRepository extends BaseRepository<RoleEntity, BigInteger> {
 
     @Override

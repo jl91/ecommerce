@@ -1,8 +1,8 @@
 package com.profectusweb.ecommerce.controllers;
 
-import com.profectusweb.ecommerce.entities.CartEntity;
-import com.profectusweb.ecommerce.entities.CartItemEntity;
-import com.profectusweb.ecommerce.repositories.CartsRepository;
+import com.profectusweb.ecommerce.entities.database.CartEntity;
+import com.profectusweb.ecommerce.entities.database.CartItemEntity;
+import com.profectusweb.ecommerce.repositories.database.CartsRepository;
 import com.profectusweb.ecommerce.requests.CartItemRequestBody;
 import com.profectusweb.ecommerce.requests.CartRequestBody;
 import com.profectusweb.ecommerce.services.CartItemService;

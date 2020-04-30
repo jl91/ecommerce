@@ -1,9 +1,9 @@
 package com.profectusweb.ecommerce.services;
 
-import com.profectusweb.ecommerce.entities.CartEntity;
-import com.profectusweb.ecommerce.entities.CartItemEntity;
+import com.profectusweb.ecommerce.entities.database.CartEntity;
+import com.profectusweb.ecommerce.entities.database.CartItemEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
-import com.profectusweb.ecommerce.repositories.CartsRepository;
+import com.profectusweb.ecommerce.repositories.database.CartsRepository;
 import com.profectusweb.ecommerce.requests.CartRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

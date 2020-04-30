@@ -1,9 +1,9 @@
 package com.profectusweb.ecommerce.configuration;
 
-import com.profectusweb.ecommerce.entities.RoleEntity;
-import com.profectusweb.ecommerce.entities.UserEntity;
-import com.profectusweb.ecommerce.repositories.RolesRepository;
-import com.profectusweb.ecommerce.repositories.UsersRepository;
+import com.profectusweb.ecommerce.entities.database.RoleEntity;
+import com.profectusweb.ecommerce.entities.database.UserEntity;
+import com.profectusweb.ecommerce.repositories.database.RolesRepository;
+import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

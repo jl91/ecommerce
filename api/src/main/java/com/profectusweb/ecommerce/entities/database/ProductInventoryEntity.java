@@ -1,6 +1,6 @@
-package com.profectusweb.ecommerce.entities;
+package com.profectusweb.ecommerce.entities.database;
 
-import org.hibernate.annotations.Where;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,8 +8,8 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "purchase_order")
-public class PurchaseOrderEntity implements Serializable {
+@Table(name = "product_inventory")
+public class ProductInventoryEntity implements Serializable, DatabaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,17 +17,11 @@ public class PurchaseOrderEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
-    @Column(name = "cart_id", nullable = false)
-    private BigInteger cartId;
+    @Column(name = "product_id", nullable = false)
+    private BigInteger productId;
 
-    @Column(name = "user_id", nullable = false)
-    private BigInteger userId;
-
-    @Column(name = "value", nullable = false)
-    private Float value;
-
-    @Column(name = "payment_method")
-    private String paymentMethod;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
@@ -38,48 +32,31 @@ public class PurchaseOrderEntity implements Serializable {
     @Column(name = "deleted_at", columnDefinition = "DATETIME")
     private LocalDateTime deletedAt;
 
+
     public BigInteger getId() {
         return id;
     }
 
-    public PurchaseOrderEntity setId(BigInteger id) {
+    public ProductInventoryEntity setId(BigInteger id) {
         this.id = id;
         return this;
     }
 
-    public BigInteger getCartId() {
-        return cartId;
+    public BigInteger getProductId() {
+        return productId;
     }
 
-    public PurchaseOrderEntity setCartId(BigInteger cartId) {
-        this.cartId = cartId;
+    public ProductInventoryEntity setProductId(BigInteger productId) {
+        this.productId = productId;
         return this;
     }
 
-    public BigInteger getUserId() {
-        return userId;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public PurchaseOrderEntity setUserId(BigInteger userId) {
-        this.userId = userId;
-        return this;
-    }
-
-    public Float getValue() {
-        return value;
-    }
-
-    public PurchaseOrderEntity setValue(Float value) {
-        this.value = value;
-        return this;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public PurchaseOrderEntity setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public ProductInventoryEntity setQuantity(Integer quantity) {
+        this.quantity = quantity;
         return this;
     }
 
@@ -87,7 +64,7 @@ public class PurchaseOrderEntity implements Serializable {
         return createdAt;
     }
 
-    private PurchaseOrderEntity setCreatedAt(LocalDateTime createdAt) {
+    private ProductInventoryEntity setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -96,7 +73,7 @@ public class PurchaseOrderEntity implements Serializable {
         return updatedAt;
     }
 
-    private PurchaseOrderEntity setUpdatedAt(LocalDateTime updatedAt) {
+    private ProductInventoryEntity setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -105,7 +82,7 @@ public class PurchaseOrderEntity implements Serializable {
         return deletedAt;
     }
 
-    private PurchaseOrderEntity setDeletedAt(LocalDateTime deletedAt) {
+    private ProductInventoryEntity setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
         return this;
     }
@@ -123,5 +100,10 @@ public class PurchaseOrderEntity implements Serializable {
     @PreRemove
     public void preRemove() {
         this.setDeletedAt(LocalDateTime.now());
+    }
+
+    @Override
+    public ElasticSearchEntity toElasticEntity() {
+        return null;
     }
 }
