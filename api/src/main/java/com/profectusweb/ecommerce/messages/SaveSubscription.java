@@ -1,4 +1,4 @@
-package com.profectusweb.ecommerce.AMQPMessages;
+package com.profectusweb.ecommerce.messages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profectusweb.ecommerce.entities.database.DatabaseEntity;

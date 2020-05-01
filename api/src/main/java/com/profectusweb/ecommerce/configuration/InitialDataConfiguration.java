@@ -39,7 +39,7 @@ public class InitialDataConfiguration implements ApplicationListener<ContextRefr
         RoleEntity roleCustomerEntity = new RoleEntity();
 
         roleMasterEntity.setName("ROLE_MASTER");
-        roleCustomerEntity.setName("ROLER_CUSTOMER");
+        roleCustomerEntity.setName("ROLE_CUSTOMER");
 
         roleMasterEntity = rolesRepository.save(roleMasterEntity);
         roleCustomerEntity = rolesRepository.save(roleCustomerEntity);

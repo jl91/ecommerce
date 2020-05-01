@@ -1,4 +1,4 @@
-package com.profectusweb.ecommerce.services;
+package com.profectusweb.ecommerce.services.database;
 
 import com.profectusweb.ecommerce.entities.database.RoleEntity;
 import com.profectusweb.ecommerce.entities.database.UserEntity;

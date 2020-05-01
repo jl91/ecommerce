@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.configuration;
 
-import com.profectusweb.ecommerce.services.EcommerceUserDetailService;
+import com.profectusweb.ecommerce.services.database.EcommerceUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

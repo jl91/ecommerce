@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.configuration;
 
-import com.profectusweb.ecommerce.AMQPMessages.SaveSubscription;
+import com.profectusweb.ecommerce.messages.SaveSubscription;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -16,9 +16,11 @@ import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
 @Configuration
 public class RabbitMQConfiguration {
-    static final String topicExchangeName = "ecommerce-exchange";
+    public static final String topicExchangeName = "ecommerce-exchange";
 
-    static final String saveQueueName = "save";
+    public static final String saveQueueName = "save";
+
+    public static final String saveRouting = "save";
 
     @Bean
     Queue queue() {
@@ -34,7 +36,7 @@ public class RabbitMQConfiguration {
     Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue)
                 .to(exchange)
-                .with("");
+                .with(saveRouting);
     }
 
     @Bean

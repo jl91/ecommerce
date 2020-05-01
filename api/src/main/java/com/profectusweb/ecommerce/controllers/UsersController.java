@@ -4,7 +4,8 @@ import com.profectusweb.ecommerce.entities.database.UserEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
-import com.profectusweb.ecommerce.services.UsersService;
+import com.profectusweb.ecommerce.services.amqp.UserAmqpService;
+import com.profectusweb.ecommerce.services.database.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ public class UsersController {
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    UserAmqpService userAmqpService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -61,8 +65,12 @@ public class UsersController {
     public UserEntity create(
             @Valid @RequestBody UsersRequestBody incommingRequestBody
     ) {
-        return this.usersService
+        UserEntity userEntity = this.usersService
                 .create(incommingRequestBody);
+
+        userAmqpService.sendUpdateMessage(userEntity.getId());
+
+        return userEntity;
     }
 
     @PutMapping("/{id}")
@@ -72,8 +80,14 @@ public class UsersController {
             @Valid @RequestBody UsersRequestBody incommingRequestBody
     ) {
         incommingRequestBody.id = id;
-        return this.usersService
+
+        UserEntity userEntity = this.usersService
                 .update(incommingRequestBody);
+
+        userAmqpService.sendUpdateMessage(userEntity.getId());
+
+        return userEntity;
+
     }
 
     @DeleteMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.profectusweb.ecommerce.AMQPMessages;
+package com.profectusweb.ecommerce.messages;
 
 import java.math.BigInteger;
 

@@ -1,4 +1,4 @@
-package com.profectusweb.ecommerce.services;
+package com.profectusweb.ecommerce.services.database;
 
 import java.math.BigInteger;
 

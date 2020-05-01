@@ -3,7 +3,7 @@ package com.profectusweb.ecommerce.controllers;
 import com.profectusweb.ecommerce.entities.database.RoleEntity;
 import com.profectusweb.ecommerce.repositories.database.RolesRepository;
 import com.profectusweb.ecommerce.requests.RolesRequestBody;
-import com.profectusweb.ecommerce.services.RolesService;
+import com.profectusweb.ecommerce.services.database.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

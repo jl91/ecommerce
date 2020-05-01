@@ -3,7 +3,7 @@ package com.profectusweb.ecommerce.controllers;
 import com.profectusweb.ecommerce.entities.database.ProductEntity;
 import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
 import com.profectusweb.ecommerce.requests.ProductsRequestBody;
-import com.profectusweb.ecommerce.services.ProductsService;
+import com.profectusweb.ecommerce.services.database.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
