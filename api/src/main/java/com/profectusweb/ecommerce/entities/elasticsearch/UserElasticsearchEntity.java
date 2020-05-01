@@ -17,6 +17,8 @@ public class UserElasticsearchEntity extends ElasticSearchEntity {
 
     private String name;
 
+    private String role;
+
     public String getUsername() {
         return username;
     }
@@ -41,6 +43,15 @@ public class UserElasticsearchEntity extends ElasticSearchEntity {
 
     public UserElasticsearchEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public UserElasticsearchEntity setRole(String role) {
+        this.role = role;
         return this;
     }
 }

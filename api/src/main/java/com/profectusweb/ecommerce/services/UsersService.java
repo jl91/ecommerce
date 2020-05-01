@@ -6,6 +6,7 @@ import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -23,7 +24,7 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
     public UserEntity create(UsersRequestBody data) {
         UserEntity userEntity = new UserEntity();
 
-        RoleEntity roleEntity = rolesService.getRoleServieById(data.roleId);
+        RoleEntity roleEntity = rolesService.getRoleById(data.roleId);
 
         userEntity.setName(data.name)
                 .setUsername(data.username.toLowerCase())
@@ -42,12 +43,15 @@ public class UsersService implements CustomServiceInterface<UserEntity, UsersReq
                 .findByDeletedAtIsNullAndId(data.id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", data.id));
 
-        RoleEntity roleEntity = rolesService.getRoleServieById(data.roleId);
+        RoleEntity roleEntity = rolesService.getRoleById(data.roleId);
 
 
         userEntity.setName(data.name)
                 .setUsername(data.username)
-                .setPassword(data.password)
+                .setPassword(
+                        new BCryptPasswordEncoder(10)
+                                .encode(data.password)
+                )
                 .setRole(roleEntity)
         ;
 

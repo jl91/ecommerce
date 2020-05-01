@@ -123,7 +123,8 @@ public class UserEntity implements Serializable, DatabaseEntity {
     }
 
     @PreUpdate
-    private void preUpdate() {
+    private void preUpdate()
+    {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
@@ -134,10 +135,12 @@ public class UserEntity implements Serializable, DatabaseEntity {
 
     public ElasticSearchEntity toElasticEntity() {
         UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
+        elasticSearchEntity.setId(this.getId());
         elasticSearchEntity.setDatabaseId(this.getId());
         elasticSearchEntity.setName(this.getName());
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());
+        elasticSearchEntity.setRole(this.getRole().getName());
         return elasticSearchEntity;
     }
 

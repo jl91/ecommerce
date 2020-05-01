@@ -43,7 +43,7 @@ public class RolesService implements CustomServiceInterface<RoleEntity, RolesReq
         return true;
     }
 
-    protected RoleEntity getRoleServieById(BigInteger id) {
+    protected RoleEntity getRoleById(BigInteger id) {
         return this.rolesRepository
                 .findByDeletedAtIsNullAndId(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", id));
