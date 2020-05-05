@@ -7,27 +7,32 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="6"
+<mat-grid-list *ngIf="products.length"
+               cols="6"
                rowHeight="600px"
 >
   <mat-grid-tile [colspan]="6">
-    <app-datatable class="w-100"></app-datatable>
+    <app-datatable [columns]="productsColumns"
+                   [rows]="products"
+                   class="w-100"
+    >
+    </app-datatable>
   </mat-grid-tile>
 </mat-grid-list>
 
 
-<mat-grid-list cols="6"
-               gutterSize="25px"
-               rowHeight="400px"
->
-  <mat-grid-tile *ngFor="let product of products">
-    <div class="card-item">
-      <app-product-item
-        (productAdded)="onProductAdd($event)"
-        (productRemoved)="onProductRemoved($event)"
-        [product]="product"
-      >
-      </app-product-item>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+<!--<mat-grid-list cols="6"-->
+<!--               gutterSize="25px"-->
+<!--               rowHeight="400px"-->
+<!--&gt;-->
+<!--  <mat-grid-tile *ngFor="let product of products">-->
+<!--    <div class="card-item">-->
+<!--      <app-product-item-->
+<!--        (productAdded)="onProductAdd($event)"-->
+<!--        (productRemoved)="onProductRemoved($event)"-->
+<!--        [product]="product"-->
+<!--      >-->
+<!--      </app-product-item>-->
+<!--    </div>-->
+<!--  </mat-grid-tile>-->
+<!--</mat-grid-list>-->

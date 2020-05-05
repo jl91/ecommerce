@@ -1,4 +1,14 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import {Column} from '../model/column.model';
 import {Row} from '../model/row.model';
 import {DatatableService} from '../service/datatable.service';
@@ -12,128 +22,26 @@ import {Subscription} from 'rxjs';
   ],
   providers: [
     DatatableService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
+export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
 
   @Input()
-  public myColumns: Array<Column> = [
-    {
-      key: 'Position',
-      value: 'position',
-      order: 0
-    },
-    {
-      key: 'Name',
-      value: 'name',
-      order: 1
-    },
-    {
-      key: 'Weight',
-      value: 'weight',
-      order: 2
-    },
-    {
-      key: 'Symbol',
-      value: 'symbol',
-      order: 3
-    },
-  ];
+  public columns: Array<Column> = [];
+
+  @Input()
+  public rows: Array<any> = [];
 
   public displayedColumns: Array<string>;
 
-  @Input()
-  public rows: Array<Row<{
-    position: number,
-    name: string,
-    weight: number,
-    symbol: string
-  }>> = [
-    {
-      value: {
-        position: 1,
-        name: 'Hydrogen',
-        weight: 1.0079,
-        symbol: 'H'
-      }
-    },
-    {
-      value: {
-        position: 2,
-        name: 'Helium',
-        weight: 4.0026,
-        symbol: 'He'
-      }
-    },
-    {
-      value: {
-        position: 3,
-        name: 'Lithium',
-        weight: 6.941,
-        symbol: 'Li'
-      }
-    },
-    {
-      value: {
-        position: 4,
-        name: 'Beryllium',
-        weight: 9.0122,
-        symbol: 'Be'
-      }
-    },
-    {
-      value: {
-        position: 5,
-        name: 'Boron',
-        weight: 10.811,
-        symbol: 'B'
-      }
-    },
-    {
-      value: {
-        position: 6,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C'
-      }
-    },
-    {
-      value: {
-        position: 7,
-        name: 'Nitrogen',
-        weight: 14.0067,
-        symbol: 'N'
-      }
-    },
-    {
-      value: {
-        position: 8,
-        name: 'Oxygen',
-        weight: 15.9994,
-        symbol: 'O'
-      }
-    },
-    {
-      value: {
-        position: 9,
-        name: 'Fluorine',
-        weight: 18.9984,
-        symbol: 'F'
-      }
-    },
-    {
-      value: {
-        position: 10,
-        name: 'Neon',
-        weight: 20.1797,
-        symbol: 'Ne'
-      }
-    },
-  ];
+  public displayedRows: Array<Row<any>>;
+
   private subscriptions: Subscription = new Subscription();
 
   constructor(
-    private datatableService: DatatableService
+    private datatableService: DatatableService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -151,12 +59,17 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  public ngAfterViewInit(): void {
+    this.changeDetectorRef.detach();
+  }
+
   private registerOnColumnsChanged(): void {
     const subscription = this.datatableService
       .columnsChangedObservable
       .subscribe((columns: Array<Column>) => {
-        this.myColumns = columns;
+        this.columns = columns;
         this.processColumns();
+        this.updateView();
       });
     this.subscriptions.add(subscription);
   }
@@ -166,6 +79,8 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
       .rowsChangedObservable
       .subscribe((rows: Array<Row<any>>) => {
         this.rows = rows;
+        this.processRows();
+        this.updateView();
       });
     this.subscriptions.add(subscription);
   }
@@ -174,12 +89,32 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.columns.currentValue) {
       this.processColumns();
     }
+
+    if (changes.rows.currentValue) {
+      this.processRows();
+    }
+
+    this.updateView();
+  }
+
+  private processRows(): void {
+    this.displayedRows = this.rows
+      .map(row => ({
+          value: row
+        } as Row<any>)
+      );
   }
 
   private processColumns(): void {
-    this.displayedColumns = this.myColumns
+    this.displayedColumns = this.columns
       .sort((current: Column, next: Column) => current.order - next.order)
       .map(column => column.value);
+  }
+
+  private updateView(): void {
+    this.changeDetectorRef.reattach();
+    this.changeDetectorRef.detectChanges();
+    this.changeDetectorRef.detach();
   }
 
 

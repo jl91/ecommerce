@@ -1,4 +1,4 @@
-<table [dataSource]="rows"
+<table [dataSource]="displayedRows"
        class="w-100 mat-elevation-z8"
        mat-table
 >
@@ -10,7 +10,7 @@
         <th *matHeaderCellDef
             mat-header-cell
         >
-          {{ column | printHeader:myColumns }}
+          {{ column | printHeader:columns }}
         </th>
         <td *matCellDef="let row" mat-cell>
           {{ row.value[column] }}

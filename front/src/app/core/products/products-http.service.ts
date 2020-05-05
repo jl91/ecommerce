@@ -13,7 +13,6 @@ export class ProductsHttpService {
   constructor(private httpClient: HttpClient) {
   }
 
-
   public get all(): Observable<Array<Product>> {
     return this.httpClient
       .get(this.BASE_URL)
@@ -31,8 +30,6 @@ export class ProductsHttpService {
     return this.httpClient
       .put(this.BASE_URL, product)
       .pipe(map((data: Product) => data as Product));
-
-
   }
 
 }
