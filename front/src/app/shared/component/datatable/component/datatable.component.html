@@ -1,0 +1,27 @@
+<table [dataSource]="rows"
+       class="w-100 mat-elevation-z8"
+       mat-table
+>
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container *ngIf="displayedColumns?.length">
+    <ng-container *ngFor="let column of displayedColumns">
+      <ng-container [matColumnDef]="column"
+      >
+        <th *matHeaderCellDef
+            mat-header-cell
+        >
+          {{ column | printHeader:myColumns }}
+        </th>
+        <td *matCellDef="let row" mat-cell>
+          {{ row.value[column] }}
+        </td>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>

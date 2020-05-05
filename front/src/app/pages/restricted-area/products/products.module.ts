@@ -10,8 +10,9 @@ import {SearchComponent} from './list/search/search.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SaveComponent} from './save/save.component';
-import {ProductForm} from "./save/product.form";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ProductForm} from './save/product.form';
+import {ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     ProductsListComponent,
