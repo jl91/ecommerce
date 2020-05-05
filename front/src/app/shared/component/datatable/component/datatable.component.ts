@@ -31,12 +31,12 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
     {
       key: 'Weight',
       value: 'weight',
-      order: 3
+      order: 2
     },
     {
       key: 'Symbol',
       value: 'symbol',
-      order: 2
+      order: 3
     },
   ];
 
@@ -178,7 +178,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
 
   private processColumns(): void {
     this.displayedColumns = this.myColumns
-      .sort(column => column.order)
+      .sort((current: Column, next: Column) => current.order - next.order)
       .map(column => column.value);
   }
 
