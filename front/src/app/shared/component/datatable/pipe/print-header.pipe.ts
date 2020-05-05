@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Column} from '../component/column.model';
+import {Column} from '../model/column.model';
 
 @Pipe({
   name: 'printHeader'

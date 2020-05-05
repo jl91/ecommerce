@@ -3,9 +3,6 @@
        mat-table
 >
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
   <ng-container *ngIf="displayedColumns?.length">
     <ng-container *ngFor="let column of displayedColumns">
       <ng-container [matColumnDef]="column"

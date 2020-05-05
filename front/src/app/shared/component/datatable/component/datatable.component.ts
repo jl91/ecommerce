@@ -1,15 +1,20 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Column} from './column.model';
-import {Row} from './row.model';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Column} from '../model/column.model';
+import {Row} from '../model/row.model';
+import {DatatableService} from '../service/datatable.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-datatable',
   templateUrl: 'datatable.component.html',
   styleUrls: [
     './datatable.component.scss'
+  ],
+  providers: [
+    DatatableService
   ]
 })
-export class DatatableComponent implements OnInit, OnChanges {
+export class DatatableComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   public myColumns: Array<Column> = [
@@ -125,17 +130,44 @@ export class DatatableComponent implements OnInit, OnChanges {
       }
     },
   ];
+  private subscriptions: Subscription = new Subscription();
 
-
-  constructor() {
+  constructor(
+    private datatableService: DatatableService
+  ) {
   }
 
   public ngOnInit() {
     this.processColumns();
+    this.registerOnColumnsChanged();
+    this.registerOnRowsChanged();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.afterChanges(changes);
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  private registerOnColumnsChanged(): void {
+    const subscription = this.datatableService
+      .columnsChangedObservable
+      .subscribe((columns: Array<Column>) => {
+        this.myColumns = columns;
+        this.processColumns();
+      });
+    this.subscriptions.add(subscription);
+  }
+
+  private registerOnRowsChanged(): void {
+    const subscription = this.datatableService
+      .rowsChangedObservable
+      .subscribe((rows: Array<Row<any>>) => {
+        this.rows = rows;
+      });
+    this.subscriptions.add(subscription);
   }
 
   private afterChanges(changes: SimpleChanges): void {
