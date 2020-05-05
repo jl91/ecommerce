@@ -138,10 +138,6 @@ export class DatatableComponent implements OnInit, OnChanges {
     this.afterChanges(changes);
   }
 
-  public printHeader(headerKey: string): string {
-
-  }
-
   private afterChanges(changes: SimpleChanges): void {
     if (changes.columns.currentValue) {
       this.processColumns();

@@ -8,14 +8,9 @@ export class PrintHeaderPipe implements PipeTransform {
 
   public transform(key: string, columns: Array<Column>): string {
 
-    const selectedColumn = columns
-      .find(column => column.value === key);
-
-    if (!selectedColumn) {
-      return '';
-    }
-
-    return selectedColumn.key;
+    return columns
+      .find(column => column.value === key)
+      ?.key || null;
   }
 
 }
