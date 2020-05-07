@@ -1,12 +1,9 @@
 <form (ngSubmit)="onSubmit($event)"
       [formGroup]="productForm"
 >
-  <mat-grid-list cols="6"
-                 gutterSize="25px"
-                 rowHeight="100px"
-  >
 
-    <mat-grid-tile colspan="2">
+  <div class="row">
+    <div class="col">
       <mat-form-field class="w-100">
         <mat-label>
           SKU:
@@ -16,9 +13,8 @@
                type="text"
         >
       </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile colspan="2">
+    </div>
+    <div class="col">
       <mat-form-field class="w-100">
         <mat-label>
           Name:
@@ -28,9 +24,8 @@
                type="text"
         >
       </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile colspan="2">
+    </div>
+    <div class="col">
       <mat-form-field class="w-100">
         <mat-label>
           Value:
@@ -40,11 +35,11 @@
                type="number"
         >
       </mat-form-field>
-    </mat-grid-tile>
+    </div>
+  </div>
 
-    <mat-grid-tile colspan="6"
-                   rowspan="2"
-    >
+  <div class="row">
+    <div class="col-12">
       <mat-form-field class="w-100 h-inherit">
         <mat-label>
           Description:
@@ -56,31 +51,31 @@
         >
         </textarea>
       </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile-footer>
-      <mat-grid-tile colspan="6">
-        <div class="w-100 buttons-section">
-          <button color="warn"
-                  mat-raised-button
-                  type="reset"
-          >
-            <mat-icon>
-              undo
-            </mat-icon>
-            Reset
-          </button>
+    </div>
+  </div>
 
-          <button color="primary"
-                  mat-raised-button
-                  type="submit"
-          >
-            <mat-icon>
-              save
-            </mat-icon>
-            Save
-          </button>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-tile-footer>
-  </mat-grid-list>
+  <div class="row">
+    <div class="col d-flex justify-content-end">
+      <button color="warn"
+              mat-raised-button
+              type="reset"
+      >
+        <mat-icon>
+          undo
+        </mat-icon>
+        Reset
+      </button>
+
+      <button color="primary"
+              mat-raised-button
+              type="submit"
+      >
+        <mat-icon>
+          save
+        </mat-icon>
+        Save
+      </button>
+    </div>
+  </div>
+
 </form>

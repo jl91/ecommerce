@@ -20,7 +20,6 @@ import {SharedModule} from '../../../shared/shared.module';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
