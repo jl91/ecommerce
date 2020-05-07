@@ -55,7 +55,7 @@ export class RestrictedAreaComponent implements OnInit, OnDestroy {
   }
 
   private setTitle(): void {
-    const data = this.activatedRoute.snapshot.firstChild.data;
+    const data = this.activatedRoute?.snapshot?.firstChild?.data;
     this.title = data && data.title || '';
     const browserTabTitle = `E-commerce - ${this.title}`;
     this.titleService.setTitle(browserTabTitle);

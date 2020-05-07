@@ -6,8 +6,10 @@
     "start": "ng serve --aot --poll=2000",
     "build": "ng build",
     "test": "ng test",
+    "test-headless": "ng test --browsers=ChromeHeadless",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "watch": "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
   },
   "private": true,
   "dependencies": {

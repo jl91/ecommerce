@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.authtenticationService?.loggerUser) {
+      return;
+    }
     const {username} = this.authtenticationService.loggerUser;
     this.username = username;
   }
