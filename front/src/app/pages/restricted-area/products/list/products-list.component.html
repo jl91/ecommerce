@@ -9,7 +9,8 @@
 
 <mat-grid-list *ngIf="products.length"
                cols="6"
-               rowHeight="600px"
+               rowHeight="fit"
+               style="height: auto"
 >
   <mat-grid-tile [colspan]="6">
     <app-datatable [columns]="productsColumns"
