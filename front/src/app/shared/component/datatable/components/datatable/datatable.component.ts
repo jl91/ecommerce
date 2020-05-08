@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
@@ -15,6 +16,7 @@ import {DatatableService} from '../../service/datatable.service';
 import {Subscription} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatCheckboxChange} from '@angular/material/checkbox';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-datatable',
@@ -41,6 +43,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public showSelectColumn = true;
 
+  @Input()
+  public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
+
   public displayedColumns: Array<string> = [];
 
   public displayedRows: Array<Row<any>> = [];
@@ -48,6 +53,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   public selection = new SelectionModel<any>(true, []);
 
   private subscriptions: Subscription = new Subscription();
+
 
   private readonly SYSTEM_COLUMNS: Array<string> = [
     'select',
@@ -69,6 +75,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.processColumns();
     this.registerOnColumnsChanged();
     this.registerOnRowsChanged();
+    this.registerOnSelectionChanged();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -169,6 +176,15 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   private updateView(): void {
     this.changeDetectorRef.detectChanges();
+  }
+
+  private registerOnSelectionChanged(): void {
+    const subscription = this.selection
+      .changed
+      .pipe(debounceTime(100))
+      .subscribe(() => this.selectedRows.emit(this.selection.selected));
+
+    this.subscriptions.add(subscription);
   }
 
 }

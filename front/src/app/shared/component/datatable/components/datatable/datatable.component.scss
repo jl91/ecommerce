@@ -1,6 +1,11 @@
 @import "~src/assets/functions/functions";
 
+.mat-column-select {
+  overflow: initial;
+}
+
 .select-column {
   width: pxToRem(80px);
   max-width: pxToRem(80px);
 }
+
