@@ -33,9 +33,14 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public rows: Array<any> = [];
 
+  @Input()
+  public showPagination = true;
+
   public displayedColumns: Array<string>;
 
   public displayedRows: Array<Row<any>>;
+
+  public readonly PAGE_SIZE_OPTIONS: Array<number> = [10, 20, 50, 100];
 
   private subscriptions: Subscription = new Subscription();
 
