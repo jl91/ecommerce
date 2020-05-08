@@ -2,12 +2,27 @@ import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Column} from '../model/column.model';
 import {Row} from '../model/row.model';
+import {ColumnTypeEnum} from '../model/column-type.enum';
 
 @Injectable()
 export class DatatableService {
 
-  public readonly PAGE_SIZE_OPTIONS: Array<number> = [10, 20, 50, 100];
+  public readonly PAGE_SIZE_OPTIONS: Array<number> = [
+    10,
+    20,
+    50,
+    100
+  ];
+
+  public readonly SYSTEM_COLUMNS: Array<string> = [
+    'select',
+    'actions'
+  ];
+
+  public columns: Array<Column> = [];
+
   private columnsChanged: Subject<Array<Column>> = new Subject<Array<Column>>();
+
   private rowsChanged: Subject<Array<Row<any>>> = new Subject<Array<Row<any>>>();
 
   constructor() {
@@ -27,6 +42,49 @@ export class DatatableService {
 
   public sendRows(rows: Array<Row<any>>): void {
     this.rowsChanged.next(rows);
+  }
+
+  public isColumnText(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.TEXT);
+  }
+
+  public isColumnLongText(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.LONG_TEXT);
+  }
+
+  public isColumnNumber(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.NUMBER);
+  }
+
+  public isColumnChips(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.CHIPS);
+  }
+
+  public isColumnMoney(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.MONEY);
+  }
+
+  public isColumnDate(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.DATE);
+  }
+
+  public isColumnDatetime(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.DATETIME);
+  }
+
+  public isColumnTime(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.TIME);
+  }
+
+  public isColumnBoolean(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.BOOLEAN);
+  }
+
+  private isColumn(name: string, columType: ColumnTypeEnum): boolean {
+    return this.columns
+        ?.find(column => column.value === name)
+        ?.type === columType
+      || false;
   }
 
 }

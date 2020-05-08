@@ -4,6 +4,7 @@ import {Product} from '../../../../core/products/product.model';
 import {CartsService} from '../../../../shared/component/cart/service/carts.service';
 import {Column} from '../../../../shared/component/datatable/model/column.model';
 import {Row} from '../../../../shared/component/datatable/model/row.model';
+import {ColumnTypeEnum} from '../../../../shared/component/datatable/model/column-type.enum';
 
 @Component({
   selector: 'app-products',
@@ -21,22 +22,26 @@ export class ProductsListComponent implements OnInit {
     {
       key: '#',
       value: 'id',
-      order: 0
+      order: 0,
+      type: ColumnTypeEnum.NUMBER
     },
     {
       key: 'SKU',
       value: 'sku',
-      order: 1
+      order: 1,
+      type: ColumnTypeEnum.TEXT
     },
     {
       key: 'Name',
       value: 'name',
-      order: 2
+      order: 2,
+      type: ColumnTypeEnum.TEXT
     },
     {
       key: 'Description',
       value: 'description',
-      order: 3
+      order: 3,
+      type: ColumnTypeEnum.LONG_TEXT
     },
   ];
 

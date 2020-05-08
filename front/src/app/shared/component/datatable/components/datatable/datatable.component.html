@@ -8,8 +8,8 @@
       <ng-container *ngIf="showSelectColumn">
         <ng-container [matColumnDef]="'select'">
           <mat-header-cell *matHeaderCellDef
-                           mat-header-cell
                            class="select-column"
+                           mat-header-cell
           >
             <mat-checkbox (change)="$event ? masterToggle() : null"
                           [aria-label]="checkboxLabel()"
@@ -20,8 +20,8 @@
           </mat-header-cell>
 
           <mat-cell *matCellDef="let row"
-                    mat-cell
                     class="select-column"
+                    mat-cell
           >
             <mat-checkbox (change)="toggleSelection($event, row)"
                           (click)="$event.stopPropagation()"
@@ -38,13 +38,36 @@
       <ng-container *ngIf="displayedColumns.length">
         <ng-container *ngFor="let column of iterableColumns">
           <ng-container [matColumnDef]="column">
-            <mat-header-cell *matHeaderCellDef
-                             mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef>
               {{ column | printHeader:columns }}
             </mat-header-cell>
-            <mat-cell *matCellDef="let row" mat-cell>
-              {{ row.value[column] }}
+
+            <mat-cell *matCellDef="let row">
+
+              <ng-container *ngIf="datatableService.isColumnText(column)">
+                <app-text-column [column]="column"
+                                 [row]="row"
+                                 class="w-100"
+                >
+                </app-text-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnNumber(column)">
+                <app-number-column [column]="column"
+                                   [row]="row"
+                                   class="w-100"
+                >
+                </app-number-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnLongText(column)">
+                <app-long-text [column]="column"
+                               [row]="row"
+                               class="w-100"
+                >
+                </app-long-text>
+              </ng-container>
+
             </mat-cell>
           </ng-container>
         </ng-container>

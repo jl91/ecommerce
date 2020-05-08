@@ -56,11 +56,6 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   private subscriptions: Subscription = new Subscription();
 
 
-  private readonly SYSTEM_COLUMNS: Array<string> = [
-    'select',
-    'actions'
-  ];
-
   constructor(
     public datatableService: DatatableService,
     private changeDetectorRef: ChangeDetectorRef
@@ -69,10 +64,14 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   public get iterableColumns(): Array<string> {
     return this.displayedColumns
-      .filter(column => !this.SYSTEM_COLUMNS.includes(column));
+      .filter(column => !this.datatableService
+        .SYSTEM_COLUMNS
+        .includes(column)
+      );
   }
 
   public ngOnInit() {
+    this.configureDatatableService();
     this.processColumns();
     this.registerOnColumnsChanged();
     this.registerOnRowsChanged();
@@ -118,6 +117,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.updateView();
   }
 
+  private configureDatatableService(): void {
+    this.datatableService.columns = this.columns;
+  }
 
   private registerOnColumnsChanged(): void {
     const subscription = this.datatableService
@@ -132,6 +134,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   private setColumns(columns: Array<Column>): void {
     this.columns = columns;
+    this.datatableService.columns = columns;
   }
 
   private registerOnRowsChanged(): void {
@@ -166,6 +169,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   }
 
   private processColumns(): void {
+    this.datatableService.columns = this.columns;
     this.displayedColumns = this.columns
       .sort((current: Column, next: Column) => current.order - next.order)
       .map(column => column.value);
