@@ -61,11 +61,59 @@
               </ng-container>
 
               <ng-container *ngIf="datatableService.isColumnLongText(column)">
-                <app-long-text [column]="column"
-                               [row]="row"
-                               class="w-100"
+                <app-long-text-column [column]="column"
+                                      [row]="row"
+                                      class="w-100"
                 >
-                </app-long-text>
+                </app-long-text-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnMoney(column)">
+                <app-money-column [column]="column"
+                                  [row]="row"
+                                  class="w-100"
+                >
+                </app-money-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnChips(column)">
+                <app-chips-column [column]="column"
+                                  [row]="row"
+                                  class="w-100"
+                >
+                </app-chips-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnDate(column)">
+                <app-date-column [column]="column"
+                                 [row]="row"
+                                 class="w-100"
+                >
+                </app-date-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnTime(column)">
+                <app-time-column [column]="column"
+                                 [row]="row"
+                                 class="w-100"
+                >
+                </app-time-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnDatetime(column)">
+                <app-datetime-column [column]="column"
+                                     [row]="row"
+                                     class="w-100"
+                >
+                </app-datetime-column>
+              </ng-container>
+
+              <ng-container *ngIf="datatableService.isColumnBoolean(column)">
+                <app-boolean-column [column]="column"
+                                    [row]="row"
+                                    class="w-100"
+                >
+                </app-boolean-column>
               </ng-container>
 
             </mat-cell>

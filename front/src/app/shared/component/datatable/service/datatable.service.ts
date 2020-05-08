@@ -56,24 +56,24 @@ export class DatatableService {
     return this.isColumn(name, ColumnTypeEnum.NUMBER);
   }
 
-  public isColumnChips(name: string): boolean {
-    return this.isColumn(name, ColumnTypeEnum.CHIPS);
-  }
-
   public isColumnMoney(name: string): boolean {
     return this.isColumn(name, ColumnTypeEnum.MONEY);
+  }
+
+  public isColumnChips(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.CHIPS);
   }
 
   public isColumnDate(name: string): boolean {
     return this.isColumn(name, ColumnTypeEnum.DATE);
   }
 
-  public isColumnDatetime(name: string): boolean {
-    return this.isColumn(name, ColumnTypeEnum.DATETIME);
-  }
-
   public isColumnTime(name: string): boolean {
     return this.isColumn(name, ColumnTypeEnum.TIME);
+  }
+
+  public isColumnDatetime(name: string): boolean {
+    return this.isColumn(name, ColumnTypeEnum.DATETIME);
   }
 
   public isColumnBoolean(name: string): boolean {

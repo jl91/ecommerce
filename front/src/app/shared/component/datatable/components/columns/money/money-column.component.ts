@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Row} from '../../../model/row.model';
 
 @Component({
-  selector: 'app-long-text',
-  templateUrl: 'long-text.component.html'
+  selector: 'app-money-column',
+  templateUrl: 'money-cokumn.component.html'
 })
-export class LongTextComponent implements OnInit {
+export class MoneyColumnComponent implements OnInit {
 
   @Input()
   public row: Row<any>;
@@ -18,5 +18,4 @@ export class LongTextComponent implements OnInit {
 
   public ngOnInit() {
   }
-
 }
