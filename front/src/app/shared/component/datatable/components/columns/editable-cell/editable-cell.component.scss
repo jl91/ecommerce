@@ -1,0 +1,31 @@
+@import "~src/assets/functions/functions";
+
+.editable-cell {
+  min-height: pxToRem(48px);
+  position: relative;
+
+
+  &.has-mouse-over {
+    border: dashed pxToRem(1px) red;
+  }
+
+  .cell-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    border-radius: 0 0 0 pxToRem(5px);
+
+    button {
+      width: auto;
+      height: auto;
+      line-height: 100%;
+      margin: {
+        left: pxToRem(5px);
+        bottom: pxToRem(5px);
+      };
+    }
+
+  }
+}
+

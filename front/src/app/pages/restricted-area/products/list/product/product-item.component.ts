@@ -22,11 +22,11 @@ export class ProductItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  add(product: Product): void {
+  public add(product: Product): void {
     this.productAdded.emit(product);
   }
 
-  remove(product: Product): void {
+  public remove(product: Product): void {
     this.productRemoved.emit(product);
   }
 

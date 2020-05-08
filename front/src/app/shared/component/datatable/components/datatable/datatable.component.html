@@ -42,80 +42,87 @@
               {{ column | printHeader:columns }}
             </mat-header-cell>
 
-            <mat-cell *matCellDef="let row">
+            <mat-cell *matCellDef="let row"
+                      class="d-flex justify-content-center align-items-center"
+            >
 
-              <ng-container *ngIf="datatableService.isColumnText(column)">
-                <app-text-column [column]="column"
+              <app-editable-cell [column]="column"
                                  [row]="row"
-                                 class="w-100"
-                >
-                </app-text-column>
-              </ng-container>
+                                 class="w-100 h-inherit"
+              >
 
-              <ng-container *ngIf="datatableService.isColumnNumber(column)">
-                <app-number-column [column]="column"
+                <ng-container *ngIf="datatableService.isColumnText(column)">
+                  <app-text-column [column]="column"
                                    [row]="row"
                                    class="w-100"
-                >
-                </app-number-column>
-              </ng-container>
+                  >
+                  </app-text-column>
+                </ng-container>
 
-              <ng-container *ngIf="datatableService.isColumnLongText(column)">
-                <app-long-text-column [column]="column"
-                                      [row]="row"
-                                      class="w-100"
-                >
-                </app-long-text-column>
-              </ng-container>
-
-              <ng-container *ngIf="datatableService.isColumnMoney(column)">
-                <app-money-column [column]="column"
-                                  [row]="row"
-                                  class="w-100"
-                >
-                </app-money-column>
-              </ng-container>
-
-              <ng-container *ngIf="datatableService.isColumnChips(column)">
-                <app-chips-column [column]="column"
-                                  [row]="row"
-                                  class="w-100"
-                >
-                </app-chips-column>
-              </ng-container>
-
-              <ng-container *ngIf="datatableService.isColumnDate(column)">
-                <app-date-column [column]="column"
-                                 [row]="row"
-                                 class="w-100"
-                >
-                </app-date-column>
-              </ng-container>
-
-              <ng-container *ngIf="datatableService.isColumnTime(column)">
-                <app-time-column [column]="column"
-                                 [row]="row"
-                                 class="w-100"
-                >
-                </app-time-column>
-              </ng-container>
-
-              <ng-container *ngIf="datatableService.isColumnDatetime(column)">
-                <app-datetime-column [column]="column"
+                <ng-container *ngIf="datatableService.isColumnNumber(column)">
+                  <app-number-column [column]="column"
                                      [row]="row"
                                      class="w-100"
-                >
-                </app-datetime-column>
-              </ng-container>
+                  >
+                  </app-number-column>
+                </ng-container>
 
-              <ng-container *ngIf="datatableService.isColumnBoolean(column)">
-                <app-boolean-column [column]="column"
+                <ng-container *ngIf="datatableService.isColumnLongText(column)">
+                  <app-long-text-column [column]="column"
+                                        [row]="row"
+                                        class="w-100"
+                  >
+                  </app-long-text-column>
+                </ng-container>
+
+                <ng-container *ngIf="datatableService.isColumnMoney(column)">
+                  <app-money-column [column]="column"
                                     [row]="row"
                                     class="w-100"
-                >
-                </app-boolean-column>
-              </ng-container>
+                  >
+                  </app-money-column>
+                </ng-container>
 
+                <ng-container *ngIf="datatableService.isColumnChips(column)">
+                  <app-chips-column [column]="column"
+                                    [row]="row"
+                                    class="w-100"
+                  >
+                  </app-chips-column>
+                </ng-container>
+
+                <ng-container *ngIf="datatableService.isColumnDate(column)">
+                  <app-date-column [column]="column"
+                                   [row]="row"
+                                   class="w-100"
+                  >
+                  </app-date-column>
+                </ng-container>
+
+                <ng-container *ngIf="datatableService.isColumnTime(column)">
+                  <app-time-column [column]="column"
+                                   [row]="row"
+                                   class="w-100"
+                  >
+                  </app-time-column>
+                </ng-container>
+
+                <ng-container *ngIf="datatableService.isColumnDatetime(column)">
+                  <app-datetime-column [column]="column"
+                                       [row]="row"
+                                       class="w-100"
+                  >
+                  </app-datetime-column>
+                </ng-container>
+
+                <ng-container *ngIf="datatableService.isColumnBoolean(column)">
+                  <app-boolean-column [column]="column"
+                                      [row]="row"
+                                      class="w-100"
+                  >
+                  </app-boolean-column>
+                </ng-container>
+              </app-editable-cell>
             </mat-cell>
           </ng-container>
         </ng-container>

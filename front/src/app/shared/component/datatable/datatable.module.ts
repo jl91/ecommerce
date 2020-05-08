@@ -14,19 +14,27 @@ import {DateColumnComponent} from './components/columns/date/date-column.compone
 import {TimeColumnComponent} from './components/columns/time/time-column.component';
 import {DatetimeColumnComponent} from './components/columns/datetime/datetime-column.component';
 import {BooleanColumnComponent} from './components/columns/boolean/boolean-column.component';
+import {EditableCellComponent} from './components/columns/editable-cell/editable-cell.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule
   ],
   exports: [
     DatatableComponent,
   ],
   declarations: [
     DatatableComponent,
+    EditableCellComponent,
     TextColumnComponent,
     NumberColumnComponent,
     LongTextColumnComponent,

@@ -87,4 +87,12 @@ export class DatatableService {
       || false;
   }
 
+  public isColumnEditableInline(name: string): boolean {
+    return this.columns
+      ?.find(column => column.value === name)
+      ?.isEditable;
+  }
+
+
+
 }

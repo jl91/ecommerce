@@ -3,7 +3,7 @@ import {Row} from '../../../model/row.model';
 
 @Component({
   selector: 'app-money-column',
-  templateUrl: 'money-cokumn.component.html'
+  templateUrl: 'money-column.component.html'
 })
 export class MoneyColumnComponent implements OnInit {
 

@@ -1,0 +1,20 @@
+<div (mouseenter)="onMouseOver($event, row, column)"
+     (mouseleave)="onMouseOut($event, row, column)"
+     [ngClass]="{'has-mouse-over': isEditable}"
+     class="editable-cell d-flex justify-content-start align-items-center w-100 h-100 pl-2 pr-2"
+>
+  <div *ngIf="isEditable"
+       class="cell-actions"
+  >
+    <button class="action-button"
+            mat-icon-button
+            matTooltip="edit cell"
+    >
+      <mat-icon>
+        edit
+      </mat-icon>
+    </button>
+  </div>
+
+  <ng-content></ng-content>
+</div>
