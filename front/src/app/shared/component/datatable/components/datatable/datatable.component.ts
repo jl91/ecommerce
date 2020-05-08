@@ -8,6 +8,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges
 } from '@angular/core';
 import {Column} from '../../model/column.model';
@@ -43,7 +44,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public showSelectColumn = true;
 
-  @Input()
+  @Output()
   public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
 
   public displayedColumns: Array<string> = [];

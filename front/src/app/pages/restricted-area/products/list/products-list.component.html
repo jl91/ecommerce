@@ -8,6 +8,7 @@
   <div class="col">
     <app-datatable [columns]="productsColumns"
                    [rows]="products"
+                   (selectedRows)="onSelectedRows($event)"
                    class="w-100"
     >
     </app-datatable>

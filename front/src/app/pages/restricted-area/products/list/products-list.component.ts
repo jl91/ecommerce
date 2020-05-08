@@ -3,6 +3,7 @@ import {ProductsHttpService} from '../../../../core/products/products-http.servi
 import {Product} from '../../../../core/products/product.model';
 import {CartsService} from '../../../../shared/component/cart/service/carts.service';
 import {Column} from '../../../../shared/component/datatable/model/column.model';
+import {Row} from '../../../../shared/component/datatable/model/row.model';
 
 @Component({
   selector: 'app-products',
@@ -49,6 +50,7 @@ export class ProductsListComponent implements OnInit {
   public ngOnInit(): void {
     this.fetchProducts();
   }
+
   //
   // public onProductAdd(product: Product): void {
   //   this.cartsService.add(product);
@@ -59,6 +61,10 @@ export class ProductsListComponent implements OnInit {
   //   this.cartsService.remove(product);
   //   this.updateView();
   // }
+
+  public onSelectedRows(rows: Array<Row<Product>>): void {
+    console.log(rows);
+  }
 
   private fetchProducts(): void {
     const subscription = this.productsHttpService
