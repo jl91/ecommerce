@@ -9,10 +9,12 @@ import {
   OnInit,
   SimpleChanges
 } from '@angular/core';
-import {Column} from '../model/column.model';
-import {Row} from '../model/row.model';
-import {DatatableService} from '../service/datatable.service';
+import {Column} from '../../model/column.model';
+import {Row} from '../../model/row.model';
+import {DatatableService} from '../../service/datatable.service';
 import {Subscription} from 'rxjs';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-datatable',
@@ -36,18 +38,31 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public showPagination = true;
 
-  public displayedColumns: Array<string>;
+  @Input()
+  public showSelectColumn = true;
 
-  public displayedRows: Array<Row<any>>;
+  public displayedColumns: Array<string> = [];
 
-  public readonly PAGE_SIZE_OPTIONS: Array<number> = [10, 20, 50, 100];
+  public displayedRows: Array<Row<any>> = [];
+
+  public selection = new SelectionModel<any>(true, []);
 
   private subscriptions: Subscription = new Subscription();
 
+  private readonly SYSTEM_COLUMNS: Array<string> = [
+    'select',
+    'actions'
+  ];
+
   constructor(
-    private datatableService: DatatableService,
+    public datatableService: DatatableService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
+  }
+
+  public get iterableColumns(): Array<string> {
+    return this.displayedColumns
+      .filter(column => !this.SYSTEM_COLUMNS.includes(column));
   }
 
   public ngOnInit() {
@@ -65,18 +80,50 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   }
 
   public ngAfterViewInit(): void {
-    this.changeDetectorRef.detach();
+    this.updateView();
   }
+
+  public isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.displayedRows.length;
+    return numSelected === numRows;
+  }
+
+  public masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.displayedRows.forEach(row => this.selection.select(row));
+    this.updateView();
+  }
+
+  public checkboxLabel(row?: Row<any>): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  public toggleSelection($event: MatCheckboxChange, row: Row<any>): void {
+    if ($event) {
+      this.selection.toggle(row);
+    }
+    this.updateView();
+  }
+
 
   private registerOnColumnsChanged(): void {
     const subscription = this.datatableService
       .columnsChangedObservable
       .subscribe((columns: Array<Column>) => {
-        this.columns = columns;
+        this.setColumns(columns);
         this.processColumns();
         this.updateView();
       });
     this.subscriptions.add(subscription);
+  }
+
+  private setColumns(columns: Array<Column>): void {
+    this.columns = columns;
   }
 
   private registerOnRowsChanged(): void {
@@ -114,13 +161,14 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.displayedColumns = this.columns
       .sort((current: Column, next: Column) => current.order - next.order)
       .map(column => column.value);
+
+    if (this.showSelectColumn) {
+      this.displayedColumns.unshift('select');
+    }
   }
 
   private updateView(): void {
-    this.changeDetectorRef.reattach();
     this.changeDetectorRef.detectChanges();
-    this.changeDetectorRef.detach();
   }
-
 
 }

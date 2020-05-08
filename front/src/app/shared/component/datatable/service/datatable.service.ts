@@ -6,8 +6,8 @@ import {Row} from '../model/row.model';
 @Injectable()
 export class DatatableService {
 
+  public readonly PAGE_SIZE_OPTIONS: Array<number> = [10, 20, 50, 100];
   private columnsChanged: Subject<Array<Column>> = new Subject<Array<Column>>();
-
   private rowsChanged: Subject<Array<Row<any>>> = new Subject<Array<Row<any>>>();
 
   constructor() {

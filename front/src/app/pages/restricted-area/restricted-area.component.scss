@@ -1,5 +1,7 @@
+@import "~src/assets/functions/functions";
+
 .content-card {
-  margin: 20px;
+  margin: pxToRem(20px);
   min-height: 88.7vh;
   height: auto;
 }

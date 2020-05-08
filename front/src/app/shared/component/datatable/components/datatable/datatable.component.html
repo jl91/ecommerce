@@ -1,0 +1,68 @@
+<div class="mat-elevation-z8">
+  <ng-container *ngIf="displayedRows">
+    <mat-table [dataSource]="displayedRows"
+               class="datatable w-100"
+    >
+
+      <!-- Select Column -->
+      <ng-container *ngIf="showSelectColumn">
+        <ng-container [matColumnDef]="'select'">
+          <mat-header-cell *matHeaderCellDef
+                           mat-header-cell
+                           class="select-column"
+          >
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [aria-label]="checkboxLabel()"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+            >
+            </mat-checkbox>
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let row"
+                    mat-cell
+                    class="select-column"
+          >
+            <mat-checkbox (change)="toggleSelection($event, row)"
+                          (click)="$event.stopPropagation()"
+                          [aria-label]="checkboxLabel(row)"
+                          [checked]="selection.isSelected(row)"
+            >
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+      </ng-container>
+      <!-- Select Column -->
+
+      <!-- iterable Columns -->
+      <ng-container *ngIf="displayedColumns.length">
+        <ng-container *ngFor="let column of iterableColumns">
+          <ng-container [matColumnDef]="column">
+            <mat-header-cell *matHeaderCellDef
+                             mat-header-cell
+            >
+              {{ column | printHeader:columns }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" mat-cell>
+              {{ row.value[column] }}
+            </mat-cell>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- iterable Columns -->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" mat-header-row>
+      </mat-header-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns;" mat-row>
+      </mat-row>
+    </mat-table>
+
+    <ng-container *ngIf="showPagination">
+      <mat-paginator [pageSizeOptions]="datatableService.PAGE_SIZE_OPTIONS"
+                     showFirstLastButtons
+      >
+      </mat-paginator>
+    </ng-container>
+  </ng-container>
+</div>

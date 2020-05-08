@@ -1,3 +1,5 @@
+@import "~src/assets/functions/functions";
+
 .login-container {
   width: 100%;
   height: 100vh;
@@ -6,7 +8,7 @@
   align-items: center;
 
   .login-card {
-    width: 400px;
+    width: pxToRem(400px);
     height: auto;
   }
 }

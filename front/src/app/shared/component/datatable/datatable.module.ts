@@ -1,24 +1,24 @@
 import {NgModule} from '@angular/core';
-import {DatatableComponent} from './component/datatable.component';
+import {DatatableComponent} from './components/datatable/datatable.component';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
-import {A11yModule} from '@angular/cdk/a11y';
 import {PrintHeaderPipe} from './pipe/print-header.pipe';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    A11yModule
+    MatCheckboxModule
   ],
   exports: [
-    DatatableComponent
+    DatatableComponent,
   ],
   declarations: [
     DatatableComponent,
-    PrintHeaderPipe
+    PrintHeaderPipe,
   ],
   providers: [],
 })
