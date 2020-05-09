@@ -9,7 +9,7 @@
      [formGroup]="form"
      class="d-flex justify-content-start align-items-center"
 >
-  <mat-form-field>
+  <mat-form-field class="w-75">
     <mat-label>
       edit
     </mat-label>
@@ -21,6 +21,8 @@
   <button (click)="onSubmit($event)"
           mat-icon-button
           type="button"
+          color="success-slim"
+          [disabled]="form.invalid"
   >
     <mat-icon>
       done
