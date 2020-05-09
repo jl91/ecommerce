@@ -16,7 +16,7 @@
     background: red;
     border-radius: 0 0 0 pxToRem(5px);
 
-    button {
+    .action-button {
       width: auto;
       height: auto;
       line-height: 100%;
@@ -24,6 +24,10 @@
         left: pxToRem(5px);
         bottom: pxToRem(5px);
       };
+
+      .action-button-icon {
+        font-size: pxToRem(20px);
+      }
     }
 
   }

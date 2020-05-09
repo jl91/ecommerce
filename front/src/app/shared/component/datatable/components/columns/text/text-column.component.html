@@ -1,3 +1,29 @@
-<div class="d-flex justify-content-start w-100 h-100">
+<div *ngIf="isReadMode"
+     class="d-flex justify-content-start w-100 h-100"
+>
   {{ row.value[column] }}
+</div>
+
+
+<div *ngIf="isEditMode"
+     [formGroup]="form"
+     class="d-flex justify-content-start align-items-center"
+>
+  <mat-form-field>
+    <mat-label>
+      edit
+    </mat-label>
+    <input formControlName="data"
+           matInput
+    >
+  </mat-form-field>
+
+  <button (click)="onSubmit($event)"
+          mat-icon-button
+          type="button"
+  >
+    <mat-icon>
+      done
+    </mat-icon>
+  </button>
 </div>

@@ -3,6 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {Column} from '../model/column.model';
 import {Row} from '../model/row.model';
 import {ColumnTypeEnum} from '../model/column-type.enum';
+import {ColumnModeEnum} from '../model/column-mode.enum';
 
 @Injectable()
 export class DatatableService {
@@ -80,19 +81,18 @@ export class DatatableService {
     return this.isColumn(name, ColumnTypeEnum.BOOLEAN);
   }
 
-  private isColumn(name: string, columType: ColumnTypeEnum): boolean {
-    return this.columns
-        ?.find(column => column.value === name)
-        ?.type === columType
-      || false;
-  }
-
   public isColumnEditableInline(name: string): boolean {
     return this.columns
       ?.find(column => column.value === name)
       ?.isEditable;
   }
 
+  private isColumn(name: string, columType: ColumnTypeEnum): boolean {
+    return this.columns
+        ?.find(column => column.value === name)
+        ?.type === columType
+      || false;
+  }
 
 
 }

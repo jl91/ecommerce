@@ -18,6 +18,8 @@ import {EditableCellComponent} from './components/columns/editable-cell/editable
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatCheckboxModule,
     MatIconModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     DatatableComponent,
