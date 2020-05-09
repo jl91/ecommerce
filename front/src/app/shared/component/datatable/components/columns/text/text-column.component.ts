@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Row} from '../../../model/row.model';
 import {DatatableService} from '../../../service/datatable.service';
 import {ColumnModeEnum} from '../../../model/column-mode.enum';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EditCell} from '../../../model/edit-cell.model';
 
 @Component({
   selector: 'app-text-column',
@@ -15,6 +16,9 @@ export class TextColumnComponent implements OnInit {
 
   @Input()
   public column: string;
+
+  @Output()
+  public editInline: EventEmitter<EditCell> = new EventEmitter<EditCell>();
 
   public form: FormGroup;
 
@@ -40,7 +44,6 @@ export class TextColumnComponent implements OnInit {
   public ngOnInit() {
     if (this.datatableService.isColumnEditableInline(this.column)) {
       this.initForm();
-      console.log(this.row.value[this.column]);
     }
   }
 
@@ -62,9 +65,17 @@ export class TextColumnComponent implements OnInit {
 
   public onSubmit(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
-    if (this.form.invalid) {
 
+    if (this.form.invalid) {
+      return this.form.markAllAsTouched();
     }
+
+    this.editInline
+      .emit({
+        column: this.column,
+        row: this.row,
+        newValue: this.form.get('data').value
+      });
   }
 
 }

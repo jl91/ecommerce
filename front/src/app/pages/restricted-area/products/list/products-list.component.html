@@ -9,6 +9,7 @@
     <app-datatable [columns]="productsColumns"
                    [rows]="products"
                    (selectedRows)="onSelectedRows($event)"
+                   (editInline)="onEditInline($event)"
                    class="w-100"
     >
     </app-datatable>

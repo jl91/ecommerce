@@ -18,6 +18,7 @@ import {Subscription} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {debounceTime} from 'rxjs/operators';
+import {EditCell} from '../../model/edit-cell.model';
 
 @Component({
   selector: 'app-datatable',
@@ -44,8 +45,14 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public showSelectColumn = true;
 
+  @Input()
+  public isEditable = true;
+
   @Output()
   public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
+
+  @Output()
+  public editInline: EventEmitter<EditCell> = new EventEmitter<EditCell>();
 
   public displayedColumns: Array<string> = [];
 
@@ -115,6 +122,10 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
       this.selection.toggle(row);
     }
     this.updateView();
+  }
+
+  public onEditInline(event: EditCell): void {
+    this.editInline.emit(event);
   }
 
   private configureDatatableService(): void {

@@ -54,6 +54,7 @@
                 <ng-container *ngIf="datatableService.isColumnText(column)">
                   <app-text-column [column]="column"
                                    [row]="row"
+                                   (editInline)="onEditInline($event)"
                                    class="w-100"
                   >
                   </app-text-column>

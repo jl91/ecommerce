@@ -5,6 +5,7 @@ import {CartsService} from '../../../../shared/component/cart/service/carts.serv
 import {Column} from '../../../../shared/component/datatable/model/column.model';
 import {Row} from '../../../../shared/component/datatable/model/row.model';
 import {ColumnTypeEnum} from '../../../../shared/component/datatable/model/column-type.enum';
+import {EditCell} from '../../../../shared/component/datatable/model/edit-cell.model';
 
 @Component({
   selector: 'app-products',
@@ -70,6 +71,10 @@ export class ProductsListComponent implements OnInit {
 
   public onSelectedRows(rows: Array<Row<Product>>): void {
     console.log(rows);
+  }
+
+  public onEditInline(editInline: EditCell): void {
+    console.log(editInline);
   }
 
   private fetchProducts(): void {
