@@ -20,6 +20,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     MatTooltipModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule,
+    FontAwesomeModule
   ],
   exports: [
     DatatableComponent,

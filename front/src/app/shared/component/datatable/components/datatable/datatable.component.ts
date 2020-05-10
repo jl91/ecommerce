@@ -19,6 +19,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {debounceTime} from 'rxjs/operators';
 import {EditCell} from '../../model/edit-cell.model';
+import {IconDefinition} from '@fortawesome/fontawesome-common-types';
+import {faFileExport, faSync} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-datatable',
@@ -46,6 +48,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   public showSelectColumn = true;
 
   @Input()
+  public showActionsColumn = true;
+
+  @Input()
   public isEditable = true;
 
   @Input()
@@ -68,6 +73,11 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   public displayedRows: Array<Row<any>> = [];
 
   public selection = new SelectionModel<any>(true, []);
+
+  public readonly ICONS: { [prop: string]: IconDefinition } = {
+    export: faFileExport,
+    sync: faSync
+  };
 
   private subscriptions: Subscription = new Subscription();
 
@@ -196,6 +206,11 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     if (this.showSelectColumn) {
       this.displayedColumns.unshift('select');
     }
+
+    if (this.showActionsColumn) {
+      this.displayedColumns.push('actions');
+    }
+
   }
 
   private updateView(): void {

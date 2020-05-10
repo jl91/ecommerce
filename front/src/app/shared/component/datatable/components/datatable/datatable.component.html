@@ -9,12 +9,13 @@
         <ng-container [matColumnDef]="'select'">
           <mat-header-cell *matHeaderCellDef
                            class="select-column"
-                           mat-header-cell
+                           sticky
           >
             <mat-checkbox (change)="$event ? masterToggle() : null"
                           [aria-label]="checkboxLabel()"
                           [checked]="selection.hasValue() && isAllSelected()"
                           [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          color="accent"
             >
             </mat-checkbox>
           </mat-header-cell>
@@ -27,6 +28,7 @@
                           (click)="$event.stopPropagation()"
                           [aria-label]="checkboxLabel(row)"
                           [checked]="selection.isSelected(row)"
+                          color="accent"
             >
             </mat-checkbox>
           </mat-cell>
@@ -132,6 +134,67 @@
         </ng-container>
       </ng-container>
       <!-- iterable Columns -->
+
+      <ng-container *ngIf="showActionsColumn">
+        <ng-container [matColumnDef]="'actions'">
+          <mat-header-cell *matHeaderCellDef
+                           class="action-column d-flex justify-content-center align-items-center"
+                           sticky-end
+          >
+            <button type="button"
+                    mat-icon-button
+                    color="primary"
+                    [matMenuTriggerFor]="tableMenu"
+            >
+              <mat-icon>
+                menu
+              </mat-icon>
+            </button>
+
+            <mat-menu #tableMenu="matMenu">
+              <ng-template matMenuContent>
+
+                <button mat-menu-item>
+                  <mat-icon>
+                    <fa-icon [icon]="ICONS.sync"
+                             [size]="'xs'"
+                    >
+
+                    </fa-icon>
+                  </mat-icon>
+                  Reload
+                </button>
+
+                <button mat-menu-item>
+                  <mat-icon>
+                    <fa-icon [icon]="ICONS.export"
+                             [size]="'xs'"
+                    >
+                    </fa-icon>
+                  </mat-icon>
+                  Export
+                </button>
+
+              </ng-template>
+            </mat-menu>
+
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let row"
+                    class="action-column d-flex justify-content-center align-items-center"
+                    mat-cell
+          >
+            <button type="button"
+                    mat-icon-button
+                    color="accent"
+            >
+              <mat-icon>
+                menu
+              </mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+      </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns" mat-header-row>
       </mat-header-row>

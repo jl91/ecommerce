@@ -4,7 +4,8 @@
   overflow: initial;
 }
 
-.select-column {
+.select-column,
+.action-column {
   width: pxToRem(80px);
   max-width: pxToRem(80px);
 }
