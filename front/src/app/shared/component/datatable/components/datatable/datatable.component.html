@@ -187,11 +187,39 @@
             <button type="button"
                     mat-icon-button
                     color="accent"
+                    [matMenuTriggerFor]="rowMenu"
             >
               <mat-icon>
                 menu
               </mat-icon>
             </button>
+
+            <mat-menu #rowMenu="matMenu">
+              <ng-template matMenuContent>
+
+                <button mat-menu-item>
+                  <mat-icon>
+                    <fa-icon [icon]="ICONS.sync"
+                             [size]="'xl'"
+                    >
+                    </fa-icon>
+                  </mat-icon>
+                  Reload
+                </button>
+
+                <button mat-menu-item>
+                  <mat-icon>
+                    <fa-icon [icon]="ICONS.export"
+                             [size]="'xl'"
+                    >
+                    </fa-icon>
+                  </mat-icon>
+                  Export
+                </button>
+
+              </ng-template>
+            </mat-menu>
+
           </mat-cell>
         </ng-container>
       </ng-container>
