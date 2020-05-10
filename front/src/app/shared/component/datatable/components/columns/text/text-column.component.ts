@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Row} from '../../../model/row.model';
 import {DatatableService} from '../../../service/datatable.service';
 import {ColumnModeEnum} from '../../../model/column-mode.enum';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EditCell} from '../../../model/edit-cell.model';
 import {Subject, Subscription} from 'rxjs';
+import {EditableCellComponent} from '../editable-cell/editable-cell.component';
 
 @Component({
   selector: 'app-text-column',
@@ -29,7 +30,9 @@ export class TextColumnComponent implements OnInit, OnDestroy {
 
   constructor(
     private datatableService: DatatableService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    @Inject(forwardRef(() => EditableCellComponent))
+    private parent: EditableCellComponent
   ) {
   }
 
@@ -57,12 +60,15 @@ export class TextColumnComponent implements OnInit, OnDestroy {
     const subscription = this.feedbackObservable
       .asObservable()
       .subscribe((done: boolean) => {
+
         if (done) {
+          this.parent.editMode = false;
           this.row.state.mode = ColumnModeEnum.READ;
           return;
         }
 
         this.row.state.mode = ColumnModeEnum.EDIT;
+        this.parent.editMode = true;
       });
     this.subscriptions.add(subscription);
   }
@@ -95,7 +101,7 @@ export class TextColumnComponent implements OnInit, OnDestroy {
         column: this.column,
         row: this.row,
         newValue: this.form.get('data').value,
-        feedbackObservable: this.feedbackObservable
+        feedbackSubject: this.feedbackObservable
       });
   }
 

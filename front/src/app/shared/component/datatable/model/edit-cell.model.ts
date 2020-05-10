@@ -5,5 +5,5 @@ export interface EditCell {
   newValue: string;
   row: Row<any>;
   column: string;
-  feedbackObservable: Subject<boolean>;
+  feedbackSubject: Subject<boolean>;
 }

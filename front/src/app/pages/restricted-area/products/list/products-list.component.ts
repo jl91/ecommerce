@@ -75,6 +75,7 @@ export class ProductsListComponent implements OnInit {
 
   public onEditInline(editInline: EditCell): void {
     console.log(editInline);
+    editInline.feedbackSubject.next(true);
   }
 
   private fetchProducts(): void {
