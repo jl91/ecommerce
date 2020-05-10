@@ -48,6 +48,15 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public isEditable = true;
 
+  @Input()
+  public currentPage = 1;
+
+  @Input()
+  public itemsPerPage = 10;
+
+  @Input()
+  public total = 0;
+
   @Output()
   public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
 
