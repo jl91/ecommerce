@@ -7,7 +7,7 @@
        class="cell-actions"
   >
     <button (click)="onEditClick($event)"
-            *ngIf="!editMode"
+            *ngIf="!isEditMode"
             class="action-button"
             mat-icon-button
             matTooltip="edit cell"
@@ -19,7 +19,7 @@
     </button>
 
     <button (click)="onCancelEditClick($event)"
-            *ngIf="editMode"
+            *ngIf="isEditMode"
             class="action-button"
             mat-icon-button
             matTooltip="cancel edit cell"

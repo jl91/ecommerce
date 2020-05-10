@@ -22,7 +22,7 @@ export class EditableCellComponent implements OnInit {
 
   public isMouseOver = false;
 
-  public editMode = false;
+  public isEditMode = false;
 
   private columnStateSubject: Subject<ColumnState> = new BehaviorSubject<ColumnState>({
     column: null,
@@ -54,21 +54,28 @@ export class EditableCellComponent implements OnInit {
 
   public onMouseLeave(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
-    if (!this.editMode) {
+    if (!this.isEditMode) {
       this.isMouseOver = false;
     }
   }
 
   public onEditClick(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
-    this.editMode = true;
+    this.isEditMode = true;
     this.dispatchColumnStateMessage(ColumnModeEnum.EDIT);
   }
 
   public onCancelEditClick(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
-    this.editMode = false;
+    this.isEditMode = false;
     this.dispatchColumnStateMessage(ColumnModeEnum.READ);
+  }
+
+  public toggleEditMode(isEdit: boolean): void {
+    this.isEditMode = isEdit;
+    if (!isEdit) {
+      this.isMouseOver = false;
+    }
   }
 
   private dispatchColumnStateMessage(mode: ColumnModeEnum): void {

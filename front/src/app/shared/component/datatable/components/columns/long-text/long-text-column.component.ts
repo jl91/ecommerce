@@ -64,7 +64,7 @@ export class LongTextColumnComponent implements OnInit, OnDestroy {
 
         this.isEditMode = (columnState.mode === ColumnModeEnum.EDIT);
         this.isReadMode = (columnState.mode === ColumnModeEnum.READ);
-        this.parent.editMode = this.isEditMode;
+        this.parent.isEditMode = this.isEditMode;
 
       });
     this.subscriptions.add(subscription);
@@ -76,13 +76,13 @@ export class LongTextColumnComponent implements OnInit, OnDestroy {
       .subscribe((done: boolean) => {
 
         if (done) {
-          this.parent.editMode = false;
+          this.parent.toggleEditMode(false);
           this.isEditMode = false;
           this.isReadMode = true;
           return;
         }
 
-        this.parent.editMode = true;
+        this.parent.toggleEditMode(true);
         this.isEditMode = true;
         this.isReadMode = false;
       });
