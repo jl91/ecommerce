@@ -25,13 +25,13 @@ export class ProductsHttpService {
       : this.new(product);
   }
 
-  public new(product: Product): Observable<Product> {
+  private new(product: Product): Observable<Product> {
     return this.httpClient
       .post(this.BASE_URL, product)
       .pipe(map((data: Product) => data as Product));
   }
 
-  public update(product: Product): Observable<Product> {
+  private update(product: Product): Observable<Product> {
     return this.httpClient
       .put(this.BASE_URL, product)
       .pipe(map((data: Product) => data as Product));

@@ -60,6 +60,15 @@
                   </app-text-column>
                 </ng-container>
 
+                <ng-container *ngIf="datatableService.isColumnLongText(column)">
+                  <app-long-text-column [column]="column"
+                                        [row]="row"
+                                        (editInline)="onEditInline($event)"
+                                        class="w-100"
+                  >
+                  </app-long-text-column>
+                </ng-container>
+
                 <ng-container *ngIf="datatableService.isColumnNumber(column)">
                   <app-number-column [column]="column"
                                      [row]="row"
@@ -68,13 +77,6 @@
                   </app-number-column>
                 </ng-container>
 
-                <ng-container *ngIf="datatableService.isColumnLongText(column)">
-                  <app-long-text-column [column]="column"
-                                        [row]="row"
-                                        class="w-100"
-                  >
-                  </app-long-text-column>
-                </ng-container>
 
                 <ng-container *ngIf="datatableService.isColumnMoney(column)">
                   <app-money-column [column]="column"

@@ -1,3 +1,42 @@
-<div class="d-flex justify-content-start w-100 h-100">
+<div *ngIf="isReadMode"
+     class="d-flex justify-content-start w-100 h-100"
+>
   {{ row.value[column] }}
+</div>
+
+
+<div *ngIf="isEditMode"
+     [formGroup]="form"
+     class="d-flex justify-content-start align-items-center"
+>
+  <div class="row w-75">
+    <div class="col-12 w-100">
+      <mat-form-field class="w-100">
+        <mat-label>
+          edit
+        </mat-label>
+
+        <textarea formControlName="data"
+                  matInput
+        >
+        </textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12">
+      <button (click)="onSubmit($event)"
+              [disabled]="form.invalid"
+              color="success-slim"
+              mat-icon-button
+              matSuffix
+              matTooltip="save"
+              type="button"
+      >
+        <mat-icon>
+          done
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+
 </div>

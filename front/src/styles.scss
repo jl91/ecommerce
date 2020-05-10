@@ -299,9 +299,10 @@ body {
 }
 
 .mat-success-slim {
-  color: mat-color($mat-green, 800) !important;
+  color: mat-color($mat-green, 500) !important;
 }
 
-.mat-success[disabled] {
-  color: mat-color($mat-green, 200) !important;
+.mat-success-slim[disabled] {
+  color: mat-color($mat-gray, 500) !important;
+  background-color: rgba(0, 0, 0, 0.12) !important;
 }
