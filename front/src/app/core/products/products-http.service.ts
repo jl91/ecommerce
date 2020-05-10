@@ -20,13 +20,18 @@ export class ProductsHttpService {
   }
 
   public save(product: Product): Observable<Product> {
+    return product.id
+      ? this.update(product)
+      : this.new(product);
+  }
 
-    if (!product.id) {
-      return this.httpClient
-        .post(this.BASE_URL, product)
-        .pipe(map((data: Product) => data as Product));
-    }
+  public new(product: Product): Observable<Product> {
+    return this.httpClient
+      .post(this.BASE_URL, product)
+      .pipe(map((data: Product) => data as Product));
+  }
 
+  public update(product: Product): Observable<Product> {
     return this.httpClient
       .put(this.BASE_URL, product)
       .pipe(map((data: Product) => data as Product));

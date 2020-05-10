@@ -37,7 +37,8 @@ export class ProductsListComponent implements OnInit {
       key: 'Name',
       value: 'name',
       order: 2,
-      type: ColumnTypeEnum.TEXT
+      type: ColumnTypeEnum.TEXT,
+      isEditable: true
     },
     {
       key: 'Description',
