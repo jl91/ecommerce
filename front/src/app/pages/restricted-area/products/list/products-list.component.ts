@@ -43,7 +43,8 @@ export class ProductsListComponent implements OnInit {
       key: 'Description',
       value: 'description',
       order: 3,
-      type: ColumnTypeEnum.LONG_TEXT
+      type: ColumnTypeEnum.LONG_TEXT,
+      isEditable: true
     },
   ];
 

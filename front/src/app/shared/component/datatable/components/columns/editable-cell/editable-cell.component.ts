@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Row} from '../../../model/row.model';
 import {DatatableService} from '../../../service/datatable.service';
 import {ColumnModeEnum} from '../../../model/column-mode.enum';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {ColumnState} from '../../../model/column-state.model';
 
 @Component({
   selector: 'app-editable-cell',
@@ -22,6 +24,12 @@ export class EditableCellComponent implements OnInit {
 
   public editMode = false;
 
+  private columnStateSubject: Subject<ColumnState> = new BehaviorSubject<ColumnState>({
+    column: null,
+    row: null,
+    mode: ColumnModeEnum.READ
+  });
+
   constructor(
     private datatableService: DatatableService
   ) {
@@ -30,6 +38,10 @@ export class EditableCellComponent implements OnInit {
   public get isEditable(): boolean {
     return this.isMouseOver
       && this.datatableService.isColumnEditableInline(this.column);
+  }
+
+  public get columnState(): Observable<ColumnState> {
+    return this.columnStateSubject.asObservable();
   }
 
   public ngOnInit() {
@@ -50,19 +62,23 @@ export class EditableCellComponent implements OnInit {
   public onEditClick(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
     this.editMode = true;
-    this.row.state = {
-      column: this.column,
-      mode: ColumnModeEnum.EDIT
-    };
+    this.dispatchColumnStateMessage(ColumnModeEnum.EDIT);
   }
 
   public onCancelEditClick(mouseEvent: MouseEvent): void {
     this.preventDefault(mouseEvent);
     this.editMode = false;
-    this.row.state = {
-      column: this.column,
-      mode: ColumnModeEnum.READ
-    };
+    this.dispatchColumnStateMessage(ColumnModeEnum.READ);
+  }
+
+  private dispatchColumnStateMessage(mode: ColumnModeEnum): void {
+    const {row, column} = this;
+    this.columnStateSubject
+      .next({
+        row,
+        column,
+        mode
+      });
   }
 
   private preventDefault(event: Event): void {

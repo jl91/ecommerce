@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EditCell} from '../../../model/edit-cell.model';
 import {Subject, Subscription} from 'rxjs';
 import {EditableCellComponent} from '../editable-cell/editable-cell.component';
+import {ColumnState} from '../../../model/column-state.model';
 
 @Component({
   selector: 'app-text-column',
@@ -25,7 +26,8 @@ export class TextColumnComponent implements OnInit, OnDestroy {
   public form: FormGroup;
 
   public subscriptions: Subscription = new Subscription();
-
+  public isEditMode = false;
+  public isReadMode = true;
   private feedbackObservable: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -36,24 +38,33 @@ export class TextColumnComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  public get isReadMode(): boolean {
-    return !this.row?.state
-      || (
-        this.row?.state?.column === this.column
-        && this.row?.state?.mode === ColumnModeEnum.READ
-      );
-  }
-
-  public get isEditMode(): boolean {
-    return this.row?.state?.column === this.column
-      && this.row?.state?.mode === ColumnModeEnum.EDIT;
-  }
-
   public ngOnInit() {
     if (this.datatableService.isColumnEditableInline(this.column)) {
       this.initForm();
     }
+
     this.registerOnFeedbackObservable();
+    this.registerOnColumnStateChanged();
+  }
+
+  public registerOnColumnStateChanged(): void {
+    const subscription = this.parent
+      .columnState
+      .subscribe((columnState: ColumnState) => {
+
+        if (
+          this.column !== columnState.column
+          || this.row !== columnState.row
+        ) {
+          return;
+        }
+
+        this.isEditMode = (columnState.mode === ColumnModeEnum.EDIT);
+        this.isReadMode = (columnState.mode === ColumnModeEnum.READ);
+        this.parent.editMode = this.isEditMode;
+
+      });
+    this.subscriptions.add(subscription);
   }
 
   public registerOnFeedbackObservable(): void {
@@ -63,12 +74,14 @@ export class TextColumnComponent implements OnInit, OnDestroy {
 
         if (done) {
           this.parent.editMode = false;
-          this.row.state.mode = ColumnModeEnum.READ;
+          this.isEditMode = false;
+          this.isReadMode = true;
           return;
         }
 
-        this.row.state.mode = ColumnModeEnum.EDIT;
         this.parent.editMode = true;
+        this.isEditMode = true;
+        this.isReadMode = false;
       });
     this.subscriptions.add(subscription);
   }

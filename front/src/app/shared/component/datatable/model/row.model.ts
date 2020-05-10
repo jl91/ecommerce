@@ -1,10 +1,7 @@
-import {ColumnModeEnum} from './column-mode.enum';
+import {ColumnState} from './column-state.model';
 
 export interface Row<T> {
   value: T;
   position: number;
-  state?: {
-    column: string,
-    mode: ColumnModeEnum
-  };
+  state?: ColumnState;
 }
