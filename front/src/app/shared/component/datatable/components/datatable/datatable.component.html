@@ -52,25 +52,26 @@
               >
 
                 <ng-container *ngIf="datatableService.isColumnText(column)">
-                  <app-text-column [column]="column"
+                  <app-text-column (editInline)="onEditInline($event)"
+                                   [column]="column"
                                    [row]="row"
-                                   (editInline)="onEditInline($event)"
                                    class="w-100"
                   >
                   </app-text-column>
                 </ng-container>
 
                 <ng-container *ngIf="datatableService.isColumnLongText(column)">
-                  <app-long-text-column [column]="column"
+                  <app-long-text-column (editInline)="onEditInline($event)"
+                                        [column]="column"
                                         [row]="row"
-                                        (editInline)="onEditInline($event)"
                                         class="w-100"
                   >
                   </app-long-text-column>
                 </ng-container>
 
                 <ng-container *ngIf="datatableService.isColumnNumber(column)">
-                  <app-number-column [column]="column"
+                  <app-number-column (editInline)="onEditInline($event)"
+                                     [column]="column"
                                      [row]="row"
                                      class="w-100"
                   >
@@ -140,9 +141,9 @@
     </mat-table>
 
     <ng-container *ngIf="showPagination">
-      <mat-paginator [pageSizeOptions]="datatableService.PAGE_SIZE_OPTIONS"
+      <mat-paginator [length]="total"
+                     [pageSizeOptions]="datatableService.PAGE_SIZE_OPTIONS"
                      [pageSize]="itemsPerPage"
-                     [length]="total"
                      showFirstLastButtons
       >
       </mat-paginator>

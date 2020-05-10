@@ -24,7 +24,8 @@ export class ProductsListComponent implements OnInit {
       key: '#',
       value: 'id',
       order: 0,
-      type: ColumnTypeEnum.NUMBER
+      type: ColumnTypeEnum.NUMBER,
+      isEditable: true
     },
     {
       key: 'SKU',
