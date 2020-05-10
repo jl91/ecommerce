@@ -1,15 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Row} from '../../../model/row.model';
 import {DatatableService} from '../../../service/datatable.service';
 import {ColumnModeEnum} from '../../../model/column-mode.enum';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EditCell} from '../../../model/edit-cell.model';
+import {Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-text-column',
   templateUrl: 'text-column.component.html'
 })
-export class TextColumnComponent implements OnInit {
+export class TextColumnComponent implements OnInit, OnDestroy {
 
   @Input()
   public row: Row<any>;
@@ -21,6 +22,10 @@ export class TextColumnComponent implements OnInit {
   public editInline: EventEmitter<EditCell> = new EventEmitter<EditCell>();
 
   public form: FormGroup;
+
+  public subscriptions: Subscription = new Subscription();
+
+  private feedbackObservable: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private datatableService: DatatableService,
@@ -45,6 +50,21 @@ export class TextColumnComponent implements OnInit {
     if (this.datatableService.isColumnEditableInline(this.column)) {
       this.initForm();
     }
+    this.registerOnFeedbackObservable();
+  }
+
+  public registerOnFeedbackObservable(): void {
+    const subscription = this.feedbackObservable
+      .asObservable()
+      .subscribe((done: boolean) => {
+        if (done) {
+          this.row.state.mode = ColumnModeEnum.READ;
+          return;
+        }
+
+        this.row.state.mode = ColumnModeEnum.EDIT;
+      });
+    this.subscriptions.add(subscription);
   }
 
   public initForm(): void {
@@ -74,8 +94,13 @@ export class TextColumnComponent implements OnInit {
       .emit({
         column: this.column,
         row: this.row,
-        newValue: this.form.get('data').value
+        newValue: this.form.get('data').value,
+        feedbackObservable: this.feedbackObservable
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

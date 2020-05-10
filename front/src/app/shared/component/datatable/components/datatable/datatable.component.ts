@@ -62,7 +62,6 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   private subscriptions: Subscription = new Subscription();
 
-
   constructor(
     public datatableService: DatatableService,
     private changeDetectorRef: ChangeDetectorRef
