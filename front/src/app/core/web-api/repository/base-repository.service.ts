@@ -4,12 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Serializer} from '../model/serializer/serializer.model';
 import {Resource} from '../model/resource/resource.model';
+import {WebApiConfiguration} from '../model/configuration/web-api.configuration';
 
 export abstract class BaseRepositoryService<T extends Resource> implements Repository<T> {
 
   constructor(
     protected httpClient: HttpClient,
-    protected url: string,
+    protected webApiConfiguration: WebApiConfiguration,
     protected endpoint: string,
     protected serializer: Serializer<T>
   ) {
@@ -39,6 +40,7 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
   }
 
   private insert(data: T): Observable<any> {
+    console.log(this.serializer.toJson(data));
     return this.httpClient
       .post(this.getRequestUrl(), this.serializer.toJson(data))
       .pipe(map(result => this.serializer.toModel(result)));
@@ -50,9 +52,9 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
       .pipe(map(result => this.serializer.toModel(result)));
   }
 
-  private getRequestUrl(id?: number): string {
+  protected getRequestUrl(id?: number): string {
 
-    const base = `${this.url}/${this.endpoint}`;
+    const base = `${this.webApiConfiguration.basePath}/${this.endpoint}`;
 
     if (id) {
       return `${base}/${id}`;

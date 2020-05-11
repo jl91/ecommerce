@@ -1,20 +1,28 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from './user.model';
+import {BaseRepositoryService} from '../../repository/base-repository.service';
+import {WebApiConfiguration} from '../../model/configuration/web-api.configuration';
 
 @Injectable()
-export class UsersHttpService {
+export class UsersHttpService extends BaseRepositoryService<User> {
 
-  private readonly BASE_URL: string = `${environment.apiBaseUrl}/users`;
-
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    protected httpClient: HttpClient,
+    protected webApiConfiguration: WebApiConfiguration
+  ) {
+    super(
+      httpClient,
+      webApiConfiguration,
+      'users',
+      new User()
+    );
   }
 
   public fetchUsersByUsername(username: string): Observable<any> {
-    const url = `${this.BASE_URL}?username=${username}`;
+    const url = `${super.getRequestUrl()}?username=${username}`;
     return this.httpClient
       .get(url)
       .pipe(map((data: Array<any>) => {

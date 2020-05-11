@@ -9,6 +9,7 @@ import {AuthenticationEnum} from './authentication.enum';
 import {User} from '../users/user.model';
 import {WebApiConfiguration} from '../../model/configuration/web-api.configuration';
 
+// @TODO Refactor these service to not depends of storageService
 @Injectable()
 export class AuthenticationService {
 

@@ -16,14 +16,14 @@ export class Product implements Resource, Serializer<Product> {
 
   public createdAt?: string;
 
+  public toJson(data): any {
+    const classTransformer = new ClassTransformer();
+    return classTransformer.classToPlain(data);
+  }
+
   public toModel(data: object): Product {
     const classTransformer = new ClassTransformer();
     return classTransformer.plainToClass(Product, data);
-  }
-
-  public toJson(data): any {
-    const classTransformer = new ClassTransformer();
-    return classTransformer.classToPlain(this);
   }
 
 }

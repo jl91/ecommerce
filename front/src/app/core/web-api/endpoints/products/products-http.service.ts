@@ -13,7 +13,7 @@ export class ProductsHttpService extends BaseRepositoryService<Product> {
   ) {
     super(
       httpClient,
-      webApiConfiguration.basePath,
+      webApiConfiguration,
       'products',
       new Product()
     );
