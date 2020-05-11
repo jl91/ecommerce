@@ -187,12 +187,16 @@ export class QueryBuilderService implements QueryBuilder {
   }
 
   public setLimit(limit: number): QueryBuilder {
-    this.limit = limit;
+    this.limit = limit > 0 && limit <= 100
+      ? limit
+      : 0;
     return this;
   }
 
   public setPage(page: number): QueryBuilder {
-    this.page = page;
+    this.page = page > 0
+      ? page
+      : 1;
     return this;
   }
 
