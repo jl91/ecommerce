@@ -1,24 +1,25 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthenticationService} from '../web-api/endpoints/authentication/authentication.service';
-import {environment} from '../../../environments/environment';
+import {AuthenticationService} from '../endpoints/authentication/authentication.service';
+import {WebApiConfiguration} from '../model/configuration/web-api.configuration';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private webApiConfiguration: WebApiConfiguration
   ) {
   }
 
   private get basicAuthorizationHeader(): HttpHeaders {
-    const {client_id, client_secret} = environment;
+    const {clientId, clientSecret} = this.webApiConfiguration;
     const headers = new HttpHeaders();
 
     return headers.append(
       'Authorization',
-      `Basic ${btoa(`${client_id}:${client_secret}`)}`
+      `Basic ${btoa(`${clientId}:${clientSecret}`)}`
     );
   }
 
@@ -46,7 +47,6 @@ export class TokenInterceptor implements HttpInterceptor {
       ));
     }
 
-    // @ts-ignore
     return next.handle(request.clone({
         headers: this.basicAuthorizationHeader
       })

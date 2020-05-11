@@ -3,8 +3,9 @@ import {AuthenticationService} from './endpoints/authentication/authentication.s
 import {StorageService} from '../session/storage.service';
 import {UsersHttpService} from './endpoints/users/users-http.service';
 import {ProductsHttpService} from './endpoints/products/products-http.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {WebApiConfiguration} from './model/configuration/web-api.configuration';
+import {TokenInterceptor} from './interceptors/tokens.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +18,12 @@ import {WebApiConfiguration} from './model/configuration/web-api.configuration';
     StorageService,
     UsersHttpService,
     ProductsHttpService,
+    // Request Interceptors
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
   ],
 })
 export class WebApiModule {

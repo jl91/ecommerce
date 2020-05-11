@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {TokenInterceptor} from './interceptors/tokens.interceptor';
+import {HttpClientModule} from '@angular/common/http';
 import {AuthenticationGuard} from './guards/authentication.guard';
 import {WebApiModule} from './web-api/web-api.module';
 import {environment} from '../../environments/environment';
@@ -17,12 +16,6 @@ import {environment} from '../../environments/environment';
   providers: [
     // Guards
     AuthenticationGuard,
-    // Request Interceptors
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
   ],
 })
 export class CoreModule {

@@ -59,7 +59,6 @@ export class DatagridComponent implements OnInit, AfterViewInit {
     const subscription = this.datagridService
       .fetchBy(params)
       .subscribe(result => {
-        console.log(result);
         this.rows = result;
         this.updateView();
         subscription.unsubscribe();
