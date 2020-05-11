@@ -5,6 +5,8 @@ import {CartsService} from '../../../../shared/component/cart/service/carts.serv
 import {Column} from '../../../../shared/component/datatable/model/column.model';
 import {ColumnTypeEnum} from '../../../../shared/component/datatable/model/column-type.enum';
 import {HttpOptions} from '../../../../shared/component/datatable/model/http-options.model';
+import {QueryBuilderService} from '../../../../core/web-api/query/query-builder.service';
+import {SortTypeEnum} from '../../../../core/web-api/model/query/sort-type.enum';
 
 @Component({
   selector: 'app-products',
@@ -59,6 +61,33 @@ export class ProductsListComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+
+    const query = new QueryBuilderService();
+
+    query
+      .setFields([
+        'teste'
+      ])
+      .setFilters([
+        {
+          key: 'teste2',
+          value: 'teste'
+        }
+      ])
+      .setSort([
+        {
+          key: 'teste',
+          value: SortTypeEnum.ASC
+        },
+        {
+          key: 'teste2',
+          value: SortTypeEnum.DESC
+        }
+      ])
+      .setLimit(100)
+      .setPage(2);
+
+    this.productsHttpService.query(query);
 
   }
 

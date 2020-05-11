@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {Serializer} from '../model/serializer/serializer.model';
 import {Resource} from '../model/resource/resource.model';
 import {WebApiConfiguration} from '../model/configuration/web-api.configuration';
+import {QueryBuilderService} from '../query/query-builder.service';
 
 export abstract class BaseRepositoryService<T extends Resource> implements Repository<T> {
 
@@ -64,6 +65,17 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
 
   private convertToModel(data: any): Array<T> {
     return data.map(item => this.serializer.toModel(item));
+  }
+
+  public query(queryBuilderService: QueryBuilderService): Observable<any> {
+    const url = this.getRequestUrl();
+    const params = queryBuilderService.build();
+
+    console.log(params.toString());
+
+    return this.httpClient
+      .get(url, {params})
+      .pipe(map(data => this.convertToModel(data)));
   }
 
 }
