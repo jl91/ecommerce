@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {QueryBuilderService} from '../../query/query-builder.service';
+import {QueryBuilder} from '../query/query-builder.model';
 
 export interface Repository<T> {
 
@@ -11,5 +11,5 @@ export interface Repository<T> {
 
   remove(id: number): Observable<any>;
 
-  query(queryBuilderService: QueryBuilderService): Observable<any>;
+  query(queryBuilderService: QueryBuilder): Observable<any>;
 }

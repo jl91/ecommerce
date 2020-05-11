@@ -6,6 +6,8 @@ import {EditCell} from '../../model/edit-cell.model';
 import {Pagination} from '../../model/pagination.model';
 import {HttpOptions} from '../../model/http-options.model';
 import {DatagridService} from '../../service/datagrid.service';
+import {QueryBuilderService} from '../../../../../core/web-api/query/query-builder.service';
+import {QueryBuilder} from '../../../../../core/web-api/model/query/query-builder.model';
 
 @Component({
   selector: 'app-datagrid',
@@ -40,7 +42,7 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.fetchBy(undefined);
+    this.fetchBy(this.datagridService.getQueryBuilder());
   }
 
   public onSelectedRows(rows: Array<Row<Product>>): void {
@@ -52,12 +54,17 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   }
 
   public onPaginationChanged(pagination: Pagination): void {
-    this.fetchBy(pagination);
+    const queryBuilder = this.datagridService
+      .getQueryBuilder()
+      .setPage(pagination.currentPage)
+      .setLimit(pagination.itemsPerPage);
+
+    this.fetchBy(queryBuilder);
   }
 
-  public fetchBy(params: any): void {
+  public fetchBy(queryBuilder: QueryBuilder): void {
     const subscription = this.datagridService
-      .fetchBy(params)
+      .fetchBy(queryBuilder)
       .subscribe(result => {
         this.rows = result;
         this.updateView();
