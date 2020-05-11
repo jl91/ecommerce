@@ -67,12 +67,9 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
     return data.map(item => this.serializer.toModel(item));
   }
 
-  public query(queryBuilderService: QueryBuilderService): Observable<any> {
+  public query(queryBuilderService: QueryBuilderService): Observable<Array<T>> {
     const url = this.getRequestUrl();
     const params = queryBuilderService.build();
-
-    console.log(params.toString());
-
     return this.httpClient
       .get(url, {params})
       .pipe(map(data => this.convertToModel(data)));
