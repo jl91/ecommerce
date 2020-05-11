@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProductsListComponent} from './products-list.component';
-import {ProductsHttpService} from '../../../../core/products/products-http.service';
+import {ProductsHttpService} from '../../../../core/web-api/endpoints/products/products-http.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ProductsListComponent', () => {

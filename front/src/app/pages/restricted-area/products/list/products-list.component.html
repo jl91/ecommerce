@@ -1,19 +1,9 @@
 <div class="row">
-  <div class="col col-md-12 col-lg-4">
-    <app-search class="w-100"></app-search>
-  </div>
-</div>
-
-<div *ngIf="products.length" class="row">
   <div class="col">
-    <app-datatable [columns]="productsColumns"
-                   [rows]="products"
-                   (selectedRows)="onSelectedRows($event)"
-                   (editInline)="onEditInline($event)"
-                   (paginationChanged)="onPaginationChanged($event)"
-                   class="w-100"
+    <app-datagrid [httpOptions]="httpOptions"
+                  [columns]="productsColumns"
     >
-    </app-datatable>
+    </app-datagrid>
   </div>
 </div>
 

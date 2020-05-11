@@ -23,6 +23,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DatagridComponent} from './components/datagrid/datagrid.component';
+import {SearchComponent} from './components/search/search.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import {DatagridComponent} from './components/datagrid/datagrid.component';
     DatetimeColumnComponent,
     BooleanColumnComponent,
     PrintHeaderPipe,
+    SearchComponent
   ],
   providers: [],
 })

@@ -1,22 +1,20 @@
 import {NgModule} from '@angular/core';
-import {AuthenticationService} from './authentication/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {StorageService} from './session/storage.service';
-import {UsersHttpService} from './users/users-http.service';
 import {TokenInterceptor} from './interceptors/tokens.interceptor';
 import {AuthenticationGuard} from './guards/authentication.guard';
-import {ProductsHttpService} from './products/products-http.service';
+import {WebApiModule} from './web-api/web-api.module';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   imports: [
-    HttpClientModule
+    HttpClientModule,
+    WebApiModule.forRoot(() => ({
+      basePath: environment.apiBaseUrl,
+      clientId: environment.client_id,
+      clientSecret: environment.client_secret
+    }))
   ],
   providers: [
-    // Services
-    AuthenticationService,
-    StorageService,
-    UsersHttpService,
-    ProductsHttpService,
     // Guards
     AuthenticationGuard,
     // Request Interceptors

@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HomeComponent} from './home.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {AuthenticationService} from '../../../core/authentication/authentication.service';
+import {AuthenticationService} from '../../../core/web-api/endpoints/authentication/authentication.service';
 import {MenuService} from '../../../shared/component/layout/navigation/service/menu.service';
 import {StorageService} from '../../../core/session/storage.service';
 

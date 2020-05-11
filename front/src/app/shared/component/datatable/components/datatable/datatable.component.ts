@@ -195,11 +195,11 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   }
 
   private afterChanges(changes: SimpleChanges): void {
-    if (changes.columns.currentValue) {
+    if (changes?.columns?.currentValue) {
       this.processColumns();
     }
 
-    if (changes.rows.currentValue) {
+    if (changes?.rows?.currentValue) {
       this.processRows();
     }
 

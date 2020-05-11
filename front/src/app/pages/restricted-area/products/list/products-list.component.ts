@@ -1,12 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ProductsHttpService} from '../../../../core/products/products-http.service';
-import {Product} from '../../../../core/products/product.model';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ProductsHttpService} from '../../../../core/web-api/endpoints/products/products-http.service';
+import {Product} from '../../../../core/web-api/endpoints/products/product.model';
 import {CartsService} from '../../../../shared/component/cart/service/carts.service';
 import {Column} from '../../../../shared/component/datatable/model/column.model';
-import {Row} from '../../../../shared/component/datatable/model/row.model';
 import {ColumnTypeEnum} from '../../../../shared/component/datatable/model/column-type.enum';
-import {EditCell} from '../../../../shared/component/datatable/model/edit-cell.model';
-import {Pagination} from '../../../../shared/component/datatable/model/pagination.model';
+import {HttpOptions} from '../../../../shared/component/datatable/model/http-options.model';
 
 @Component({
   selector: 'app-products',
@@ -51,52 +49,24 @@ export class ProductsListComponent implements OnInit {
     },
   ];
 
+  public httpOptions: HttpOptions;
+
   constructor(
     public productsHttpService: ProductsHttpService,
-    public cartsService: CartsService,
-    public changeDetectorRef: ChangeDetectorRef
+    public cartsService: CartsService
   ) {
+    this.configHttpOptions();
   }
 
   public ngOnInit(): void {
-    this.fetchProducts();
+
   }
 
-  //
-  // public onProductAdd(product: Product): void {
-  //   this.cartsService.add(product);
-  //   this.updateView();
-  // }
-  //
-  // public onProductRemoved(product: Product): void {
-  //   this.cartsService.remove(product);
-  //   this.updateView();
-  // }
-
-  public onSelectedRows(rows: Array<Row<Product>>): void {
-    console.log(rows);
-  }
-
-  public onEditInline(editInline: EditCell): void {
-    editInline.feedbackSubject.next(true);
-  }
-
-  public onPaginationChanged(pagination: Pagination): void {
-    console.log(pagination);
-  }
-
-  private fetchProducts(): void {
-    const subscription = this.productsHttpService
-      .all
-      .subscribe(products => {
-        this.products = products;
-        this.updateView();
-        subscription.unsubscribe();
-      });
-  }
-
-  private updateView(): void {
-    this.changeDetectorRef.detectChanges();
+  private configHttpOptions(): void {
+    this.httpOptions = {
+      fetchAllMethod: 'by',
+      service: this.productsHttpService
+    };
   }
 
 }

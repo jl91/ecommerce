@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductForm} from './product.form';
-import {ProductsHttpService} from "../../../../core/products/products-http.service";
-import {Product} from "../../../../core/products/product.model";
-import {Router} from "@angular/router";
+import {ProductsHttpService} from '../../../../core/web-api/endpoints/products/products-http.service';
+import {Product} from '../../../../core/web-api/endpoints/products/product.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-save',
@@ -35,7 +35,7 @@ export class SaveComponent implements OnInit {
         name,
         value,
         description
-      })
+      } as Product)
       .subscribe((product: Product) => {
         console.log(product);
         subscription.unsubscribe();

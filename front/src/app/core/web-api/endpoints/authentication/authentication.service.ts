@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationModel} from './authentication.model';
-import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
-import {StorageService} from '../session/storage.service';
-import {StorageTypeEnum} from '../session/storage-type.enum';
+import {StorageService} from '../../../session/storage.service';
+import {StorageTypeEnum} from '../../../session/storage-type.enum';
 import {AuthenticationEnum} from './authentication.enum';
 import {User} from '../users/user.model';
+import {WebApiConfiguration} from '../../model/configuration/web-api.configuration';
 
 @Injectable()
 export class AuthenticationService {
@@ -15,8 +15,8 @@ export class AuthenticationService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
+    private webApiConfiguration: WebApiConfiguration
   ) {
-
   }
 
   public get hasCredentials(): boolean {
@@ -46,7 +46,7 @@ export class AuthenticationService {
   }
 
   private get url(): string {
-    return `${environment.apiBaseUrl}/oauth/token`;
+    return `${this.webApiConfiguration.basePath}/oauth/token`;
   }
 
   public authenticate(username: string, password: string): Observable<AuthenticationModel> {

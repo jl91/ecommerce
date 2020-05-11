@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {CartsService} from '../service/carts.service';
-import {Product} from '../../../../core/products/product.model';
+import {Product} from '../../../../core/web-api/endpoints/products/product.model';
 import {CartItem} from '../model/cart-item.model';
 
 @Component({

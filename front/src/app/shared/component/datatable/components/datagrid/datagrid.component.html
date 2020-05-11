@@ -1,1 +1,18 @@
-datagrid.component.html
+<div class="row">
+  <div class="col col-md-12 col-lg-4">
+    <app-search class="w-100"></app-search>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <app-datatable [columns]="columns"
+                   [rows]="rows"
+                   (selectedRows)="onSelectedRows($event)"
+                   (editInline)="onEditInline($event)"
+                   (paginationChanged)="onPaginationChanged($event)"
+                   class="w-100"
+    >
+    </app-datatable>
+  </div>
+</div>

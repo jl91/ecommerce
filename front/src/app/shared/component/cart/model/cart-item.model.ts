@@ -1,4 +1,4 @@
-import {Product} from '../../../../core/products/product.model';
+import {Product} from '../../../../core/web-api/endpoints/products/product.model';
 
 export interface CartItem {
   sku: string;

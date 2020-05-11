@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AuthenticationService} from '../../../core/authentication/authentication.service';
+import {AuthenticationService} from '../../../core/web-api/endpoints/authentication/authentication.service';
 import {StorageService} from '../../../core/session/storage.service';
-import {AuthenticationModel} from '../../../core/authentication/authentication.model';
+import {AuthenticationModel} from '../../../core/web-api/endpoints/authentication/authentication.model';
 import {Router} from '@angular/router';
-import {UsersHttpService} from '../../../core/users/users-http.service';
-import {User} from '../../../core/users/user.model';
-import {AuthenticationEnum} from '../../../core/authentication/authentication.enum';
+import {UsersHttpService} from '../../../core/web-api/endpoints/users/users-http.service';
+import {User} from '../../../core/web-api/endpoints/users/user.model';
+import {AuthenticationEnum} from '../../../core/web-api/endpoints/authentication/authentication.enum';
 
 
 @Injectable()
