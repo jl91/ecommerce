@@ -1,4 +1,4 @@
 export interface Serializer<T> {
-  toModel(data: any): T;
+  toModel(data: object): T;
   toJson(data): any;
 }

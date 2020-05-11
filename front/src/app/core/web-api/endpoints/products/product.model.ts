@@ -1,5 +1,6 @@
 import {Resource} from '../../model/resource/resource.model';
 import {Serializer} from '../../model/serializer/serializer.model';
+import {ClassTransformer} from 'class-transformer';
 
 export class Product implements Resource, Serializer<Product> {
 
@@ -15,19 +16,14 @@ export class Product implements Resource, Serializer<Product> {
 
   public createdAt?: string;
 
-  toModel(data: any): Product {
-    return undefined;
+  public toModel(data: object): Product {
+    const classTransformer = new ClassTransformer();
+    return classTransformer.plainToClass(Product, data);
   }
 
-  toJson(data): any {
-    const keys = Object.keys(this);
-    const json = {};
-
-    keys.forEach((key: string) => {
-      json[key] = this[key];
-    });
-
-    return json;
+  public toJson(data): any {
+    const classTransformer = new ClassTransformer();
+    return classTransformer.classToPlain(this);
   }
 
 }
