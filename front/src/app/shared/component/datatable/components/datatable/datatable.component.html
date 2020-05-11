@@ -233,8 +233,10 @@
 
     <ng-container *ngIf="showPagination">
       <mat-paginator [length]="total"
-                     [pageSizeOptions]="datatableService.PAGE_SIZE_OPTIONS"
+                     [pageSizeOptions]="datatableService.pageSizeOptions"
                      [pageSize]="itemsPerPage"
+                     [pageIndex]="datatableService.pageIndex"
+                     (page)="onCurrentPageChange($event)"
                      showFirstLastButtons
       >
       </mat-paginator>

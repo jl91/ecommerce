@@ -21,6 +21,8 @@ import {debounceTime} from 'rxjs/operators';
 import {EditCell} from '../../model/edit-cell.model';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 import {faFileExport, faSync} from '@fortawesome/free-solid-svg-icons';
+import {Pagination} from '../../model/pagination.model';
+import {PageEvent} from '@angular/material/paginator/paginator';
 
 @Component({
   selector: 'app-datatable',
@@ -67,6 +69,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   @Output()
   public editInline: EventEmitter<EditCell> = new EventEmitter<EditCell>();
+
+  @Output()
+  public paginationChanged: EventEmitter<Pagination> = new EventEmitter<Pagination>();
 
   public displayedColumns: Array<string> = [];
 
@@ -146,8 +151,20 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.editInline.emit(event);
   }
 
+  public onCurrentPageChange(pageEvent: PageEvent): void {
+    console.log(pageEvent);
+    this.paginationChanged
+      .emit({
+        currentPage: pageEvent.pageIndex + 1,
+        itemsPerPage: pageEvent.pageSize
+      });
+  }
+
   private configureDatatableService(): void {
     this.datatableService.columns = this.columns;
+    this.datatableService.total = this.total;
+    this.datatableService.itemsPerPage = this.itemsPerPage;
+    this.datatableService.currentPage = this.currentPage;
   }
 
   private registerOnColumnsChanged(): void {

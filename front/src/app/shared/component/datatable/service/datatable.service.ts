@@ -21,6 +21,12 @@ export class DatatableService {
 
   public columns: Array<Column> = [];
 
+  public currentPage = 1;
+
+  public itemsPerPage = 10;
+
+  public total = 100;
+
   private columnsChanged: Subject<Array<Column>> = new Subject<Array<Column>>();
 
   private rowsChanged: Subject<Array<Row<any>>> = new Subject<Array<Row<any>>>();
@@ -34,6 +40,25 @@ export class DatatableService {
 
   public get rowsChangedObservable(): Observable<Array<Row<any>>> {
     return this.rowsChanged.asObservable();
+  }
+
+  public get pageIndex(): number {
+    return this.currentPage - 1 > 0
+      ? this.currentPage - 1
+      : 0;
+  }
+
+  public get pageSizeOptions(): Array<number> {
+    return this.PAGE_SIZE_OPTIONS
+      .map((pageSizeOption: number) => {
+
+        if (this.total >= pageSizeOption) {
+          return pageSizeOption;
+        }
+
+        return undefined;
+      })
+      .filter(pageSizeOption => pageSizeOption);
   }
 
   public sendColumns(columns: Array<Column>): void {

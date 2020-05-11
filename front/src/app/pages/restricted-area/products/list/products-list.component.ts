@@ -6,6 +6,7 @@ import {Column} from '../../../../shared/component/datatable/model/column.model'
 import {Row} from '../../../../shared/component/datatable/model/row.model';
 import {ColumnTypeEnum} from '../../../../shared/component/datatable/model/column-type.enum';
 import {EditCell} from '../../../../shared/component/datatable/model/edit-cell.model';
+import {Pagination} from '../../../../shared/component/datatable/model/pagination.model';
 
 @Component({
   selector: 'app-products',
@@ -77,8 +78,11 @@ export class ProductsListComponent implements OnInit {
   }
 
   public onEditInline(editInline: EditCell): void {
-    console.log(editInline);
     editInline.feedbackSubject.next(true);
+  }
+
+  public onPaginationChanged(pagination: Pagination): void {
+    console.log(pagination);
   }
 
   private fetchProducts(): void {

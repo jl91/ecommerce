@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {DatagridComponent} from './components/datagrid/datagrid.component';
 
 @NgModule({
   imports: [
@@ -39,9 +40,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   ],
   exports: [
     DatatableComponent,
+    DatagridComponent
   ],
   declarations: [
     DatatableComponent,
+    DatagridComponent,
     EditableCellComponent,
     TextColumnComponent,
     NumberColumnComponent,
