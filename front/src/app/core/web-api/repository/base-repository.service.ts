@@ -40,7 +40,6 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
   }
 
   private insert(data: T): Observable<any> {
-    console.log(this.serializer.toJson(data));
     return this.httpClient
       .post(this.getRequestUrl(), this.serializer.toJson(data))
       .pipe(map(result => this.serializer.toModel(result)));

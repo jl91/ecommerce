@@ -37,7 +37,6 @@ export class SaveComponent implements OnInit {
         description
       } as Product)
       .subscribe((product: Product) => {
-        console.log(product);
         subscription.unsubscribe();
         this.productForm.reset();
         this.redirect();
