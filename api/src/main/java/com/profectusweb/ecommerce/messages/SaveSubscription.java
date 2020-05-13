@@ -5,8 +5,8 @@ import com.profectusweb.ecommerce.entities.database.DatabaseEntity;
 import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
 import com.profectusweb.ecommerce.repositories.database.BaseRepository;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
-import com.profectusweb.ecommerce.repositories.elasticsearch.BaseElasticRepository;
-import com.profectusweb.ecommerce.repositories.elasticsearch.UsersElasticRepository;
+import com.profectusweb.ecommerce.repositories.elasticsearch.BaseElasticsearchRepository;
+import com.profectusweb.ecommerce.repositories.elasticsearch.UsersElasticsearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class SaveSubscription {
     private CountDownLatch latch = new CountDownLatch(1);
 
     @Autowired
-    UsersElasticRepository usersElasticRepository;
+    UsersElasticsearchRepository usersElasticserachRepository;
 
     @Autowired
     UsersRepository usersRepository;
@@ -58,7 +58,7 @@ public class SaveSubscription {
                         String.format("Entity not found for id : %s", id)
                 ));
 
-        BaseElasticRepository elasticRepository = chooseElasticRepository(saveMessage);
+        BaseElasticsearchRepository elasticRepository = chooseElasticRepository(saveMessage);
 
         Object elasticEntity = elasticRepository.findOneByDatabaseId(id);
 
@@ -72,10 +72,10 @@ public class SaveSubscription {
 
     }
 
-    private BaseElasticRepository chooseElasticRepository(SaveMessage saveMessage) {
+    private BaseElasticsearchRepository chooseElasticRepository(SaveMessage saveMessage) {
 
         return switch (saveMessage.getEntity()) {
-            case "users" -> usersElasticRepository;
+            case "users" -> usersElasticserachRepository;
             default -> throw new IllegalStateException("Unexpected value: " + saveMessage.getEntity());
         };
     }

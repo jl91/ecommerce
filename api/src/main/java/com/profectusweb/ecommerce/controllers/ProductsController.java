@@ -4,6 +4,7 @@ import com.profectusweb.ecommerce.entities.database.ProductEntity;
 import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
 import com.profectusweb.ecommerce.requests.ProductsRequestBody;
 import com.profectusweb.ecommerce.services.database.ProductsService;
+import com.profectusweb.ecommerce.services.elasticsearch.ProductsPageableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,13 @@ class ProductsController extends BaseController<ProductEntity> {
 
     private ProductsService productsService;
 
+    private ProductsPageableService productsPageableService;
+
     @Autowired
     ProductsController(
             ProductsRepository productsRepository,
-            ProductsService productsService
+            ProductsService productsService,
+            ProductsPageableService productsPageableService
     ) {
         super(
                 "Products",

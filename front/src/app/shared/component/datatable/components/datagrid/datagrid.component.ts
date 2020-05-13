@@ -6,7 +6,6 @@ import {EditCell} from '../../model/edit-cell.model';
 import {Pagination} from '../../model/pagination.model';
 import {HttpOptions} from '../../model/http-options.model';
 import {DatagridService} from '../../service/datagrid.service';
-import {QueryBuilderService} from '../../../../../core/web-api/query/query-builder.service';
 import {QueryBuilder} from '../../../../../core/web-api/model/query/query-builder.model';
 
 @Component({

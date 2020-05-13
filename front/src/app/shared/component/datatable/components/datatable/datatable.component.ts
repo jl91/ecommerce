@@ -62,7 +62,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   public itemsPerPage = 10;
 
   @Input()
-  public total = 0;
+  public total = 100;
 
   @Output()
   public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
@@ -152,7 +152,6 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   }
 
   public onCurrentPageChange(pageEvent: PageEvent): void {
-    console.log(pageEvent);
     this.paginationChanged
       .emit({
         currentPage: pageEvent.pageIndex + 1,

@@ -7,7 +7,8 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 @Repository
-public interface UsersElasticRepository extends BaseElasticRepository<UserElasticsearchEntity, BigInteger> {
+public interface UsersElasticsearchRepository
+        extends BaseElasticsearchRepository<UserElasticsearchEntity, BigInteger> {
 
     @Override
     Optional<UserElasticsearchEntity> findOneByDatabaseId(BigInteger id);
