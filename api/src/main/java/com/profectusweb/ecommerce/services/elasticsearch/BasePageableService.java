@@ -23,16 +23,9 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
     @Override
     public PageableResponse<T> findBy(ApiQueryParams params) {
 
-        Integer currentPageNumber = INITIAL_PAGE;
-        Integer pageSize = INITIAL_PAGE_SIZE;
+        Integer currentPageNumber = params.getPage().orElse(INITIAL_PAGE);
 
-        if (params.getPage() != currentPageNumber) {
-            currentPageNumber = params.getPage();
-        }
-
-        if (params.getLimit() != pageSize) {
-            pageSize = params.getLimit();
-        }
+        Integer pageSize = params.getLimit().orElse(INITIAL_PAGE_SIZE);
 
         if (!params.getSorts().isEmpty()) {
 

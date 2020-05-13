@@ -1,8 +1,11 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.database.ProductEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ProductElasticsearchEntity;
 import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
+import com.profectusweb.ecommerce.requests.ApiQueryParams;
 import com.profectusweb.ecommerce.requests.ProductsRequestBody;
+import com.profectusweb.ecommerce.response.PageableResponse;
 import com.profectusweb.ecommerce.services.database.ProductsService;
 import com.profectusweb.ecommerce.services.elasticsearch.ProductsPageableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,7 @@ import java.math.BigInteger;
 
 @RestController()
 @RequestMapping("/products")
-class ProductsController extends BaseController<ProductEntity> {
+class ProductsController {
 
     private ProductsService productsService;
 
@@ -26,12 +29,49 @@ class ProductsController extends BaseController<ProductEntity> {
             ProductsService productsService,
             ProductsPageableService productsPageableService
     ) {
-        super(
-                "Products",
-                productsRepository
-        );
         this.productsService = productsService;
+        this.productsPageableService = productsPageableService;
     }
+
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public PageableResponse<ProductElasticsearchEntity> all(
+            @RequestParam(name = "fields", required = false)
+                    String fields,
+            @RequestParam(name = "filters", required = false)
+                    String filters,
+            @RequestParam(name = "sorts", required = false)
+                    String sorts,
+            @RequestParam(name = "limit", required = false)
+                    Integer limit,
+            @RequestParam(name = "page", required = false)
+                    Integer page,
+            @RequestParam(name = "search", required = false)
+                    String search
+    ) {
+
+        return this.productsPageableService
+                .findBy(
+                        new ApiQueryParams(
+                                fields,
+                                filters,
+                                sorts,
+                                limit,
+                                page,
+                                search
+                        )
+
+                );
+    }
+
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public T byId(@PathVariable(name = "id") BigInteger id) throws ResourceNotFoundException {
+//        return repository
+//                .findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException(entityName, id));
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

@@ -7,7 +7,6 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {"com.profectusweb"})
-@EnableJpaRepositories
 @EnableElasticsearchRepositories
 @EnableRabbit
 public class Application {
