@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -135,7 +135,7 @@ public class CartEntity implements Serializable, DatabaseEntity {
     }
 
     @Override
-    public ElasticSearchEntity toElasticEntity() {
+    public ElasticsearchEntity toElasticEntity() {
         return null;
     }
 }

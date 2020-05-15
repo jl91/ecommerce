@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -103,7 +103,7 @@ public class ProductInventoryEntity implements Serializable, DatabaseEntity {
     }
 
     @Override
-    public ElasticSearchEntity toElasticEntity() {
+    public ElasticsearchEntity toElasticEntity() {
         return null;
     }
 }

@@ -1,6 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -96,7 +96,7 @@ public class RoleEntity implements Serializable, GrantedAuthority, DatabaseEntit
     }
 
     @Override
-    public ElasticSearchEntity toElasticEntity() {
+    public ElasticsearchEntity toElasticEntity() {
         return null;
     }
 }

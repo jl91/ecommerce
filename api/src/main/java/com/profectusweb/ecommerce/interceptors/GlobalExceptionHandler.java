@@ -53,6 +53,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         String[] errors = {ex.getMessage()};
 
+        System.out.println(ex.getMessage());
+
         body.put("errors", errors);
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);

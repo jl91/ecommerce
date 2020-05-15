@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
         refreshInterval = "-1",
         type = "user"
 )
-public class UserElasticsearchEntity extends ElasticSearchEntity {
+public class UserElasticsearchEntity extends ElasticsearchEntity {
 
     private String username;
 

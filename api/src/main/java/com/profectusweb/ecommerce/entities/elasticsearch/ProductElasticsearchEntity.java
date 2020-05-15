@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
         refreshInterval = "-1",
         type = "product"
 )
-public class ProductElasticsearchEntity extends ElasticSearchEntity {
+public class ProductElasticsearchEntity extends ElasticsearchEntity {
 
     private String sku;
 

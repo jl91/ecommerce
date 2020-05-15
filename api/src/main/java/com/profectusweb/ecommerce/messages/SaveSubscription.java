@@ -2,7 +2,7 @@ package com.profectusweb.ecommerce.messages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profectusweb.ecommerce.entities.database.DatabaseEntity;
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 import com.profectusweb.ecommerce.repositories.database.BaseRepository;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.repositories.elasticsearch.BaseElasticsearchRepository;
@@ -66,7 +66,7 @@ public class SaveSubscription {
             elasticRepository.deleteByDatabaseId(id);
         }
 
-        ElasticSearchEntity elasticSearchEntity = entity.toElasticEntity();
+        ElasticsearchEntity elasticSearchEntity = entity.toElasticEntity();
 
         elasticRepository.save(elasticSearchEntity);
 

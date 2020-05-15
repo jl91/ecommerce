@@ -1,9 +1,18 @@
 package com.profectusweb.ecommerce.entities.elasticsearch;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.Id;
 import java.math.BigInteger;
 
-public class ElasticSearchEntity {
+@Document(
+        indexName = "Entities",
+        shards = 1,
+        replicas = 0,
+        refreshInterval = "-1",
+        type = "elasticsearchEntity"
+)
+public abstract class ElasticsearchEntity {
 
     @Id
     private BigInteger id;
@@ -14,7 +23,7 @@ public class ElasticSearchEntity {
         return id;
     }
 
-    public ElasticSearchEntity setId(BigInteger id) {
+    public ElasticsearchEntity setId(BigInteger id) {
         this.id = id;
         return this;
     }
@@ -23,7 +32,7 @@ public class ElasticSearchEntity {
         return databaseId;
     }
 
-    public ElasticSearchEntity setDatabaseId(BigInteger databaseId) {
+    public ElasticsearchEntity setDatabaseId(BigInteger databaseId) {
         this.databaseId = databaseId;
         return this;
     }

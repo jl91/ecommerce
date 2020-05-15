@@ -2,7 +2,7 @@ package com.profectusweb.ecommerce.entities.database;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticSearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -136,7 +136,7 @@ public class ProductEntity implements Serializable, DatabaseEntity {
     }
 
     @Override
-    public ElasticSearchEntity toElasticEntity() {
+    public ElasticsearchEntity toElasticEntity() {
         return null;
     }
 }
