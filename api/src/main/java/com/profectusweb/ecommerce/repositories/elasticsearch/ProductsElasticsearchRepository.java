@@ -11,8 +11,8 @@ public interface ProductsElasticsearchRepository
         extends BaseElasticsearchRepository<ProductElasticsearchEntity, BigInteger> {
 
     @Override
-    void deleteByDatabaseId(BigInteger id);
+    void deleteById(BigInteger id);
 
     @Override
-    Optional<ProductElasticsearchEntity> findOneByDatabaseId(BigInteger id);
+    Optional<ProductElasticsearchEntity> findOneById(BigInteger id);
 }

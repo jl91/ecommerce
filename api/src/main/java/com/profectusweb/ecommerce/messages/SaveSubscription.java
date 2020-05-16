@@ -60,10 +60,10 @@ public class SaveSubscription {
 
         BaseElasticsearchRepository elasticRepository = chooseElasticRepository(saveMessage);
 
-        Object elasticEntity = elasticRepository.findOneByDatabaseId(id);
+        Object elasticEntity = elasticRepository.findOneById(id);
 
         if (elasticEntity != null) {
-            elasticRepository.deleteByDatabaseId(id);
+            elasticRepository.deleteById(id);
         }
 
         ElasticsearchEntity elasticSearchEntity = entity.toElasticEntity();

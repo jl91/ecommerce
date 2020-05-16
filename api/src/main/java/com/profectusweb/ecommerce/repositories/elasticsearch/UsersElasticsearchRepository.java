@@ -11,8 +11,8 @@ public interface UsersElasticsearchRepository
         extends BaseElasticsearchRepository<UserElasticsearchEntity, BigInteger> {
 
     @Override
-    Optional<UserElasticsearchEntity> findOneByDatabaseId(BigInteger id);
+    Optional<UserElasticsearchEntity> findOneById(BigInteger id);
 
     @Override
-    void deleteByDatabaseId(BigInteger id);
+    void deleteById(BigInteger id);
 }

@@ -22,7 +22,7 @@ public class ProductsRequestBody implements RequestBody {
     @Length(min = 1, max = 128)
     public String name;
 
-    @PositiveOrZero
+    @PositiveOrZero()
     public Float value;
 
     @NotEmpty()

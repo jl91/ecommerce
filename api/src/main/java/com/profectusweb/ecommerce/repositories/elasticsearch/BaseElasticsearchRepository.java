@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface BaseElasticsearchRepository<T extends ElasticsearchEntity, J> extends ElasticsearchRepository<T, J> {
 
-    void deleteByDatabaseId(BigInteger id);
+    void deleteById(BigInteger id);
 
-    Optional<T> findOneByDatabaseId(BigInteger id);
+    Optional<T> findOneById(BigInteger id);
 }
