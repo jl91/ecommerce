@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "products")
@@ -152,8 +151,11 @@ public class ProductEntity implements Serializable, DatabaseEntity<ProductElasti
         productElasticsearchEntity.setName(this.getName());
         productElasticsearchEntity.setValue(this.getValue());
         productElasticsearchEntity.setDescription(this.getDescription());
-        productElasticsearchEntity.setCreatedAt(this.getCreatedAt());
-        productElasticsearchEntity.setUpdatedAt(this.getUpdatedAt());
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        productElasticsearchEntity.setCreatedAt(this.getCreatedAt().format(formatter));
+        if (this.updatedAt != null) {
+            productElasticsearchEntity.setUpdatedAt(this.getUpdatedAt().format(formatter));
+        }
         return productElasticsearchEntity;
     }
 }

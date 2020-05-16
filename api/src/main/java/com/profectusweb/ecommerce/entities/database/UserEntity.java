@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "users")
@@ -146,6 +147,11 @@ public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearc
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());
         elasticSearchEntity.setRole(this.getRole().getName());
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        elasticSearchEntity.setCreatedAt(this.getCreatedAt().format(formatter));
+        if (this.updatedAt != null) {
+            elasticSearchEntity.setUpdatedAt(this.getUpdatedAt().format(formatter));
+        }
         return elasticSearchEntity;
     }
 

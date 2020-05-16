@@ -30,11 +30,11 @@ public class ProductElasticsearchEntity extends ElasticsearchEntity {
     @Field(type = FieldType.Float, store = true)
     private Float value;
 
-    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
-    private LocalDateTime createdAt;
+    @Field(type = FieldType.Text, store = true)
+    private String createdAt;
 
-    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
-    private LocalDateTime updatedAt;
+    @Field(type = FieldType.Text, store = true)
+    private String updatedAt;
 
     public String getSku() {
         return sku;
@@ -72,20 +72,20 @@ public class ProductElasticsearchEntity extends ElasticsearchEntity {
         return this;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public ProductElasticsearchEntity setCreatedAt(LocalDateTime createdAt) {
+    public ProductElasticsearchEntity setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public ProductElasticsearchEntity setUpdatedAt(LocalDateTime updatedAt) {
+    public ProductElasticsearchEntity setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
