@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable, DatabaseEntity {
+public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearchEntity> {
 
     private static final long serialVersionUID = 1L;
 
@@ -133,10 +133,10 @@ public class UserEntity implements Serializable, DatabaseEntity {
         this.setDeletedAt(LocalDateTime.now());
     }
 
-    public ElasticsearchEntity toElasticEntity() {
+    public UserElasticsearchEntity toElasticEntity() {
         UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
-        elasticSearchEntity.setId(this.getId());
-        elasticSearchEntity.setDatabaseId(this.getId());
+        elasticSearchEntity.setId(this.id);
+        elasticSearchEntity.setDatabaseId(this.id);
         elasticSearchEntity.setName(this.getName());
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());

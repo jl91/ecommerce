@@ -2,7 +2,7 @@ package com.profectusweb.ecommerce.entities.database;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.ProductElasticsearchEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
-public class ProductEntity implements Serializable, DatabaseEntity {
+public class ProductEntity implements Serializable, DatabaseEntity<ProductElasticsearchEntity> {
 
     private static final long serialVersionUID = 1L;
 
@@ -136,7 +136,16 @@ public class ProductEntity implements Serializable, DatabaseEntity {
     }
 
     @Override
-    public ElasticsearchEntity toElasticEntity() {
-        return null;
+    public ProductElasticsearchEntity toElasticEntity() {
+        ProductElasticsearchEntity productElasticsearchEntity = new ProductElasticsearchEntity();
+        productElasticsearchEntity.setDatabaseId(this.id);
+        productElasticsearchEntity.setId(this.id);
+        productElasticsearchEntity.setSku(this.getSku());
+        productElasticsearchEntity.setName(this.getName());
+        productElasticsearchEntity.setValue(this.getValue());
+        productElasticsearchEntity.setDescription(this.getDescription());
+        productElasticsearchEntity.setCreatedAt(this.getCreatedAt());
+        productElasticsearchEntity.setUpdatedAt(this.getUpdatedAt());
+        return productElasticsearchEntity;
     }
 }

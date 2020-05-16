@@ -6,8 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
         indexName = "users",
         shards = 1,
         replicas = 0,
-        refreshInterval = "-1",
-        type = "user"
+        refreshInterval = "-1"
 )
 public class UserElasticsearchEntity extends ElasticsearchEntity {
 
