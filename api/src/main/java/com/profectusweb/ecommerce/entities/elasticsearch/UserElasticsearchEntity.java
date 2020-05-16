@@ -1,6 +1,9 @@
 package com.profectusweb.ecommerce.entities.elasticsearch;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.time.LocalDateTime;
 
 @Document(
         indexName = "users",
@@ -17,6 +20,12 @@ public class UserElasticsearchEntity extends ElasticsearchEntity {
     private String name;
 
     private String role;
+
+    @JsonFormat (shape = JsonFormat.Shape.STRING)
+    private LocalDateTime createdAt;
+
+    @JsonFormat (shape = JsonFormat.Shape.STRING)
+    private LocalDateTime updatedAt;
 
     public String getUsername() {
         return username;
@@ -51,6 +60,24 @@ public class UserElasticsearchEntity extends ElasticsearchEntity {
 
     public UserElasticsearchEntity setRole(String role) {
         this.role = role;
+        return this;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public UserElasticsearchEntity setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public UserElasticsearchEntity setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 }

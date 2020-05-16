@@ -1,6 +1,7 @@
 package com.profectusweb.ecommerce.controllers;
 
 import com.profectusweb.ecommerce.entities.database.UserEntity;
+import com.profectusweb.ecommerce.entities.elasticsearch.UserElasticsearchEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.requests.UsersRequestBody;
@@ -16,6 +17,7 @@ import java.math.BigInteger;
 @RestController()
 @RequestMapping("/users")
 public class UsersController {
+//    extends BaseController<UserEntity, UserElasticsearchEntity>
 
     @Autowired
     UsersService usersService;

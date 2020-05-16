@@ -1,6 +1,10 @@
 package com.profectusweb.ecommerce.entities.elasticsearch;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDateTime;
 
@@ -8,21 +12,26 @@ import java.time.LocalDateTime;
         indexName = "products",
         shards = 1,
         replicas = 0,
-        refreshInterval = "-1",
-        type = "product"
+        refreshInterval = "-1"
 )
 public class ProductElasticsearchEntity extends ElasticsearchEntity {
 
+    @Field(type = FieldType.Text, store = true)
     private String sku;
 
+    @Field(type = FieldType.Text, store = true)
     private String name;
 
+    @Field(type = FieldType.Text, store = true)
     private String description;
 
+    @Field(type = FieldType.Float, store = true)
     private Float value;
 
+    @Field(type = FieldType.Date, store = true)
     private LocalDateTime createdAt;
 
+    @Field(type = FieldType.Date, store = true)
     private LocalDateTime updatedAt;
 
     public String getSku() {

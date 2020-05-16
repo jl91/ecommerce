@@ -23,9 +23,9 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
     @Override
     public PageableResponse<T> findBy(ApiQueryParams params) {
 
-        Integer currentPageNumber = params.getPage().orElse(INITIAL_PAGE);
+        final Integer currentPageNumber = params.getPage().orElse(INITIAL_PAGE);
 
-        Integer pageSize = params.getLimit().orElse(INITIAL_PAGE_SIZE);
+        final Integer pageSize = params.getLimit().orElse(INITIAL_PAGE_SIZE);
 
         if (!params.getSorts().isEmpty()) {
 
@@ -39,7 +39,7 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
 
         }
 
-        Pageable pageable = PageRequest.of(currentPageNumber, pageSize);
+        Pageable pageable = PageRequest.of(currentPageNumber - 1, pageSize);
 
         Page<T> page = this.repository.findAll(pageable);
 
@@ -47,18 +47,15 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
     }
 
     private PageableResponse buildResponse(Page<T> page) {
-
-        PageableResponse pageableResponse = new PageableResponse<T>();
-        pageableResponse.setData(page.getContent());
-
-        pageableResponse.setPaginationMetadata(
-                new PaginationMetadata(
-                        page.getNumber(),
-                        page.getSize(),
-                        (int) page.getTotalElements()
-                )
-        );
-
-        return pageableResponse;
+        System.out.println(page);
+        return new PageableResponse<T>()
+                .setData(page.getContent())
+                .setPaginationMetadata(
+                        new PaginationMetadata(
+                                page.getNumber(),
+                                page.getSize(),
+                                (int) page.getTotalElements()
+                        )
+                );
     }
 }

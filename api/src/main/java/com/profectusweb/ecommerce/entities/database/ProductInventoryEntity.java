@@ -1,5 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 
 import javax.persistence.*;
@@ -89,7 +90,13 @@ public class ProductInventoryEntity implements Serializable, DatabaseEntity {
 
     @PrePersist
     private void prePersist() {
-        this.setCreatedAt(LocalDateTime.now());
+        if (this.createdAt == null) {
+            this.setCreatedAt(LocalDateTime.now());
+        }
+
+        if (this.updatedAt == null) {
+            this.setUpdatedAt(LocalDateTime.now());
+        }
     }
 
     @PreUpdate

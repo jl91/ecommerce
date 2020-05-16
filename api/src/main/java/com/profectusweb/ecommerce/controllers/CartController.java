@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/carts")
-public class CartController extends BaseController<CartEntity> {
-
+public class CartController  {
+//extends BaseController<CartEntity>
     private CartService cartService;
 
     private CartItemService cartItemService;
@@ -29,10 +29,10 @@ public class CartController extends BaseController<CartEntity> {
             CartService cartService,
             CartItemService cartItemService
     ) {
-        super(
-                "Cart",
-                cartsRepository
-        );
+//        super(
+//                "Cart",
+//                cartsRepository
+//        );
         this.cartService = cartService;
         this.cartItemService = cartItemService;
     }

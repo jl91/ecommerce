@@ -17,7 +17,7 @@ import java.math.BigInteger;
 
 @RestController()
 @RequestMapping("/products")
-class ProductsController {
+class ProductsController extends BaseController<ProductEntity, ProductElasticsearchEntity> {
 
     private ProductsService productsService;
 
@@ -29,49 +29,14 @@ class ProductsController {
             ProductsService productsService,
             ProductsPageableService productsPageableService
     ) {
+        super(
+                "Product",
+                productsRepository,
+                productsPageableService
+        );
         this.productsService = productsService;
         this.productsPageableService = productsPageableService;
     }
-
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public PageableResponse<ProductElasticsearchEntity> all(
-            @RequestParam(name = "fields", required = false)
-                    String fields,
-            @RequestParam(name = "filters", required = false)
-                    String filters,
-            @RequestParam(name = "sorts", required = false)
-                    String sorts,
-            @RequestParam(name = "limit", required = false)
-                    Integer limit,
-            @RequestParam(name = "page", required = false)
-                    Integer page,
-            @RequestParam(name = "search", required = false)
-                    String search
-    ) {
-
-        return this.productsPageableService
-                .findBy(
-                        new ApiQueryParams(
-                                fields,
-                                filters,
-                                sorts,
-                                limit,
-                                page,
-                                search
-                        )
-
-                );
-    }
-
-//    @GetMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public T byId(@PathVariable(name = "id") BigInteger id) throws ResourceNotFoundException {
-//        return repository
-//                .findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException(entityName, id));
-//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

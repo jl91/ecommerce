@@ -13,7 +13,8 @@ import java.math.BigInteger;
 
 @RestController()
 @RequestMapping("/roles")
-public class RolesController extends BaseController<RoleEntity> {
+public class RolesController  {
+//    extends BaseController<RoleEntity>
 
     private RolesService rolesService;
 
@@ -22,10 +23,10 @@ public class RolesController extends BaseController<RoleEntity> {
             RolesRepository rolesRepository,
             RolesService rolesService
     ) {
-        super(
-                "Role",
-                rolesRepository
-        );
+//        super(
+//                "Role",
+//                rolesRepository
+//        );
         this.rolesService = rolesService;
     }
 

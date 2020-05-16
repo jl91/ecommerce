@@ -1,5 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 
 import javax.persistence.*;

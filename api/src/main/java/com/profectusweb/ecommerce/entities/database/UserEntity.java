@@ -1,7 +1,9 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.profectusweb.ecommerce.entities.elasticsearch.UserElasticsearchEntity;
+import com.profectusweb.ecommerce.serializer.CustomLocalDatetimeSerializer;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -117,14 +119,20 @@ public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearc
 
     @PrePersist
     private void prePersist() {
-        this.setCreatedAt(LocalDateTime.now());
+        if (this.createdAt == null) {
+            this.setCreatedAt(LocalDateTime.now());
+        }
+
+        if (this.updatedAt == null) {
+            this.setUpdatedAt(LocalDateTime.now());
+        }
+
         this.password = new BCryptPasswordEncoder(10)
                 .encode(this.password);
     }
 
     @PreUpdate
-    private void preUpdate()
-    {
+    private void preUpdate() {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
@@ -135,8 +143,8 @@ public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearc
 
     public UserElasticsearchEntity toElasticEntity() {
         UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
-        elasticSearchEntity.setId(this.id);
-        elasticSearchEntity.setDatabaseId(this.id);
+        elasticSearchEntity.setId(this.getId());
+        elasticSearchEntity.setDatabaseId(this.getId());
         elasticSearchEntity.setName(this.getName());
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());
