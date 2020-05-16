@@ -1,12 +1,14 @@
 package com.profectusweb.ecommerce.entities.elasticsearch;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Document(
         indexName = "products",
@@ -28,10 +30,10 @@ public class ProductElasticsearchEntity extends ElasticsearchEntity {
     @Field(type = FieldType.Float, store = true)
     private Float value;
 
-    @Field(type = FieldType.Date, store = true)
+    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
     private LocalDateTime createdAt;
 
-    @Field(type = FieldType.Date, store = true)
+    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
     private LocalDateTime updatedAt;
 
     public String getSku() {

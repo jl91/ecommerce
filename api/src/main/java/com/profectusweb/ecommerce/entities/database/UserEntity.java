@@ -1,9 +1,6 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.profectusweb.ecommerce.entities.elasticsearch.UserElasticsearchEntity;
-import com.profectusweb.ecommerce.serializer.CustomLocalDatetimeSerializer;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -143,8 +140,8 @@ public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearc
 
     public UserElasticsearchEntity toElasticEntity() {
         UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
-        elasticSearchEntity.setId(this.getId());
-        elasticSearchEntity.setDatabaseId(this.getId());
+        elasticSearchEntity.setId(this.getId().intValue());
+        elasticSearchEntity.setDatabaseId(this.getId().intValue());
         elasticSearchEntity.setName(this.getName());
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());

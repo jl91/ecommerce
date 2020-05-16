@@ -1,6 +1,5 @@
 package com.profectusweb.ecommerce.entities.database;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profectusweb.ecommerce.entities.elasticsearch.ProductElasticsearchEntity;
@@ -9,6 +8,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -145,8 +146,8 @@ public class ProductEntity implements Serializable, DatabaseEntity<ProductElasti
     @Override
     public ProductElasticsearchEntity toElasticEntity() {
         ProductElasticsearchEntity productElasticsearchEntity = new ProductElasticsearchEntity();
-        productElasticsearchEntity.setDatabaseId(this.getId());
-        productElasticsearchEntity.setId(this.getId());
+        productElasticsearchEntity.setDatabaseId(this.getId().intValue());
+        productElasticsearchEntity.setId(this.getId().intValue());
         productElasticsearchEntity.setSku(this.getSku());
         productElasticsearchEntity.setName(this.getName());
         productElasticsearchEntity.setValue(this.getValue());

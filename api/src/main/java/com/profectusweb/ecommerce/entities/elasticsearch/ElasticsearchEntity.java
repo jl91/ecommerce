@@ -4,31 +4,30 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.Id;
-import java.math.BigInteger;
 
 public abstract class ElasticsearchEntity {
 
     @Id
     @Field(type = FieldType.Integer, store = true)
-    private BigInteger id;
+    private int id;
 
     @Field(type = FieldType.Integer, store = true)
-    private BigInteger databaseId;
+    private int databaseId;
 
-    public BigInteger getId() {
+    public int getId() {
         return id;
     }
 
-    public ElasticsearchEntity setId(BigInteger id) {
+    public ElasticsearchEntity setId(int id) {
         this.id = id;
         return this;
     }
 
-    public BigInteger getDatabaseId() {
+    public int getDatabaseId() {
         return databaseId;
     }
 
-    public ElasticsearchEntity setDatabaseId(BigInteger databaseId) {
+    public ElasticsearchEntity setDatabaseId(int databaseId) {
         this.databaseId = databaseId;
         return this;
     }
