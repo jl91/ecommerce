@@ -11,24 +11,12 @@ public abstract class ElasticsearchEntity {
     @Field(type = FieldType.Integer, store = true)
     private int id;
 
-    @Field(type = FieldType.Integer, store = true)
-    private int databaseId;
-
     public int getId() {
         return id;
     }
 
     public ElasticsearchEntity setId(int id) {
         this.id = id;
-        return this;
-    }
-
-    public int getDatabaseId() {
-        return databaseId;
-    }
-
-    public ElasticsearchEntity setDatabaseId(int databaseId) {
-        this.databaseId = databaseId;
         return this;
     }
 }

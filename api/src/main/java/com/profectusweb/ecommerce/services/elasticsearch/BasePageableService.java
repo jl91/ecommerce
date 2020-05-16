@@ -47,7 +47,6 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
     }
 
     private PageableResponse buildResponse(Page<T> page) {
-        System.out.println(page);
         return new PageableResponse<T>()
                 .setData(page.getContent())
                 .setPaginationMetadata(

@@ -142,7 +142,6 @@ public class UserEntity implements Serializable, DatabaseEntity<UserElasticsearc
     public UserElasticsearchEntity toElasticEntity() {
         UserElasticsearchEntity elasticSearchEntity = new UserElasticsearchEntity();
         elasticSearchEntity.setId(this.getId().intValue());
-        elasticSearchEntity.setDatabaseId(this.getId().intValue());
         elasticSearchEntity.setName(this.getName());
         elasticSearchEntity.setPassword(this.getPassword());
         elasticSearchEntity.setUsername(this.getUsername());

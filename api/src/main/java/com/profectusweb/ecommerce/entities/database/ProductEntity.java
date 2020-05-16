@@ -145,7 +145,6 @@ public class ProductEntity implements Serializable, DatabaseEntity<ProductElasti
     @Override
     public ProductElasticsearchEntity toElasticEntity() {
         ProductElasticsearchEntity productElasticsearchEntity = new ProductElasticsearchEntity();
-        productElasticsearchEntity.setDatabaseId(this.getId().intValue());
         productElasticsearchEntity.setId(this.getId().intValue());
         productElasticsearchEntity.setSku(this.getSku());
         productElasticsearchEntity.setName(this.getName());
