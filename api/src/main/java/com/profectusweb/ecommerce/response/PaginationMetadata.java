@@ -4,8 +4,8 @@ public class PaginationMetadata {
 
     private Integer page;
     private Integer itemsPerPage;
+    private Integer totalPages;
     private Integer total;
-
 
     PaginationMetadata() {
 
@@ -23,6 +23,11 @@ public class PaginationMetadata {
     public PaginationMetadata(Integer page, Integer itemsPerPage, Integer total) {
         this(page, itemsPerPage);
         this.setTotal(total);
+    }
+
+    public PaginationMetadata(Integer page, Integer itemsPerPage, Integer total, Integer totalPages) {
+        this(page, itemsPerPage, total);
+        this.setTotalPages(totalPages);
     }
 
     public Integer getPage() {
@@ -49,6 +54,15 @@ public class PaginationMetadata {
 
     public PaginationMetadata setTotal(Integer total) {
         this.total = total;
+        return this;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public PaginationMetadata setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
         return this;
     }
 }

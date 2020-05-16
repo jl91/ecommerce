@@ -52,9 +52,10 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
                 .setData(page.getContent())
                 .setPaginationMetadata(
                         new PaginationMetadata(
-                                page.getNumber(),
+                                page.getNumber() + 1,
                                 page.getSize(),
-                                (int) page.getTotalElements()
+                                (int) page.getTotalElements(),
+                                (int) page.getTotalPages()
                         )
                 );
     }
