@@ -1,4 +1,7 @@
 <div class="mat-elevation-z8">
+  <div *ngIf="isLoading">
+      LOADING
+  </div>
   <ng-container *ngIf="displayedRows">
     <mat-table [dataSource]="displayedRows"
                class="datatable w-100"

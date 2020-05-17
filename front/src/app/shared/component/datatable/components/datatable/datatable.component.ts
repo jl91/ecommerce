@@ -64,6 +64,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Input()
   public total = 100;
 
+  @Input()
+  public isLoading = false;
+
   @Output()
   public selectedRows: EventEmitter<Array<Row<any>>> = new EventEmitter<Array<Row<any>>>();
 

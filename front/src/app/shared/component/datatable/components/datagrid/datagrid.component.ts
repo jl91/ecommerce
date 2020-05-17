@@ -32,6 +32,8 @@ export class DatagridComponent implements OnInit, AfterViewInit {
 
   public rows: Array<any> = [];
 
+  public isLoading = false;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     public datagridService: DatagridService
@@ -78,6 +80,7 @@ export class DatagridComponent implements OnInit, AfterViewInit {
         this.itemsPerPage = paginationMetadata.itemsPerPage;
         this.updateView();
         subscription.unsubscribe();
+        this.isLoading = false;
       });
   }
 
@@ -86,6 +89,7 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   }
 
   public onReload(): void {
+    this.isLoading = true;
     this.fetchBy(this.datagridService.getQueryBuilder());
   }
 
