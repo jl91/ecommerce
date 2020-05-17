@@ -3,9 +3,8 @@ package com.profectusweb.ecommerce.controllers;
 import com.profectusweb.ecommerce.entities.database.ProductEntity;
 import com.profectusweb.ecommerce.entities.elasticsearch.ProductElasticsearchEntity;
 import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
-import com.profectusweb.ecommerce.requests.ApiQueryParams;
 import com.profectusweb.ecommerce.requests.ProductsRequestBody;
-import com.profectusweb.ecommerce.response.PageableResponse;
+import com.profectusweb.ecommerce.services.amqp.ProductAmqpService;
 import com.profectusweb.ecommerce.services.database.ProductsService;
 import com.profectusweb.ecommerce.services.elasticsearch.ProductsPageableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,9 @@ class ProductsController extends BaseController<ProductEntity, ProductElasticsea
     private ProductsService productsService;
 
     private ProductsPageableService productsPageableService;
+
+    @Autowired
+    ProductAmqpService productAmqpService;
 
     @Autowired
     ProductsController(
@@ -43,8 +45,12 @@ class ProductsController extends BaseController<ProductEntity, ProductElasticsea
     public ProductEntity create(
             @Valid @RequestBody ProductsRequestBody incommingRequestBody
     ) {
-        return this.productsService
+        ProductEntity productEntity = this.productsService
                 .create(incommingRequestBody);
+
+        this.productAmqpService.sendUpdateMessage(productEntity.getId());
+
+        return productEntity;
     }
 
     @PutMapping("/{id}")
@@ -54,8 +60,13 @@ class ProductsController extends BaseController<ProductEntity, ProductElasticsea
             @Valid @RequestBody ProductsRequestBody incommingRequestBody
     ) {
         incommingRequestBody.id = id;
-        return this.productsService
+
+        ProductEntity productEntity = this.productsService
                 .update(incommingRequestBody);
+
+        this.productAmqpService.sendUpdateMessage(productEntity.getId());
+
+        return productEntity;
     }
 
     @DeleteMapping("/{id}")

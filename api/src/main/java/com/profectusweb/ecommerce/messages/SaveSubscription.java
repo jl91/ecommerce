@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profectusweb.ecommerce.entities.database.DatabaseEntity;
 import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 import com.profectusweb.ecommerce.repositories.database.BaseRepository;
+import com.profectusweb.ecommerce.repositories.database.ProductsRepository;
 import com.profectusweb.ecommerce.repositories.database.UsersRepository;
 import com.profectusweb.ecommerce.repositories.elasticsearch.BaseElasticsearchRepository;
+import com.profectusweb.ecommerce.repositories.elasticsearch.ProductsElasticsearchRepository;
 import com.profectusweb.ecommerce.repositories.elasticsearch.UsersElasticsearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,12 @@ public class SaveSubscription {
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    ProductsElasticsearchRepository productsElasticsearchRepository;
+
+    @Autowired
+    ProductsRepository productsRepository;
 
 
     public void subscribe(byte[] message) {
@@ -76,6 +84,7 @@ public class SaveSubscription {
 
         return switch (saveMessage.getEntity()) {
             case "users" -> usersElasticserachRepository;
+            case "products" -> productsElasticsearchRepository;
             default -> throw new IllegalStateException("Unexpected value: " + saveMessage.getEntity());
         };
     }
@@ -84,6 +93,7 @@ public class SaveSubscription {
 
         return switch (saveMessage.getEntity()) {
             case "users" -> usersRepository;
+            case "products" -> productsRepository;
             default -> throw new IllegalStateException("Unexpected value: " + saveMessage.getEntity());
         };
     }
