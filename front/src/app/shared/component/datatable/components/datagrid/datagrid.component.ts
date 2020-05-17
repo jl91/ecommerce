@@ -24,6 +24,12 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   @Input()
   public httpOptions: HttpOptions;
 
+  public currentPage = 1;
+
+  public total = 0;
+
+  public itemsPerPage = 10;
+
   public rows: Array<any> = [];
 
   constructor(
@@ -65,7 +71,11 @@ export class DatagridComponent implements OnInit, AfterViewInit {
     const subscription = this.datagridService
       .fetchBy(queryBuilder)
       .subscribe(result => {
-        this.rows = result;
+        const {paginationMetadata} =  result;
+        this.rows = result.data;
+        this.currentPage = paginationMetadata.page;
+        this.total = paginationMetadata.total;
+        this.itemsPerPage = paginationMetadata.itemsPerPage;
         this.updateView();
         subscription.unsubscribe();
       });

@@ -6,6 +6,7 @@ import {Serializer} from '../model/serializer/serializer.model';
 import {Resource} from '../model/resource/resource.model';
 import {WebApiConfiguration} from '../model/configuration/web-api.configuration';
 import {QueryBuilderService} from '../query/query-builder.service';
+import {Resultset} from '../model/resultset/resultset.model';
 
 export abstract class BaseRepositoryService<T extends Resource> implements Repository<T> {
 
@@ -17,16 +18,16 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
   ) {
   }
 
-  public by(params?: any): Observable<Array<T>> {
+  public by(params?: any): Observable<Resultset<T>> {
     return this.httpClient
       .get(this.getRequestUrl(), {params})
       .pipe(map(data => this.convertToModel(data)));
   }
 
-  public byId(id: number): Observable<T> {
+  public byId(id: number): Observable<Resultset<T>> {
     return this.httpClient
       .get(this.getRequestUrl(id))
-      .pipe(map(data => this.serializer.toModel(data)));
+      .pipe(map(data => this.convertToModel(data)));
   }
 
   public remove(id: number): Observable<any> {
@@ -63,11 +64,12 @@ export abstract class BaseRepositoryService<T extends Resource> implements Repos
     return base;
   }
 
-  private convertToModel(data: any): Array<T> {
-    return data.map(item => this.serializer.toModel(item));
+  private convertToModel(data: any): Resultset<T> {
+    data.data = data.data.map(item => this.serializer.toModel(item));
+    return data;
   }
 
-  public query(queryBuilderService: QueryBuilderService): Observable<Array<T>> {
+  public query(queryBuilderService: QueryBuilderService): Observable<Resultset<T>> {
     const url = this.getRequestUrl();
     const params = queryBuilderService.build();
     return this.httpClient

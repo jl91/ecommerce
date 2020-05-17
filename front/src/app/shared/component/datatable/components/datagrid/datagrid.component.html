@@ -7,6 +7,9 @@
 <div class="row">
   <div class="col">
     <app-datatable [columns]="columns"
+                   [currentPage]="currentPage"
+                   [itemsPerPage]="itemsPerPage"
+                   [total]="total"
                    [rows]="rows"
                    (selectedRows)="onSelectedRows($event)"
                    (editInline)="onEditInline($event)"
