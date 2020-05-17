@@ -247,8 +247,6 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   public onReload(mouseEvent: MouseEvent): void {
     mouseEvent.preventDefault();
-    mouseEvent.stopImmediatePropagation();
-    mouseEvent.stopPropagation();
     this.reload.emit();
   }
 
