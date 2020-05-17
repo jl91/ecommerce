@@ -71,7 +71,7 @@ export class DatagridComponent implements OnInit, AfterViewInit {
     const subscription = this.datagridService
       .fetchBy(queryBuilder)
       .subscribe(result => {
-        const {paginationMetadata} =  result;
+        const {paginationMetadata} = result;
         this.rows = result.data;
         this.currentPage = paginationMetadata.page;
         this.total = paginationMetadata.total;
@@ -83,6 +83,10 @@ export class DatagridComponent implements OnInit, AfterViewInit {
 
   private updateView(): void {
     this.changeDetectorRef.detectChanges();
+  }
+
+  public onReload(): void {
+    this.fetchBy(this.datagridService.getQueryBuilder());
   }
 
 }

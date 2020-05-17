@@ -73,6 +73,9 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   @Output()
   public paginationChanged: EventEmitter<Pagination> = new EventEmitter<Pagination>();
 
+  @Output()
+  public reload: EventEmitter<void> = new EventEmitter<void>();
+
   public displayedColumns: Array<string> = [];
 
   public displayedRows: Array<Row<any>> = [];
@@ -240,6 +243,13 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
       .subscribe(() => this.selectedRows.emit(this.selection.selected));
 
     this.subscriptions.add(subscription);
+  }
+
+  public onReload(mouseEvent: MouseEvent): void {
+    mouseEvent.preventDefault();
+    mouseEvent.stopImmediatePropagation();
+    mouseEvent.stopPropagation();
+    this.reload.emit();
   }
 
 }

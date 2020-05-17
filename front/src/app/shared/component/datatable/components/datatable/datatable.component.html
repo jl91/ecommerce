@@ -154,7 +154,10 @@
             <mat-menu #tableMenu="matMenu">
               <ng-template matMenuContent>
 
-                <button mat-menu-item>
+                <button mat-menu-item
+                        (click)="onReload($event)"
+                        type="button"
+                >
                   <mat-icon>
                     <fa-icon [icon]="ICONS.sync"
                              [size]="'xs'"
