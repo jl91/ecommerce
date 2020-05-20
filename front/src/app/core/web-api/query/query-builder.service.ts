@@ -16,6 +16,8 @@ export class QueryBuilderService implements QueryBuilder {
 
   private page = 1;
 
+  private searchValue = '';
+
   constructor() {
   }
 
@@ -52,6 +54,7 @@ export class QueryBuilderService implements QueryBuilder {
       sorts.forEach(this.addSorts.bind(this));
       return this;
     }
+
     this.sorts.set(sorts.key, sorts.value);
     return this;
   }
@@ -79,10 +82,18 @@ export class QueryBuilderService implements QueryBuilder {
       query.page = this.page;
     }
 
+    if (this.searchValue) {
+      query.search = this.searchValue;
+    }
+
     let httpParams = new HttpParams();
 
     Object.keys(query)
       .forEach(key => {
+        if (!query[key]) {
+          return;
+        }
+
         httpParams = httpParams.append(key, query[key]);
       });
 
@@ -205,5 +216,9 @@ export class QueryBuilderService implements QueryBuilder {
     return this.addSorts(sorts);
   }
 
+  public search(value: string): QueryBuilder {
+    this.searchValue = value;
+    return this;
+  }
 
 }

@@ -1,4 +1,5 @@
 <mat-form-field class="w-100"
+                [formGroup]="formGroup"
 >
   <mat-label>
     Search
@@ -6,10 +7,15 @@
 
   <input matInput
          type="search"
+         formControlName="search"
   >
 
   <mat-icon matSuffix>
     search
   </mat-icon>
+
+  <mat-hint>
+    filter table by value
+  </mat-hint>
 
 </mat-form-field>

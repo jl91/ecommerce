@@ -26,7 +26,6 @@ export interface QueryBuilder {
   removeSorts(sorts: Sort | Array<Sort>): QueryBuilder;
 
   // Pagination
-
   setLimit(limit: number): QueryBuilder;
 
   setPage(page: number): QueryBuilder;
@@ -35,5 +34,7 @@ export interface QueryBuilder {
   build(): HttpParams;
 
   reset(): QueryBuilder;
+
+  search(value: string): QueryBuilder;
 
 }

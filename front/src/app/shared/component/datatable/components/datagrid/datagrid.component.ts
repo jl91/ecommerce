@@ -86,6 +86,7 @@ export class DatagridComponent implements OnInit, AfterViewInit {
         (error: any) => {
           console.log(error);
           this.isLoading = false;
+          this.updateView();
         }
       );
   }
@@ -97,6 +98,10 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   public onReload(): void {
     this.isLoading = true;
     this.fetchBy(this.datagridService.getQueryBuilder());
+  }
+
+  public onSearchValueChanged(value: string): void {
+    console.log(value);
   }
 
 }
