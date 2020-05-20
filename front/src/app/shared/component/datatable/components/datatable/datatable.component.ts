@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -94,7 +95,8 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   constructor(
     public datatableService: DatatableService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    public elementRef: ElementRef
   ) {
   }
 
@@ -200,6 +202,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   }
 
   private afterChanges(changes: SimpleChanges): void {
+
     if (changes?.columns?.currentValue) {
       this.processColumns();
     }

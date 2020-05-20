@@ -1,8 +1,12 @@
-<div class="mat-elevation-z8">
-  <div *ngIf="isLoading">
-      LOADING
-  </div>
+<app-loader [connectedTo]="elementRef"
+            [isLoading]="isLoading"
+>
+</app-loader>
+
+<div class="mat-elevation-z8 table-container">
+
   <ng-container *ngIf="displayedRows">
+
     <mat-table [dataSource]="displayedRows"
                class="datatable w-100"
     >

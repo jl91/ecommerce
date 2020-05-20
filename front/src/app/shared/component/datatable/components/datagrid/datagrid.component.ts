@@ -70,18 +70,24 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   }
 
   public fetchBy(queryBuilder: QueryBuilder): void {
+    this.isLoading = true;
     const subscription = this.datagridService
       .fetchBy(queryBuilder)
-      .subscribe(result => {
-        const {paginationMetadata} = result;
-        this.rows = result.data;
-        this.currentPage = paginationMetadata.page;
-        this.total = paginationMetadata.total;
-        this.itemsPerPage = paginationMetadata.itemsPerPage;
-        this.updateView();
-        subscription.unsubscribe();
-        this.isLoading = false;
-      });
+      .subscribe(resultSet => {
+          const {paginationMetadata} = resultSet;
+          this.rows = resultSet.data;
+          this.currentPage = paginationMetadata.page;
+          this.total = paginationMetadata.total;
+          this.itemsPerPage = paginationMetadata.itemsPerPage;
+          this.isLoading = false;
+          this.updateView();
+          subscription.unsubscribe();
+        },
+        (error: any) => {
+          console.log(error);
+          this.isLoading = false;
+        }
+      );
   }
 
   private updateView(): void {

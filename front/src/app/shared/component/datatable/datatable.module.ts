@@ -24,6 +24,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DatagridComponent} from './components/datagrid/datagrid.component';
 import {SearchComponent} from './components/search/search.component';
+import {LoaderModule} from '../loader/loader.module';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {SearchComponent} from './components/search/search.component';
     MatInputModule,
     ReactiveFormsModule,
     MatMenuModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LoaderModule
   ],
   exports: [
     DatatableComponent,
