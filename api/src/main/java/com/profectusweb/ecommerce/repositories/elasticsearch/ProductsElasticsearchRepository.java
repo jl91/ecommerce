@@ -18,7 +18,8 @@ public interface ProductsElasticsearchRepository
     @Override
     Optional<ProductElasticsearchEntity> findOneById(BigInteger id);
 
-    Page<ProductElasticsearchEntity> findAllBySkuLikeOrNameLikeOrDescriptionLike(
+    Page<ProductElasticsearchEntity> findAllByIdLikeOrSkuLikeOrNameLikeOrDescriptionLike(
+            String id,
             String sku,
             String name,
             String description,

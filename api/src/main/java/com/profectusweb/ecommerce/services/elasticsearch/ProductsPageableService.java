@@ -30,12 +30,12 @@ public class ProductsPageableService extends BasePageableService<ProductElastics
         }
 
         Pageable pageable = super.getPageable(params);
-        System.out.println(pageable);
 
         String value = params.getSearch().orElse("");
 
         Page<ProductElasticsearchEntity> page = this.productsElasticsearchRepository
-                .findAllBySkuLikeOrNameLikeOrDescriptionLike(
+                .findAllByIdLikeOrSkuLikeOrNameLikeOrDescriptionLike(
+                        value,
                         value,
                         value,
                         value,
