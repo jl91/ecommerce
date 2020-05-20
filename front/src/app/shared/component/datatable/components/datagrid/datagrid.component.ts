@@ -101,7 +101,11 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   }
 
   public onSearchValueChanged(value: string): void {
-    console.log(value);
+    const queryBuilder = this.datagridService
+      .getQueryBuilder()
+      .search(value);
+
+    this.fetchBy(queryBuilder);
   }
 
 }
