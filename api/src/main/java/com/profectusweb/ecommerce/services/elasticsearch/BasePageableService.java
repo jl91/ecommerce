@@ -1,31 +1,28 @@
 package com.profectusweb.ecommerce.services.elasticsearch;
 
+import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
+import com.profectusweb.ecommerce.repositories.elasticsearch.BaseElasticsearchRepository;
 import com.profectusweb.ecommerce.requests.ApiQueryParams;
 import com.profectusweb.ecommerce.response.PageableResponse;
 import com.profectusweb.ecommerce.response.PaginationMetadata;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
-public abstract class BasePageableService<T, J> implements ApiQueryServiceRepository<T> {
+public abstract class BasePageableService<T extends ElasticsearchEntity, J> implements ApiQueryServiceRepository<T> {
 
-    private PagingAndSortingRepository<T, J> repository;
+    private BaseElasticsearchRepository<T, J> repository;
 
-    BasePageableService(PagingAndSortingRepository repository) {
+    BasePageableService(BaseElasticsearchRepository repository) {
         this.repository = repository;
     }
 
-    private final Integer INITIAL_PAGE = 1;
+    protected final Integer INITIAL_PAGE = 1;
 
-    private final Integer INITIAL_PAGE_SIZE = 10;
+    protected final Integer INITIAL_PAGE_SIZE = 10;
 
     @Override
     public PageableResponse<T> findBy(ApiQueryParams params) {
-
-        final Integer currentPageNumber = params.getPage().orElse(INITIAL_PAGE);
-
-        final Integer pageSize = params.getLimit().orElse(INITIAL_PAGE_SIZE);
 
         if (!params.getSorts().isEmpty()) {
 
@@ -39,14 +36,24 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
 
         }
 
-        Pageable pageable = PageRequest.of(currentPageNumber - 1, pageSize);
+        final Pageable pageable = this.getPageable(params);
 
-        Page<T> page = this.repository.findAll(pageable);
+        final Page<T> page = this.repository.findAll(pageable);
 
         return this.buildResponse(page);
     }
 
-    private PageableResponse buildResponse(Page<T> page) {
+    protected Pageable getPageable(ApiQueryParams params) {
+        Integer currentPageNumber = params.getPage().orElse(INITIAL_PAGE);
+        currentPageNumber = currentPageNumber <= 1 ? 1 : currentPageNumber;
+        final Integer pageSize = params.getLimit().orElse(INITIAL_PAGE_SIZE);
+        return PageRequest.of(
+                currentPageNumber - 1,
+                pageSize
+        );
+    }
+
+    protected PageableResponse buildResponse(Page<T> page) {
         return new PageableResponse<T>()
                 .setData(page.getContent())
                 .setPaginationMetadata(
@@ -54,7 +61,7 @@ public abstract class BasePageableService<T, J> implements ApiQueryServiceReposi
                                 page.getNumber() + 1,
                                 page.getSize(),
                                 (int) page.getTotalElements(),
-                                (int) page.getTotalPages()
+                                page.getTotalPages()
                         )
                 );
     }
