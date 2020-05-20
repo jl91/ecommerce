@@ -172,6 +172,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     this.datatableService.total = this.total;
     this.datatableService.itemsPerPage = this.itemsPerPage;
     this.datatableService.currentPage = this.currentPage;
+    this.datatableService.setPageSizeOptions();
   }
 
   private registerOnColumnsChanged(): void {
@@ -210,6 +211,8 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
     if (changes?.rows?.currentValue) {
       this.processRows();
     }
+
+    this.configureDatatableService();
 
     this.updateView();
   }

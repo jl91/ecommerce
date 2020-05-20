@@ -14,6 +14,8 @@ export class DatatableService {
     100
   ];
 
+  public pageSizeOptions: Array<number> = [];
+
   public readonly SYSTEM_COLUMNS: Array<string> = [
     'select',
     'actions'
@@ -48,8 +50,8 @@ export class DatatableService {
       : 0;
   }
 
-  public get pageSizeOptions(): Array<number> {
-    return this.PAGE_SIZE_OPTIONS
+  public setPageSizeOptions(): void {
+    this.pageSizeOptions = this.PAGE_SIZE_OPTIONS
       .map((pageSizeOption: number) => {
 
         if (this.total >= pageSizeOption) {
