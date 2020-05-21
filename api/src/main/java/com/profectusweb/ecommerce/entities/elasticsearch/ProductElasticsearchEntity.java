@@ -18,22 +18,22 @@ import java.util.Date;
 )
 public class ProductElasticsearchEntity extends ElasticsearchEntity {
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, fielddata = true)
     private String sku;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, fielddata = true)
     private String name;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, fielddata = true)
     private String description;
 
     @Field(type = FieldType.Float, store = true)
     private Float value;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, fielddata = true)
     private String createdAt;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, fielddata = true)
     private String updatedAt;
 
     public String getSku() {
