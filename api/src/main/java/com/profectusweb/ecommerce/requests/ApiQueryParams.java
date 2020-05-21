@@ -8,7 +8,7 @@ public class ApiQueryParams {
 
     private Optional<String> filters;
 
-    private Optional<String> sorts;
+    private Optional<Iterable<SortItemRequestBody>> sorts;
 
     private Optional<Integer> limit;
 
@@ -30,22 +30,44 @@ public class ApiQueryParams {
         this.setFilters(filters);
     }
 
-    ApiQueryParams(String fields, String filters, String sorts) {
+    ApiQueryParams(
+            String fields,
+            String filters,
+            Optional<Iterable<SortItemRequestBody>> sorts
+    ) {
         this(fields, filters);
         this.setSorts(sorts);
     }
 
-    ApiQueryParams(String fields, String filters, String sorts, Integer limit) {
+    ApiQueryParams(
+            String fields,
+            String filters,
+            Optional<Iterable<SortItemRequestBody>> sorts,
+            Integer limit
+    ) {
         this(fields, filters, sorts);
         this.setLimit(limit);
     }
 
-    ApiQueryParams(String fields, String filters, String sorts, Integer limit, Integer page) {
+    ApiQueryParams(
+            String fields,
+            String filters,
+            Optional<Iterable<SortItemRequestBody>> sorts,
+            Integer limit,
+            Integer page
+    ) {
         this(fields, filters, sorts, limit);
         this.setPage(page);
     }
 
-    public ApiQueryParams(String fields, String filters, String sorts, Integer limit, Integer page, String search) {
+    public ApiQueryParams(
+            String fields,
+            String filters,
+            Optional<Iterable<SortItemRequestBody>> sorts,
+            Integer limit,
+            Integer page,
+            String search
+    ) {
         this(fields, filters, sorts, limit, page);
         this.setSearch(search);
     }
@@ -65,15 +87,6 @@ public class ApiQueryParams {
 
     public ApiQueryParams setFilters(String filters) {
         this.filters = this.createOptional(filters);
-        return this;
-    }
-
-    public Optional<String> getSorts() {
-        return sorts;
-    }
-
-    public ApiQueryParams setSorts(String sorts) {
-        this.sorts = this.createOptional(sorts);
         return this;
     }
 
@@ -119,4 +132,12 @@ public class ApiQueryParams {
         return Optional.of(input);
     }
 
+    public Optional<Iterable<SortItemRequestBody>> getSorts() {
+        return sorts;
+    }
+
+    public ApiQueryParams setSorts(Optional<Iterable<SortItemRequestBody>> sorts) {
+        this.sorts = sorts;
+        return this;
+    }
 }

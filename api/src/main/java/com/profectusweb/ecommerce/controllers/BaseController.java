@@ -1,11 +1,16 @@
 package com.profectusweb.ecommerce.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profectusweb.ecommerce.entities.elasticsearch.ElasticsearchEntity;
 import com.profectusweb.ecommerce.exceptions.ResourceNotFoundException;
 import com.profectusweb.ecommerce.repositories.database.BaseRepository;
 import com.profectusweb.ecommerce.requests.ApiQueryParams;
+import com.profectusweb.ecommerce.requests.SortItemRequestBody;
 import com.profectusweb.ecommerce.response.PageableResponse;
 import com.profectusweb.ecommerce.services.elasticsearch.BasePageableService;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
 public abstract class BaseController<T, J extends ElasticsearchEntity> {
 
@@ -46,14 +53,24 @@ public abstract class BaseController<T, J extends ElasticsearchEntity> {
                     Integer page,
             @RequestParam(name = "search", required = false)
                     String search
-    ) {
+    ) throws JsonProcessingException {
+
+        System.out.println(sorts);
+        ObjectMapper mapper = new ObjectMapper();
+
+        Iterable<SortItemRequestBody> sortItemRequestBodies = mapper.readValue(
+                sorts,
+                new TypeReference<List<SortItemRequestBody>>(){}
+        );
+
+        System.out.println(sortItemRequestBodies);
 
         PageableResponse<J> response = this.elasticRepository
                 .findBy(
                         new ApiQueryParams(
                                 fields,
                                 filters,
-                                sorts,
+                                Optional.ofNullable(sortItemRequestBodies),
                                 limit,
                                 page,
                                 search
