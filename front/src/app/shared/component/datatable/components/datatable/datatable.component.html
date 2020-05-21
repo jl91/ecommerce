@@ -9,6 +9,8 @@
 
     <mat-table [dataSource]="displayedRows"
                class="datatable w-100"
+               matSort
+               (matSortChange)="onSortChanged($event)"
     >
 
       <!-- Select Column -->
@@ -46,7 +48,9 @@
       <ng-container *ngIf="displayedColumns.length">
         <ng-container *ngFor="let column of iterableColumns">
           <ng-container [matColumnDef]="column">
-            <mat-header-cell *matHeaderCellDef>
+            <mat-header-cell *matHeaderCellDef
+                             [mat-sort-header]="column"
+            >
               {{ column | printHeader:columns }}
             </mat-header-cell>
 

@@ -25,22 +25,24 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DatagridComponent} from './components/datagrid/datagrid.component';
 import {SearchComponent} from './components/search/search.component';
 import {LoaderModule} from '../loader/loader.module';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    FontAwesomeModule,
-    LoaderModule
-  ],
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCheckboxModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        FontAwesomeModule,
+        LoaderModule,
+        MatSortModule
+    ],
   exports: [
     DatatableComponent,
     DatagridComponent

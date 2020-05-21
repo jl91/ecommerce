@@ -7,6 +7,7 @@ import {Pagination} from '../../model/pagination.model';
 import {HttpOptions} from '../../model/http-options.model';
 import {DatagridService} from '../../service/datagrid.service';
 import {QueryBuilder} from '../../../../../core/web-api/model/query/query-builder.model';
+import {ColumnSort} from '../../model/column-sort.model';
 
 @Component({
   selector: 'app-datagrid',
@@ -98,6 +99,26 @@ export class DatagridComponent implements OnInit, AfterViewInit {
   public onReload(): void {
     this.isLoading = true;
     this.fetchBy(this.datagridService.getQueryBuilder());
+  }
+
+  public onSorted(columnSort: ColumnSort): void {
+    const sort = {
+      key: columnSort.column,
+      value: columnSort.type
+    };
+
+    const queryBuilder = this.datagridService
+      .getQueryBuilder();
+
+    if (!sort.value) {
+      queryBuilder.removeSorts(sort);
+      return this.fetchBy(queryBuilder);
+    }
+
+    queryBuilder
+      .setSort(sort);
+
+    this.fetchBy(queryBuilder);
   }
 
   public onSearchValueChanged(value: string): void {
