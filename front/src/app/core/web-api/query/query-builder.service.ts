@@ -123,7 +123,8 @@ export class QueryBuilderService implements QueryBuilder {
     this.sorts
       .forEach((value: string, key: string) => {
         sorts.push({
-          [key]: value
+          key,
+          value
         });
       });
 

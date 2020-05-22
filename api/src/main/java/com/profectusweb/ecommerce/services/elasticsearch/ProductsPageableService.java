@@ -31,6 +31,10 @@ public class ProductsPageableService extends BasePageableService<ProductElastics
 
         Pageable pageable = super.getPageable(params);
 
+        if (!params.getSorts().isEmpty()) {
+            pageable = super.configSort(pageable, params);
+        }
+
         String value = params.getSearch().orElse("");
 
         Page<ProductElasticsearchEntity> page = this.productsElasticsearchRepository

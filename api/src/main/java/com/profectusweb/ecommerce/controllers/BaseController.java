@@ -10,7 +10,6 @@ import com.profectusweb.ecommerce.requests.ApiQueryParams;
 import com.profectusweb.ecommerce.requests.SortItemRequestBody;
 import com.profectusweb.ecommerce.response.PageableResponse;
 import com.profectusweb.ecommerce.services.elasticsearch.BasePageableService;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,15 +54,16 @@ public abstract class BaseController<T, J extends ElasticsearchEntity> {
                     String search
     ) throws JsonProcessingException {
 
-        System.out.println(sorts);
         ObjectMapper mapper = new ObjectMapper();
+        Iterable<SortItemRequestBody> sortItemRequestBodies = null;
 
-        Iterable<SortItemRequestBody> sortItemRequestBodies = mapper.readValue(
-                sorts,
-                new TypeReference<List<SortItemRequestBody>>(){}
-        );
-
-        System.out.println(sortItemRequestBodies);
+        if (sorts != null) {
+            sortItemRequestBodies = mapper.readValue(
+                    sorts,
+                    new TypeReference<List<SortItemRequestBody>>() {
+                    }
+            );
+        }
 
         PageableResponse<J> response = this.elasticRepository
                 .findBy(
