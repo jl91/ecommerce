@@ -48,14 +48,21 @@
       <ng-container *ngIf="displayedColumns.length">
         <ng-container *ngFor="let column of iterableColumns">
           <ng-container [matColumnDef]="column">
+
             <mat-header-cell *matHeaderCellDef
                              [mat-sort-header]="column"
+                             [style.minWidth.px]="widthMap[column]?.minWidth"
+                             [style.width.px]="widthMap[column]?.width"
+                             [style.maxWidth.px]="widthMap[column]?.maxWidth"
             >
               {{ column | printHeader:columns }}
             </mat-header-cell>
 
             <mat-cell *matCellDef="let row"
                       class="d-flex justify-content-center align-items-center"
+                      [style.minWidth.px]="widthMap[column]?.minWidth"
+                      [style.width.px]="widthMap[column]?.width"
+                      [style.maxWidth.px]="widthMap[column]?.maxWidth"
             >
 
               <app-editable-cell [column]="column"

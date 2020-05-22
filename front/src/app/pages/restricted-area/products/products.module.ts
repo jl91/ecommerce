@@ -10,7 +10,7 @@ import {SearchComponent} from '../../../shared/component/datatable/components/se
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SaveComponent} from './save/save.component';
-import {ProductForm} from './save/product.form';
+import {ProductForm} from './forms/product.form';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../../../shared/shared.module';
 

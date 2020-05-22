@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductForm} from './product.form';
+import {ProductForm} from '../forms/product.form';
 import {ProductsHttpService} from '../../../../core/web-api/endpoints/products/products-http.service';
 import {Product} from '../../../../core/web-api/endpoints/products/product.model';
 import {Router} from '@angular/router';

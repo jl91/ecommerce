@@ -8,4 +8,7 @@ export interface Column {
   type: ColumnTypeEnum;
   isEditable?: boolean;
   metadata?: ColumnMetadata;
+  minWidth?: number;
+  width?: number;
+  maxWidth?: number;
 }

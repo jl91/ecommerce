@@ -24,14 +24,20 @@ export class ProductsListComponent implements OnInit {
       value: 'id',
       order: 0,
       type: ColumnTypeEnum.NUMBER,
-      isEditable: true
+      isEditable: false,
+      minWidth: 50,
+      width: 50,
+      maxWidth: 50,
     },
     {
       key: 'SKU',
       value: 'sku',
       order: 1,
       type: ColumnTypeEnum.TEXT,
-      isEditable: true
+      isEditable: true,
+      minWidth: 200,
+      width: 200,
+      maxWidth: 200,
     },
     {
       key: 'Name',

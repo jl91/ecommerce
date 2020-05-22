@@ -25,6 +25,7 @@ import {faFileExport, faSync} from '@fortawesome/free-solid-svg-icons';
 import {Pagination} from '../../model/pagination.model';
 import {PageEvent} from '@angular/material/paginator/paginator';
 import {ColumnSort} from '../../model/column-sort.model';
+import {WidthMap} from '../../model/width-map.model';
 
 @Component({
   selector: 'app-datatable',
@@ -90,6 +91,10 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
 
   public selection = new SelectionModel<any>(true, []);
 
+  public iterableColumns: Array<string> = [];
+
+  public widthMap: WidthMap = {};
+
   public readonly ICONS: { [prop: string]: IconDefinition } = {
     export: faFileExport,
     sync: faSync
@@ -104,7 +109,7 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
   ) {
   }
 
-  public get iterableColumns(): Array<string> {
+  public setIterableColumns(): Array<string> {
     return this.displayedColumns
       .filter(column => !this.datatableService
         .SYSTEM_COLUMNS
@@ -243,6 +248,34 @@ export class DatatableComponent implements OnInit, OnChanges, OnDestroy, AfterVi
       this.displayedColumns.push('actions');
     }
 
+    this.iterableColumns = this.setIterableColumns();
+    this.mapColumnsWidth();
+  }
+
+  private mapColumnsWidth(): void {
+    this.columns
+      .forEach(column => {
+        const {value, minWidth, width, maxWidth} = column;
+
+        this.widthMap[value] = {
+          minWidth: undefined,
+          width: undefined,
+          maxWidth: undefined,
+        };
+
+        if (minWidth) {
+          this.widthMap[value].minWidth = minWidth;
+        }
+
+        if (width) {
+          this.widthMap[value].width = width;
+        }
+
+        if (maxWidth) {
+          this.widthMap[value].maxWidth = maxWidth;
+        }
+
+      });
   }
 
   private updateView(): void {
